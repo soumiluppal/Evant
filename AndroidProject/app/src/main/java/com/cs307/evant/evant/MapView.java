@@ -3,6 +3,7 @@ package com.cs307.evant.evant;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -25,6 +26,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_REQUEST_INT = 177;
     private GoogleMap mMap;
+    private SensorManager mSensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,23 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
 
         startLocationService();
     }
 
+
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void onResume(){
+        super.onResume();
+
+        startLocationService();
+
+    }
 
     /**
      * Manipulates the map once available.
@@ -70,8 +85,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         } else {
             mMap.setMyLocationEnabled(true);
         }
-        mMap.setMyLocationEnabled(true);
-
         //      LatLng cur = new LatLng()
         /*
         // Add a marker in Sydney and move the camera
@@ -107,33 +120,36 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         Toast.makeText(getApplicationContext(), "location searching", Toast.LENGTH_SHORT).show();
     }
 
+    private class GPSListener implements LocationListener{
+        public void onLocationChanged(Location location){
+            Double latitude = location.getLatitude();
+            Double longitude = location.getLongitude();
+
+            showCurrentLocation(latitude, longitude);
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+
+        private void showCurrentLocation(Double latitude, Double longitude){
+            LatLng cur = new LatLng(latitude, longitude);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15));
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        }
+    }
+
 }
 
-class GPSListener implements LocationListener{
-    public void onLocationChanged(Location location){
-        Double latitude = location.getLatitude();
-        Double longitude = location.getLongitude();
-
-        showCurrentLocation(latitude, longitude);
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
-    }
-
-    private void showCurrentLocation(Double latitude, Double longitude){
-        LatLng cur = new LatLng(latitude, longitude);
-    }
-}
 
