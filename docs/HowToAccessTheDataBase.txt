@@ -1,0 +1,22 @@
+The database is set up on a raspberry pi 3 owned by the group.
+The pi has been set up with a mySQL database on it that our program can access
+The pi has also been set up to be availible for ssh.
+To get to the database manully follow these instructions:
+	
+	For Unix Systems
+	1. open a terminal
+	2. type SSH pi@128.211.255.58
+	3. when prompted for a password type "password"
+	4. type mySQL -u root -p  to open mySQL
+	5. type "password" when prompted for a password
+       	6. type "use EVANT" to open the database
+	7. now you should ba able to see the tables and issue sql commands	
+
+	For Windows Systems
+	1. install putty if not installed
+	2. open putty and use pi@128.211.255.58 as the target
+	3. when prompted for a password type "password"
+	4. type mySQL -u root -p  to open mySQL
+	5. type "password" when prompted for a password
+       	6. type "use EVANT" to open the database
+	7. now you should ba able to see the tables and issue sql commands	
