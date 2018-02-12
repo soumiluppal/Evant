@@ -1,0 +1,15 @@
+(first time: git clone https://github.com/nurnes/Evant.git
+this will create the Evant directory)
+
+1. Complete task in Android Studio on files within Evant directory
+2. cd to the Evant directory
+3. git add .					//add all changed files
+4. git status					//OPTIONAL: check which files were added
+5. git commit -m "Commit message"		//Write what the task was in the commit message
+OR
+5. git stash					//if unwanted changes (such as gradle conflicts)
+6. git pull					
+7. git push
+8. Tell everyone to pull on the group chat
+
+if a problem occurs at any step: inform group chat
