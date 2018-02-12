@@ -1,13 +1,8 @@
 <component name="libraryTable">
   <library name="com.google.android.gms:play-services-tasks-11.8.0">
     <CLASSES>
-<<<<<<< HEAD
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.8.0.aar/0ab12792d91b2c6a28b6320c87808edd/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.8.0.aar/0ab12792d91b2c6a28b6320c87808edd/res" />
-=======
-      <root url="jar://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.8.0.aar/49d48072aa26f32af934c172f0aca0ad/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/../../.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.8.0.aar/49d48072aa26f32af934c172f0aca0ad/res" />
->>>>>>> fc9d84ce3ae032e802d474055e72ae12d9162b75
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.8.0.aar/bf8b19d37775541e7137e51bb7d8a7c6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.8.0.aar/bf8b19d37775541e7137e51bb7d8a7c6/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

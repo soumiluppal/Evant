@@ -2,9 +2,11 @@ package com.cs307.evant.evant;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
 import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -40,6 +43,16 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
 
 
         startLocationService();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapView.this, NewEventActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
