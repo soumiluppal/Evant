@@ -3,8 +3,8 @@ package com.cs307.evant.evant;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-public class DatabaseInterface extends {
+/*
+public class DatabaseInterface extends{
 
 	// adds a user to the database
 	public int addUser(){
@@ -28,3 +28,4 @@ public class DatabaseInterface extends {
 
 
 }
+*/

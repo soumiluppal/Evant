@@ -158,8 +158,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
 
         private void showCurrentLocation(Double latitude, Double longitude){
             LatLng cur = new LatLng(latitude, longitude);
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15));
-            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15),2000, null);
         }
     }
 
