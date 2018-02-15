@@ -13,12 +13,25 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/editText"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
+        android:layout_alignRight="@+id/editText"
+        android:layout_marginBottom="12dp"
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="26dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="Search"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" />
 </RelativeLayout>

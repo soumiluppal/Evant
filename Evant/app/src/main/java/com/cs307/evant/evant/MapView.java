@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
@@ -46,6 +47,12 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        View locationButton = ((View) findViewById(1).getParent()).findViewById(2);
+
+        // and next place it, for exemple, on bottom right (as Google Maps app)
+        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+        // position on right bottom
+        rlp.setMargins(0, 200, 30, 0);
 
 
 
