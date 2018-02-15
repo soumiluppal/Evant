@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -30,6 +33,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
     private static final int MY_REQUEST_INT = 177;
     private GoogleMap mMap;
     private SensorManager mSensorManager;
+    private CircleOptions circleOptions;
+    private Circle circle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 
-        startLocationService();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
@@ -98,13 +103,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         } else {
             mMap.setMyLocationEnabled(true);
         }
-        //      LatLng cur = new LatLng()
-        /*
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        */
+
+        startLocationService();
+        testingMarkers();
     }
 
     private void startLocationService() {
@@ -137,7 +138,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         public void onLocationChanged(Location location){
             Double latitude = location.getLatitude();
             Double longitude = location.getLongitude();
-
             showCurrentLocation(latitude, longitude);
         }
 
@@ -157,9 +157,50 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         }
 
         private void showCurrentLocation(Double latitude, Double longitude){
+            if(circle != null){
+                circle.remove();
+            }
             LatLng cur = new LatLng(latitude, longitude);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15));
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            circleOptions = new CircleOptions()
+                    .center(cur)
+                    .radius(500)
+                    .fillColor(0x40ff0000)
+                    .strokeColor(Color.GREEN)
+                    .strokeWidth(5);
+            circle = mMap.addCircle(circleOptions);
+
+            /*
+            CircleOptions circle = new CircleOptions()
+                    .center(cur)
+                    .radius(500)
+                    .fillColor(0x40ff0000)
+                    .strokeColor(Color.BLUE)
+                    .strokeWidth(5);
+            mMap.addCircle(circle);
+            prevCircle = circle;
+            */
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15),2000, null);
         }
+    }
+
+    private void testingMarkers(){
+        LatLng tempLatLngPMU = new LatLng(40.424800,-86.911000);
+        MarkerOptions tempMarkerOptionsPMU = new MarkerOptions();
+        tempMarkerOptionsPMU.position(tempLatLngPMU).title("temp Marker PMU");
+        mMap.addMarker(tempMarkerOptionsPMU);
+
+        LatLng tempLatLngCorec = new LatLng(40.428329,-86.922496);
+        MarkerOptions tempMarkerOptionsCorec = new MarkerOptions();
+        tempMarkerOptionsCorec.position(tempLatLngCorec).title("temp Marker Corec");
+        mMap.addMarker(tempMarkerOptionsCorec);
+
+        LatLng tempLatLngLawson = new LatLng(40.427728,-86.916975);
+        MarkerOptions tempMarkerOptionsLawson = new MarkerOptions();
+        tempMarkerOptionsLawson.position(tempLatLngLawson).title("temp Marker Lawson");
+        mMap.addMarker(tempMarkerOptionsLawson);
+
     }
 
 }
