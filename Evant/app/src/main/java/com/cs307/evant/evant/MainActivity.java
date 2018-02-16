@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 addItem.setMessage("Please Login or Sign Up");
                 addItem.setTitle("Welcome to Evant!");
                 final Intent lpage = new Intent(MainActivity.this, loginPage.class);
+                final Intent spage = new Intent(MainActivity.this, signup.class);
                 //startActivity(intent);
                 View.OnClickListener login = new View.OnClickListener() {
                     @Override
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 addItem.setPositiveButton("Sign Up!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface di, int id) {
                         //dispatchTakePictureIntent();
+                        startActivity(spage);
                     }
                 });
                 addItem.setNegativeButton("Login!", new DialogInterface.OnClickListener() {

@@ -47,6 +47,11 @@
             android:label="LoginPage"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".signup"
+            android:label="SignUpPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".MapView"
             android:label="@string/title_activity_map_view"></activity>
     </application>
