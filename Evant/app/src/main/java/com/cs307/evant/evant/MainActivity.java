@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder addItem = new AlertDialog.Builder(MainActivity.this);
                 addItem.setMessage("Please Login or Sign Up");
                 addItem.setTitle("Welcome to Evant!");
+                final Intent lpage = new Intent(MainActivity.this, loginPage.class);
+                //startActivity(intent);
                 View.OnClickListener login = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface di, int id) {
                         //ImageView iv = (ImageView) findViewById(R.id.testView);
                         //loadImagefromGallery();
+                        startActivity(lpage);
                     }
 
                 });

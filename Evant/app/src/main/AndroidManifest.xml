@@ -41,6 +41,12 @@
             android:name=".NewEventActivity"
             android:label="@string/title_activity_new_event"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".loginPage"
+            android:label="LoginPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".MapView"
             android:label="@string/title_activity_map_view"></activity>
     </application>
