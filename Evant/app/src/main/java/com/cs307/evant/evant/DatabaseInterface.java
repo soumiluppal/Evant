@@ -46,25 +46,52 @@ public class DatabaseInterface extends{
 
 
 	// adds a user to the database
-	public int addUser(){
+	public int addUser(User user){
+		//TODO
 		return -1;
 	}
 
 	// add an event
-	public int addEvent(){
+	public int addEvent(Event event){
+		//TODO
 		return -1;
 	}
 
 	// add user to attending events
-	public int addAttendees(){
+	public int addAttendees(Event event, User user){
+		//TODO
 		return -1;
 	}
 
 	// change event to already having happened
 	public int EventFinished(String name){
+		//TODO
 		return -1;
 	}
 
+	// change event to already having happened
+	public int EventFinished(Event name){
+		//TODO
+		return -1;
+	}
 
+	// gets a user by username
+	public User getUser(String username){
+		//TODO
+		return null;
+	}
+	
+	// verify login
+	public User verifyLogin(String username, String password){
+		//TODO
+		return null
+	}
+
+	// get ecent by name
+	public Event getEvent(String name){
+		//TODO
+		return null
+	}
+	
 }
-*/
+
