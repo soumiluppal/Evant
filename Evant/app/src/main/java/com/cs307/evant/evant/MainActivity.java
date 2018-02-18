@@ -27,6 +27,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button listButton = (Button) findViewById(R.id.eventlistButton);
+
+        listButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MainActivity.this, ListView.class);
+                startActivity(intent);
+            }
+        });
+
         Button newButton = (Button) findViewById(R.id.createButton);
 
         newButton.setOnClickListener(new View.OnClickListener() {

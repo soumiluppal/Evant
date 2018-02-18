@@ -29,8 +29,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBy1Nv2rL8hSZnleE2IPl46sBvOzGED3GY" />
 
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,19 +40,18 @@
             android:name=".NewEventActivity"
             android:label="@string/title_activity_new_event"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".loginPage"
             android:label="LoginPage"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".signup"
             android:label="SignUpPage"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".MapView"
-            android:label="@string/title_activity_map_view"></activity>
+        <activity
+            android:name=".MapView"
+            android:label="@string/title_activity_map_view" />
+        <activity android:name=".ListView"></activity>
     </application>
 
 </manifest>
