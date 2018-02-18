@@ -8,7 +8,13 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:theme="?attr/actionBarTheme"
+        />
+    <Button
+        android:id="@+id/homebutton"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Home" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"

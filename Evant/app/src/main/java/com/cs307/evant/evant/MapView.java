@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -54,7 +55,13 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         // position on right bottom
         rlp.setMargins(0, 200, 30, 0);
 
-
+        final Button button = findViewById(R.id.homebutton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MapView.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
