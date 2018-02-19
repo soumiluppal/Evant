@@ -1,93 +1,110 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cs307.evant.evant.ListView">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <Button
-        android:id="@+id/homebutton"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editText"
-        android:text="Home" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <Button
-        android:id="@+id/profilebutton"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/homebutton"
-        android:layout_toRightOf="@+id/homebutton"
-        android:text="Profile" />
+    </android.support.design.widget.AppBarLayout>
 
-    <Button
-        android:id="@+id/mapbutton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/profilebutton"
-        android:layout_toRightOf="@+id/profilebutton"
-        android:text="Map View" />
-    <Button
-        android:id="@+id/settingsbutton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/mapbutton"
-        android:layout_toRightOf="@+id/mapbutton"
-        android:text="Settings" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="68dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:hint="Search"
+            android:inputType="textPersonName"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" />
 
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/profileButton"
+            android:layout_alignBottom="@+id/profileButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/profileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/homeButton"
+            android:layout_toRightOf="@+id/homeButton"
+            android:text="Profile" />
+
+        <Button
+            android:id="@+id/mapButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/profileButton"
+            android:layout_alignBottom="@+id/profileButton"
+            android:layout_toLeftOf="@+id/settingsButton"
+            android:layout_toStartOf="@+id/settingsButton"
+            android:text="Map" />
+
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/profileButton"
+            android:layout_alignBottom="@+id/profileButton"
+            android:layout_alignEnd="@+id/editText"
+            android:layout_alignRight="@+id/editText"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:text="Settings" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText"
+            android:layout_alignStart="@+id/editText"
+            android:layout_below="@+id/editText"
+            android:layout_marginTop="29dp"
+            android:text="Events will be here."
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/titleText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/editText"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_marginBottom="12dp"
-        android:clickable="true"
-        android:visibility="visible"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/add" />
+        android:id="@+id/fab"
+        android:layout_width="56dp"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/add"
+        tools:layout_editor_absoluteX="312dp"
+        tools:layout_editor_absoluteY="499dp" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/toolbar2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="19dp"
-        android:background="#FFFFFF"
-        android:ems="10"
-        android:hint="Search"
-        android:inputType="textPersonName"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
-        android:layout_below="@+id/editText"
-        android:text="Events will be here."
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/titleText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

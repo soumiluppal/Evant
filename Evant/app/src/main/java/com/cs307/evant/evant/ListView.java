@@ -14,7 +14,7 @@ public class ListView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
-        final Button button = findViewById(R.id.homebutton);
+        final Button button = findViewById(R.id.homeButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(ListView.this, MainActivity.class);
@@ -22,7 +22,7 @@ public class ListView extends AppCompatActivity {
             }
         });
 
-        Button mapButton = (Button) findViewById(R.id.mapbutton);
+        Button mapButton = (Button) findViewById(R.id.mapButton);
 
         mapButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -32,7 +32,7 @@ public class ListView extends AppCompatActivity {
             }
         });
 
-        final Button profileButton = (Button) findViewById(R.id.profilebutton);
+        final Button profileButton = (Button) findViewById(R.id.profileButton);
 
         profileButton.setOnClickListener(new View.OnClickListener(){
             @Override
