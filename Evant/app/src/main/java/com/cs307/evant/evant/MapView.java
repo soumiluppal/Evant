@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.SensorManager;
+import android.hardware.camera2.CameraAccessException;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -16,9 +17,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.location.Location;
@@ -30,7 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-public class MapView extends FragmentActivity implements OnMapReadyCallback {
+public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int MY_REQUEST_INT = 177;
     private GoogleMap mMap;
@@ -140,6 +143,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
 
         startLocationService();
         testingMarkers();
+
+
     }
 
     private void startLocationService() {
@@ -166,6 +171,14 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
                 gpsListener
         );
         Toast.makeText(getApplicationContext(), "location searching", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+        marker.showInfoWindow();
+
+        return true;
     }
 
     private class GPSListener implements LocationListener{
@@ -220,21 +233,28 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private void testingMarkers(){
+        //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
+
         LatLng tempLatLngPMU = new LatLng(40.424800,-86.911000);
         MarkerOptions tempMarkerOptionsPMU = new MarkerOptions();
-        tempMarkerOptionsPMU.position(tempLatLngPMU).title("temp Marker PMU");
-        mMap.addMarker(tempMarkerOptionsPMU);
+        tempMarkerOptionsPMU.position(tempLatLngPMU).title("temp Marker PMU").snippet("hihihi");
+        Marker pmu = mMap.addMarker(tempMarkerOptionsPMU);
+
+       // pmu.showInfoWindow();
 
         LatLng tempLatLngCorec = new LatLng(40.428329,-86.922496);
         MarkerOptions tempMarkerOptionsCorec = new MarkerOptions();
-        tempMarkerOptionsCorec.position(tempLatLngCorec).title("temp Marker Corec");
-        mMap.addMarker(tempMarkerOptionsCorec);
+        tempMarkerOptionsCorec.position(tempLatLngCorec).title("temp Marker Corec").snippet("More Info");
+        Marker corec = mMap.addMarker(tempMarkerOptionsCorec);
+//        corec.showInfoWindow();
 
         LatLng tempLatLngLawson = new LatLng(40.427728,-86.916975);
         MarkerOptions tempMarkerOptionsLawson = new MarkerOptions();
-        tempMarkerOptionsLawson.position(tempLatLngLawson).title("temp Marker Lawson");
-        mMap.addMarker(tempMarkerOptionsLawson);
+        tempMarkerOptionsLawson.position(tempLatLngLawson).title("temp Marker Lawson").snippet("testing");
+        Marker lawson = mMap.addMarker(tempMarkerOptionsLawson);
+//        lawson.showInfoWindow();
 
+        mMap.setOnMarkerClickListener(this);
     }
 
 }
