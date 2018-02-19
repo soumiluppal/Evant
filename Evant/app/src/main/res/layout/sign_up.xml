@@ -112,7 +112,7 @@
         android:layout_marginStart="151dp"
         android:layout_marginTop="17dp"
         android:checked="true"
-        android:text="Switch"
+        android:text="Keep Me Logged In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
