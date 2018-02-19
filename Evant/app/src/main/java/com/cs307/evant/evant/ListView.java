@@ -22,6 +22,18 @@ public class ListView extends AppCompatActivity {
             }
         });
 
+        //Map button here
+
+        final Button profileButton = (Button) findViewById(R.id.profilebutton);
+
+        profileButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(ListView.this, Profile.class);
+                startActivity(intent);
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
         fab.setOnClickListener(new View.OnClickListener() {

@@ -55,10 +55,30 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback {
         // position on right bottom
         rlp.setMargins(0, 200, 30, 0);
 
-        final Button button = findViewById(R.id.homebutton);
+        Button button = findViewById(R.id.homebutton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MapView.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button listButton = (Button) findViewById(R.id.listbutton);
+
+        listButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MapView.this, ListView.class);
+                startActivity(intent);
+            }
+        });
+
+        Button profileButton = (Button) findViewById(R.id.profilebutton);
+
+        profileButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MapView.this, Profile.class);
                 startActivity(intent);
             }
         });
