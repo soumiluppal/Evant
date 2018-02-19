@@ -22,7 +22,15 @@ public class ListView extends AppCompatActivity {
             }
         });
 
-        //Map button here
+        Button mapButton = (Button) findViewById(R.id.mapbutton);
+
+        mapButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(ListView.this, MapView.class);
+                startActivity(intent);
+            }
+        });
 
         final Button profileButton = (Button) findViewById(R.id.profilebutton);
 

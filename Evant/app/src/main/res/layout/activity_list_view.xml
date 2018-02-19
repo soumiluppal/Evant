@@ -28,9 +28,10 @@
         android:layout_toEndOf="@+id/homebutton"
         android:layout_toRightOf="@+id/homebutton"
         android:text="Profile" />
+
     <Button
         android:id="@+id/mapbutton"
-        android:layout_width="90dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/profilebutton"
