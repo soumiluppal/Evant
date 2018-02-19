@@ -35,7 +35,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/profilebutton"
         android:layout_toRightOf="@+id/profilebutton"
-        android:text="List View" />
+        android:text="Map View" />
     <Button
         android:id="@+id/settingsbutton"
         android:layout_width="100dp"
