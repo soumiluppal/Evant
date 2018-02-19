@@ -29,7 +29,7 @@
         android:layout_toRightOf="@+id/homebutton"
         android:text="Profile" />
     <Button
-        android:id="@+id/listbutton"
+        android:id="@+id/mapbutton"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -41,8 +41,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/listbutton"
-        android:layout_toRightOf="@+id/listbutton"
+        android:layout_toEndOf="@+id/mapbutton"
+        android:layout_toRightOf="@+id/mapbutton"
         android:text="Settings" />
 
 
