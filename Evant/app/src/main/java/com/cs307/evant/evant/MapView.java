@@ -27,13 +27,48 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
+import java.util.List;
 
 
 public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+
+
+
+    class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
+        private final View contentsView;
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        infoWindowAdapter(){
+            contentsView = inflater.inflate(R.layout.map_info_window,null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            TextView tvTitle = ((TextView)contentsView.findViewById(R.id.title));
+            tvTitle.setText(marker.getTitle());
+            TextView tvSnippet = ((TextView)contentsView.findViewById(R.id.snippet));
+            tvSnippet.setText(marker.getSnippet());
+
+            return contentsView;
+        }
+    }
+
 
     private static final int MY_REQUEST_INT = 177;
     private GoogleMap mMap;
@@ -95,6 +130,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 startActivity(intent);
             }
         });
+
+
+
     }
 
 
@@ -143,7 +181,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         startLocationService();
         testingMarkers();
-
+        mMap.setInfoWindowAdapter(new infoWindowAdapter());
 
     }
 
@@ -177,6 +215,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     public boolean onMarkerClick(Marker marker) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
         marker.showInfoWindow();
+
 
         return true;
     }
@@ -257,6 +296,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         mMap.setOnMarkerClickListener(this);
     }
 
+
 }
+
 
 
