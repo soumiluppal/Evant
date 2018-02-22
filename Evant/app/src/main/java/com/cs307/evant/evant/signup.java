@@ -131,14 +131,12 @@ public class signup extends AppCompatActivity {
                 else
                 {
                     try {
-                        User tmp = new User(username,password,eml);
+                        //User tmp = new User(username,password,eml);
                         DatabaseInterface db = new DatabaseInterface();
-                        db.addUser(tmp);
-                        System.out.println("dp made");
+                        //db.addUser(tmp);
                     } catch (ConnectionNotEstablishedException e) {
                         e.printStackTrace();
                     }
-
                 }
 
 

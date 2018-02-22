@@ -1,12 +1,14 @@
 package com.cs307.evant.evant;
 
+import android.app.Activity;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class DatabaseInterface {
+public class DatabaseInterface extends Activity {
     // this variable will hold if the connection is currently established
     public boolean connected = false;
 
@@ -26,9 +28,10 @@ public class DatabaseInterface {
         System.out.println("establishing connection...");
         try {
             // This will load the MySQL driver, each DB has its own driver
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.jdbc.Driver");
             // this will ceate the connection
             this.conn = DriverManager.getConnection("jdbc:mysql://128.211.255.58:3306/evant", "sqluser", "sqluserpw");
+            Thread.sleep(200);
             // this will create the statment through which queries are passed
             stmt = conn.createStatement();
         } catch (SQLException e) {
@@ -36,14 +39,13 @@ public class DatabaseInterface {
             // we print information to the console for ease of debuging, and then throw a more general exception up
             System.out.println("connection failed to be established");
             System.out.println(e.getMessage());
+            System.out.println(e.getErrorCode());
             throw new ConnectionNotEstablishedException();
         } catch (ClassNotFoundException e) {
             // This exception happens if the JDBC library can not be found. Check that the project is set up correctly
             System.out.println("failed to load JDBC drivers");
             throw new ConnectionNotEstablishedException();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         // if no excceptions have been called we are okay and we should tell the user
