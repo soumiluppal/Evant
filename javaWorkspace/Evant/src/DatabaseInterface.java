@@ -24,7 +24,7 @@ public class DatabaseInterface {
         System.out.println("establishing connection...");
         try {
             // This will load the MySQL driver, each DB has its own driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             // this will ceate the connection
             this.conn = DriverManager.getConnection("jdbc:mysql://128.211.255.58:3306/evant", "sqluser", "sqluserpw");
             // this will create the statment through which queries are passed
@@ -39,7 +39,13 @@ public class DatabaseInterface {
             // This exception happens if the JDBC library can not be found. Check that the project is set up correctly
             System.out.println("failed to load JDBC drivers");
             throw new ConnectionNotEstablishedException();
-        }
+        } catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         // if no excceptions have been called we are okay and we should tell the user
         System.out.println("connection established");
         connected = true;
@@ -59,33 +65,70 @@ public class DatabaseInterface {
 
 
 	// adds a user to the database
-	public int addUser(User user){
-		//TODO
-		return -1;
+	public boolean addUser(User user) throws ConnectionNotEstablishedException{
+		// ensure that the connection is up
+		if (!connected){
+			connect();
+		}
+		
+		// stores the username of a user
+		String username = user.username;
+		
+		
+		// stores a password of a user
+		String password = user.password;
+		
+		// Stores the displayname of the user
+		String displayname = user.displayname;
+		
+		// stores the users host rating
+		int host_rating = user.host_rating;
+		
+		// I think these will change later
+		int location = user.location;
+		int radius = user.radius;
+		String link_to_profile_picture = user.link_to_profile_picture;
+		String link_to_facebook = user.link_to_facebook;
+		String email = user.email;
+		
+		// the actual mysql query
+		String query = "INSERT into user (username, display_name, password, host_rating, location, " +
+				"radius, link_to_profile_picture, link_to_facebook, email) values ('" + username + "','" + displayname + "','" +
+				password + "'," + host_rating + "," + location + "," + radius + ",'" + link_to_profile_picture + "','" + 
+				link_to_facebook + "','" + email + "')";
+		System.out.println("'" + username + "' added to database");
+		try {
+			stmt.execute(query);
+			return true; 
+		} catch (SQLException e) {
+			System.out.println("Error with connection!");
+			closeConnection();
+			return false;
+		}
 	}
 
 	// add an event
-	public int addEvent(Event event){
+	public boolean addEvent(Event event){
 		//TODO
-		return -1;
+		return false;
 	}
 
 	// add user to attending events
-	public int addAttendees(Event event, User user){
+	public boolean addAttendees(Event event, User user){
 		//TODO
-		return -1;
+		return false;
 	}
 
 	// change event to already having happened
-	public int EventFinished(String name){
+	public boolean EventFinished(String name){
 		//TODO
-		return -1;
+		return false;
 	}
 
 	// change event to already having happened
-	public int EventFinished(Event name){
+	public boolean EventFinished(Event name){
 		//TODO
-		return -1;
+		return false;
 	}
 
 	// gets a user by username

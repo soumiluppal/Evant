@@ -47,4 +47,22 @@ public class DatabaseInterfaceTest {
 		assertTrue(pass);
 	}
 
+	
+	@Test
+	public void addUserBasic() {
+		boolean pass = false;
+		try {
+			DatabaseInterface db = new DatabaseInterface();
+			User user = new User();
+			user.username = "test";
+			user.password = "test";
+			user.email = "test";
+			pass = db.addUser(user);
+		} catch (ConnectionNotEstablishedException e) {
+			// TODO Auto-generated catch block
+			pass = false;
+		}
+		assertTrue(pass);
+	}
+
 }
