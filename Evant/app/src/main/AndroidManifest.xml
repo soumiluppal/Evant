@@ -71,7 +71,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MapSelectView"
-            android:label="@string/title_activity_map_select_view"></activity>
+            android:label="@string/title_activity_map_select_view" />
+        <activity
+            android:name=".cat_lst"
+            android:label="@string/title_activity_cat_lst"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

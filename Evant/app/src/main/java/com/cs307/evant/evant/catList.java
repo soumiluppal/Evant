@@ -21,7 +21,7 @@ public class catList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cat_list);
+        setContentView(R.layout.content_cat_lst);
         recyclerView = (RecyclerView) findViewById(R.id.categories);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
