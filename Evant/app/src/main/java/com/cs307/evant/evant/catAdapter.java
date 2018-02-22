@@ -55,8 +55,7 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
     @Override
     public catAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ct = parent.getContext();
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cat_card, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cat_card, parent, false);
 
         return new catAdapter.MyViewHolder(itemView);
     }
@@ -66,8 +65,8 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
         holder.title.setText(cattitles.get(position));
         //Drawable myDrawable = getApplicationContext().getResources().getDrawable(R.drawable.shoebackground);
         //String fpath = photopath.get(position);
-        holder.iv.setImageBitmap(catPhotos.get(position));
-        
+        //holder.iv.setImageBitmap(catPhotos.get(position));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -8,6 +8,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by avi12 on 2/22/2018.
  */
@@ -19,13 +22,21 @@ public class catList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cat_list);
-
         recyclerView = (RecyclerView) findViewById(R.id.categories);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(5), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //recyclerView.setAdapter(adapter);
+        ArrayList<String>ctnms = new ArrayList<>();
+        ctnms.add("Sports");
+        ctnms.add("Social");
+        ctnms.add("Education");
+        ctnms.add("Video Games");
+        ctnms.add("Community");
+        ctnms.add("Food");
+        ctnms.add("Flash Mobs");
+        catAdapter cadapter = new catAdapter(ctnms);
+        recyclerView.setAdapter(cadapter);
     }
 
     private int dpToPx(int dp) {
