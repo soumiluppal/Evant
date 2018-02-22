@@ -24,7 +24,7 @@
             card_view:srcCompat="@drawable/evant" />
 
         <TextView
-            android:id="@+id/catName"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
