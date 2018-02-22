@@ -1,48 +1,67 @@
 package com.cs307.evant.evant;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-/*
-public class DatabaseInterface extends{
-	// This variable will hold the connection to the data base
-	private Connection con;
-	
-	// Constructor for the Interface
-	public DatabaseInterface() throws ConnectionNotEstablishedException {
-		System.out.println("establishing connection...");
-		try {
-			// This will load the MySQL driver, each DB has its own driver
-			Class.forName("com.mysql.jdbc.Driver");
-			// this will ceate the connection
-			this.con = DriverManager.getConnection("jdbc:mysql://128.211.255.58:3306/humorbot", "sqluser", "sqlus    erpw");
 
-		} catch (SQLException e) {
-			System.out.println("connection failed to be established");
-			System.out.println(e.getMessage());
-			throw new ConnectionNotEstablishedException();
-		} catch (ClassNotFoundException e) {
-			System.out.println("failed to load JDBC drivers");
-			throw new ConnectionNotEstablishedException();
-		}
-		System.out.println("connection established");
-}
+public class DatabaseInterface {
+    // this variable will hold if the connection is currently established
+    public boolean connected = false;
 
-	public void closeConnection(){
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("closing invalid connection");
-			}
-		}
-		System.out.println("connection closed");
-	}
+    // This variable stores the connection to the database
+    private Connection conn;
+
+    // This variable stores the sql statment to be sent to the database
+    private Statement stmt;
+
+    // Constructor for the Interface
+    public DatabaseInterface() throws ConnectionNotEstablishedException {
+        connect();
+    }
+
+    // this function will either connect to the database or throw an error no need for a return value
+    public void connect() throws ConnectionNotEstablishedException {
+        System.out.println("establishing connection...");
+        try {
+            // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            // this will ceate the connection
+            this.conn = DriverManager.getConnection("jdbc:mysql://128.211.255.58:3306/evant", "sqluser", "sqluserpw");
+            // this will create the statment through which queries are passed
+            stmt = conn.createStatement();
+        } catch (SQLException e) {
+            // this exception occurs if the connection can not be established for any reason
+            // we print information to the console for ease of debuging, and then throw a more general exception up
+            System.out.println("connection failed to be established");
+            System.out.println(e.getMessage());
+            throw new ConnectionNotEstablishedException();
+        } catch (ClassNotFoundException e) {
+            // This exception happens if the JDBC library can not be found. Check that the project is set up correctly
+            System.out.println("failed to load JDBC drivers");
+            throw new ConnectionNotEstablishedException();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        // if no excceptions have been called we are okay and we should tell the user
+        System.out.println("connection established");
+        connected = true;
+    }
+
+    public void closeConnection(){
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                System.out.println("closing invalid connection");
+            }
+        }
+        System.out.println("connection closed");
+        connected = false;
+    }
 
 
 	// adds a user to the database
@@ -84,14 +103,23 @@ public class DatabaseInterface extends{
 	// verify login
 	public User verifyLogin(String username, String password){
 		//TODO
-		return null
+		return null;
 	}
 
 	// get ecent by name
 	public Event getEvent(String name){
 		//TODO
-		return null
+		return null;
 	}
-	
-}*/
+
+    public void main(String[] args)
+    {
+        try {
+            DatabaseInterface di = new DatabaseInterface();
+        } catch (ConnectionNotEstablishedException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
 
