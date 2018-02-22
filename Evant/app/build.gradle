@@ -30,4 +30,5 @@ dependencies {
     //compile 'org.junit.jupiter:junit-jupiter-api'
     //compile 'org.testng:testng:6.9.6'
     implementation project(':mysql-connector-java-5.1.45-bin')
+    implementation 'com.android.support:cardview-v7:26.1.0'
 }
