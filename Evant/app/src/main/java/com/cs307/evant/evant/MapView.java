@@ -41,6 +41,8 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import static com.cs307.evant.evant.MainActivity.db;
+
 
 public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -117,6 +119,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(MapView.this, Profile.class);
+                intent.putExtra("uid", db.getUid());
                 startActivity(intent);
             }
         });

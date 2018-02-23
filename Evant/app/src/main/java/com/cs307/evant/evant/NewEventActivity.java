@@ -61,6 +61,8 @@ public class NewEventActivity extends AppCompatActivity {
                     Snackbar.make(view, "Event added", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                     db.addEvent(title, address, description, dttime);
+                    Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
+                    startActivity(intent);
 
                 } else {
                     Snackbar.make(view, "Please fill out all fields", Snackbar.LENGTH_LONG)

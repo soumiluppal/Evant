@@ -155,6 +155,8 @@ public class Database {
 
     ArrayList<String> getDescription(){ return descriptions;}
 
+    ArrayList<String> getHost(){ return host;}
+
     void signOut(){
         FirebaseAuth.getInstance().signOut();
     }

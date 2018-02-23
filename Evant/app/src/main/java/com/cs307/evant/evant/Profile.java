@@ -23,6 +23,8 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle b = getIntent().getExtras();
+        String uid = b.getString("uid");
         setContentView(R.layout.activity_profile);
         String name = db.getName(db.getUid());
         TextView dispname = (TextView) findViewById(R.id.dispname);
@@ -55,10 +57,40 @@ public class Profile extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> dttime = new ArrayList<>();
+        ArrayList<String> loc = new ArrayList<>();
+        ArrayList<String> descrip = new ArrayList<>();
+        ArrayList<String> host = new ArrayList<>();
+
+        titles = db.getTitles();
+        dttime = db.getTime();
+        loc = db.getLoc();
+        descrip = db.getDescription();
+        host = db.getHost();
+
+        ArrayList<String> ntitles = new ArrayList<>();
+        ArrayList<String> ndttime = new ArrayList<>();
+        ArrayList<String> nloc = new ArrayList<>();
+        ArrayList<String> ndesc = new ArrayList<>();
+        ArrayList<String> nhost = new ArrayList<>();
+        System.out.println(titles);
+        for(int i = 0; i<host.size(); i++){
+            if(host.get(i).equals(uid)){
+                ntitles.add(titles.get(i));
+                ndttime.add(dttime.get(i));
+                nloc.add(loc.get(i));
+                ndesc.add(descrip.get(i));
+                nhost.add(host.get(i));
+            }
+        }
+
         ArrayList<String> ctnms = new ArrayList<>();
         ctnms.add("event1");
         ctnms.add("event2");
-        catAdapter cadapter = new catAdapter(ctnms,this);
-        recyclerView.setAdapter(cadapter);
+        eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc);
+
+        recyclerView.setAdapter(adapter);
     }
 }
