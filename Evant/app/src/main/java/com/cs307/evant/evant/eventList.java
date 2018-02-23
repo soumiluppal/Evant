@@ -43,43 +43,12 @@ public class eventList extends AppCompatActivity {
 
         titles = db.getTitles();
 
-        titles.add("MIT Hackathon");
-        titles.add("Differential Eqs Study session MA261");
-        titles.add("Pick Up Soccer Game");
-        titles.add("Potluck Dinner");
-        titles.add("Party Until We Pass Out");
-        titles.add("Painting Session");
-
         dttime = db.getTime();
-
-        dttime.add("02.29.2018   12:30 am - 11:30 pm");
-        dttime.add("03.01.2018   05:30 pm - 11:59 pm");
-        dttime.add("03.01.2018   02:30 pm - 06:30 pm");
-        dttime.add("03.05.2018   07:30 pm - 09:30 pm");
-        dttime.add("03.06.2018   10:30 pm - 04:30 am");
-        dttime.add("03.09.2018   12:30 pm - 05:30 pm");
 
         loc = db.getLoc();
 
-        loc.add("MIT Purdue Hall");
-        loc.add("Purdue Math Help Room 1");
-        loc.add("Purdue Co Rec");
-        loc.add("1120 Northwestern ave, West Lafayette");
-        loc.add("DELTA DELTA DELTA Sorority");
-        loc.add("Purdue Engineering Fountain");
-
         descrip = db.getDescription();
-
-        descrip.add("Join for a Hackathon at MIT!");
-        descrip.add("Exam 1 coming up, come study!");
-        descrip.add("Soccer for everyone!");
-        descrip.add("Cook your favorite meals and come share and enjoy with others");
-        descrip.add("Party before exam season!!!");
-        descrip.add("Come paint landscapes and be inspired by others");
-
-
-
-
+        
         eventAdapter cadapter = new eventAdapter(titles,descrip,dttime,loc);
         recyclerView.setAdapter(cadapter);
     }
