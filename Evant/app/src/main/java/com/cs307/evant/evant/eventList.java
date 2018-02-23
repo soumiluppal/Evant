@@ -80,7 +80,7 @@ public class eventList extends AppCompatActivity {
 
 
         //
-        eventAdapter cadapter = new eventAdapter(titles,descrip,dttime,loc);
+        eventAdapter cadapter = new eventAdapter(titles,descrip,dttime,loc, this);
         recyclerView.setAdapter(cadapter);
     }
 
