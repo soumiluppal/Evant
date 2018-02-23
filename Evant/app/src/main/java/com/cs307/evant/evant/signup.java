@@ -2,6 +2,7 @@ package com.cs307.evant.evant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,8 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
-
-import com.mysql.jdbc.log.NullLogger;
+import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by avi12 on 2/16/2018.
@@ -24,6 +29,9 @@ public class signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
+
+        final FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
 
         Button newButton = (Button) findViewById(R.id.register);
         EditText uname = (EditText) findViewById(R.id.username);
@@ -130,13 +138,22 @@ public class signup extends AppCompatActivity {
                 }
                 else
                 {
-                    try {
-                        //User tmp = new User(username,password,eml);
-                        DatabaseInterface db = new DatabaseInterface();
-                        //db.addUser(tmp);
-                    } catch (ConnectionNotEstablishedException e) {
-                        e.printStackTrace();
-                    }
+                    mAuth.createUserWithEmailAndPassword(username, password)
+                            .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Toast.makeText(signup.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    // ...
+                                }
+                            });
                 }
 
 
