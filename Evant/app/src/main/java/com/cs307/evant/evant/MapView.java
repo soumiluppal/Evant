@@ -199,9 +199,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         mMap.setInfoWindowAdapter(new infoWindowAdapter());
 
     }
-
+    LocationManager manager;
     private void startLocationService() {
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         long minTime = 10000;
         float minDistance = 0;
@@ -230,6 +230,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     public boolean onMarkerClick(Marker marker) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
         marker.showInfoWindow();
+        Toast.makeText(getApplicationContext(), "DISTANCE = " + calculateDistance(marker.getPosition()), Toast.LENGTH_SHORT).show();
 
 
         return true;
@@ -309,6 +310,25 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 //        lawson.showInfoWindow();
 
         mMap.setOnMarkerClickListener(this);
+    }
+
+    private double calculateDistance(LatLng marLoc){
+        Location curLoc = new Location(LocationManager.GPS_PROVIDER);
+        try {
+            curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        catch (SecurityException e) {
+
+        }
+
+        Location markerLoc = new Location("");
+        markerLoc.setLatitude(marLoc.latitude);
+        markerLoc.setLongitude(marLoc.longitude);
+
+        double distance = curLoc.distanceTo(markerLoc);
+        distance = distance / 1000;
+
+        return distance;
     }
 
 

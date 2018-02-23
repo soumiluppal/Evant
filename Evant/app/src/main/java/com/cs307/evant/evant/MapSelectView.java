@@ -102,7 +102,7 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
         }
 
         startLocationService();
-        testingMarkers();
+        //testingMarkers();
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
@@ -209,7 +209,7 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-    private void testingMarkers(){
+    /*private void testingMarkers(){
         //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
 
         LatLng tempLatLngPMU = new LatLng(40.424800,-86.911000);
@@ -232,7 +232,7 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
 //        lawson.showInfoWindow();
 
         mMap.setOnMarkerClickListener(this);
-    }
+    }*/
 
 
 
