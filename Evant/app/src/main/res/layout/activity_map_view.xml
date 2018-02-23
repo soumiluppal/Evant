@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
 
@@ -57,7 +58,7 @@
         android:layout_below="@+id/toolbar2"
         tools:context="com.cs307.evant.evant.MapView" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +69,21 @@
         android:clickable="true"
         android:visibility="visible"
         app:fabSize="normal"
-        app:srcCompat="@drawable/add" />
+        app:srcCompat="@drawable/add" />-->
+
+    <!--<com.getbase.floatingactionbutton.AddFloatingActionButton
+        android:id="@+id/plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        fab:fab_plusIconColor="#404040"
+        fab:fab_colorNormal="#FFFFFF"
+        fab:fab_colorPressed="#F0E9E8"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"/>-->
 
     <EditText
         android:id="@+id/editText"
@@ -85,4 +100,47 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp" />
 
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        fab:fab_plusIconColor="#404040"
+        fab:fab_colorNormal="#FFFFFF"
+        fab:fab_colorPressed="#F0E9E8"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="left">
+        <!--fab:fab_labelStyle="@style/menu_labels_style"-->
+
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/attend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#FFFFFF"
+            fab:fab_icon="@drawable/listing"
+            fab:fab_colorPressed="#F0E9E8"
+            fab:fab_title="Find Event" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#FFFFFF"
+            fab:fab_icon="@drawable/add"
+            fab:fab_colorPressed="#F0E9E8"
+            fab:fab_title="Create Event" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+
 </RelativeLayout>
+
+
+
+
