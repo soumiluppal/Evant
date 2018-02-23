@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by avi12 on 2/16/2018.
@@ -32,14 +34,18 @@ public class signup extends AppCompatActivity {
 
         final FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference mDatabase;
+// ...
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Button newButton = (Button) findViewById(R.id.register);
         EditText uname = (EditText) findViewById(R.id.username);
         String username = uname.getText().toString();
         EditText pass = (EditText) findViewById(R.id.password);
         String password = pass.getText().toString();
-        EditText email = (EditText) findViewById(R.id.email);
-        String eml = email.getText().toString();
+        EditText fullname = (EditText) findViewById(R.id.fullname);
+        String nm = fullname.getText().toString();
         EditText conpass = (EditText) findViewById(R.id.confpassword);
         String repass = conpass.getText().toString();
         Switch klog = (Switch) findViewById(R.id.switch1);
@@ -52,7 +58,7 @@ public class signup extends AppCompatActivity {
         {
 
         }
-        if(eml == "")
+        if(nm == "")
         {
 
         }
@@ -71,8 +77,8 @@ public class signup extends AppCompatActivity {
                 String username = uname.getText().toString();
                 EditText pass = (EditText) findViewById(R.id.password);
                 String password = pass.getText().toString();
-                EditText email = (EditText) findViewById(R.id.email);
-                String eml = email.getText().toString();
+                EditText fullname = (EditText) findViewById(R.id.fullname);
+                String nm = fullname.getText().toString();
                 EditText conpass = (EditText) findViewById(R.id.confpassword);
                 String repass = conpass.getText().toString();
                 Switch klog = (Switch) findViewById(R.id.switch1);
@@ -111,9 +117,9 @@ public class signup extends AppCompatActivity {
                     //dialog.show();
                 }
 
-                if(eml.length() <= 0)
+                if(nm.length() <= 0)
                 {
-                    builder.setMessage("Please enter your email")
+                    builder.setMessage("Please enter your name")
                             .setTitle("Incomplete Page");
                     //AlertDialog dialog = builder.create();
                     nvalid = true;
@@ -138,15 +144,27 @@ public class signup extends AppCompatActivity {
                 }
                 else
                 {
+                    final String nam = nm;
                     mAuth.createUserWithEmailAndPassword(username, password)
                             .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                        mDatabase.child("users").child(user.getUid()).setValue(nam);
+                                        Intent intent = new Intent(signup.this, MapView.class);
+                                        startActivity(intent);
+                                        Toast.makeText(signup.this, "Signup success.",
+                                                Toast.LENGTH_SHORT).show();
                                     } else {
                                         // If sign in fails, display a message to the user.
+                                        try{
+                                            throw task.getException();
+                                        }catch(Exception e){
+                                            System.out.println(e);
+                                        }
                                         Toast.makeText(signup.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
                                     }

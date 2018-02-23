@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
+        System.out.println(FirebaseAuth.getInstance().getCurrentUser());
+        FirebaseAuth.getInstance().signOut();
 
         myRef.setValue("Hello, World!");
         setContentView(R.layout.temp_main);

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by avi12 on 2/16/2018.
@@ -30,6 +31,7 @@ public class loginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         final FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
 
