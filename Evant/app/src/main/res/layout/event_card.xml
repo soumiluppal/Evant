@@ -108,6 +108,7 @@
                     android:theme="@style/PrimaryFlatButton" />
 
                 <Button
+                    android:id="@+id/minfo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="More Info"

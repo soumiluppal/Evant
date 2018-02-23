@@ -90,7 +90,7 @@ public class Profile extends AppCompatActivity {
         ArrayList<String> ctnms = new ArrayList<>();
         ctnms.add("event1");
         ctnms.add("event2");
-        eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc);
+        eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc,this);
 
         recyclerView.setAdapter(adapter);
     }

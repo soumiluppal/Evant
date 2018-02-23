@@ -1,11 +1,13 @@
 package com.cs307.evant.evant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         public TextView dtm;
         public TextView loca;
         public ImageView iv;
+        public Button info;
         //public TextView cnts;
 
         public MyViewHolder(View view)
@@ -40,6 +43,16 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
             descrip = view.findViewById(R.id.description);
             dtm = view.findViewById(R.id.time);
             loca = view.findViewById(R.id.locationText);
+            info = view.findViewById(R.id.minfo);
+
+
+            info.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ct, eventPage.class);
+                    ct.startActivity(intent);
+                }
+            });
             //cnts = (TextView) view.findViewById(R.id.count);
             //iv = (ImageView) view.findViewById(R.id.photo);
 
@@ -47,13 +60,14 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         }
     }
 
-    public eventAdapter( ArrayList <String> title, ArrayList <String> descrp, ArrayList <String> dte, ArrayList <String> loc)
+    public eventAdapter( ArrayList <String> title, ArrayList <String> descrp, ArrayList <String> dte, ArrayList <String> loc,Context c)
     {
         //catPhotos = a;
         titles = title;
         descrip = descrp;
         dttme = dte;
         location = loc;
+        ct = c;
     }
 
     @Override
@@ -76,9 +90,13 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         //String fpath = photopath.get(position);
         //holder.iv.setImageBitmap(catPhotos.get(position));
 
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(ct, eventPage.class);
+                ct.startActivity(intent);
 
             }
         });
