@@ -9,7 +9,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.lang.Object;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.LinkedList;
@@ -22,6 +24,10 @@ import java.util.Map;
 
 public class Database {
     Map<String, Object> users;
+    ArrayList titles = new ArrayList();
+    ArrayList dttime = new ArrayList();
+    ArrayList loc = new ArrayList();
+    ArrayList descriptions = new ArrayList();
     FirebaseDatabase db;
     DatabaseReference mDatabase;
     public Database(){
@@ -45,6 +51,50 @@ public class Database {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        mDatabase.child("titles").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                titles = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        mDatabase.child("dttime").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                dttime = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        mDatabase.child("loc").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                loc = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        mDatabase.child("description").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                descriptions = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     String getName(String uid){
@@ -62,6 +112,27 @@ public class Database {
     String getUid(){
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
+
+    void addEvent(){
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        //System.out.println(titles);
+        int i = 1;
+        mDatabase.child("titles").child(Integer.toString(i)).setValue("asdg");
+    }
+
+    ArrayList<String> getTitles(){
+        return titles;
+    }
+
+    ArrayList<String> getTime(){
+        return dttime;
+    }
+
+    ArrayList<String> getLoc(){
+        return loc;
+    }
+
+    ArrayList<String> getDescription(){ return descriptions;}
 
     void signOut(){
         FirebaseAuth.getInstance().signOut();
