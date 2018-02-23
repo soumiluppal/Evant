@@ -28,6 +28,7 @@ public class Database {
     ArrayList dttime = new ArrayList();
     ArrayList loc = new ArrayList();
     ArrayList descriptions = new ArrayList();
+    ArrayList host = new ArrayList();
     FirebaseDatabase db;
     DatabaseReference mDatabase;
     public Database(){
@@ -95,6 +96,17 @@ public class Database {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        mDatabase.child("host").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                host = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     String getName(String uid){
@@ -113,11 +125,20 @@ public class Database {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    void addEvent(){
+    void addEvent(String name, String addr, String desc, String dt){
+        String uid = getUid();
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         //System.out.println(titles);
-        int i = 1;
-        mDatabase.child("titles").child(Integer.toString(i)).setValue("asdg");
+        titles.add(name);
+        loc.add(addr);
+        descriptions.add(desc);
+        dttime.add(dt);
+        host.add(uid);
+        mDatabase.child("titles").setValue(titles);
+        mDatabase.child("description").setValue(descriptions);
+        mDatabase.child("loc").setValue(loc);
+        mDatabase.child("dttime").setValue(dttime);
+        mDatabase.child("host").setValue(host);
     }
 
     ArrayList<String> getTitles(){

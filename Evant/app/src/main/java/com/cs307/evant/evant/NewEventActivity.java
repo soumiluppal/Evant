@@ -15,9 +15,13 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import static com.cs307.evant.evant.MainActivity.db;
 
 public class NewEventActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class NewEventActivity extends AppCompatActivity {
     String title = "";
     String address = "";
     String description = "";
+    String dttime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +55,12 @@ public class NewEventActivity extends AppCompatActivity {
                 title = titleText.getText().toString();
                 address = addrText.getText().toString();
                 description = descText.getText().toString();
+                dttime = dText.getText().toString() + "   " + tText.getText().toString();
                 priv = prSwitch.isChecked();
                 if (title.length() > 0 && address.length() > 0 && description.length() > 0 && dText.getText().length() > 0 && tText.getText().length() > 0) {
                     Snackbar.make(view, "Event added", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    db.addEvent(title, address, description, dttime);
 
                 } else {
                     Snackbar.make(view, "Please fill out all fields", Snackbar.LENGTH_LONG)
