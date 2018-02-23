@@ -11,19 +11,19 @@
     <android.support.v7.widget.CardView
 
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:visibility="visible"
         card_view:cardCornerRadius="5dp"
-        card_view:cardBackgroundColor="#00e673"
+        card_view:cardBackgroundColor="#CC00e673"
         android:shadowColor="#00cc00"
-        android:alpha=".8"
+        android:alpha="1"
         card_view:contentPaddingLeft="-3dp"
         card_view:contentPaddingRight="-3dp"
         card_view:contentPaddingTop="-3dp"
         card_view:contentPaddingBottom="-3dp"
         android:elevation="10dp"
-        android:shadowRadius="5">
+        android:shadowRadius="2">
 
 
         <RelativeLayout
@@ -33,29 +33,32 @@
 
             <ImageView
                 android:id="@+id/photo"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="top|center"
                 android:contentDescription="catPhoto"
-                card_view:srcCompat="@drawable/evant" />
+                card_view:srcCompat="@drawable/tleaves" />
 
             <TextView
                 android:id="@+id/title"
-                android:layout_margin="10dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_gravity="center|bottom"
-                android:shadowColor="#111"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:outlineProvider="background"
                 android:text="TextView"
+                android:shadowColor="#000000"
+                android:shadowDx="1.5"
+                android:shadowDy="1.3"
+                android:shadowRadius="2"
                 android:textAlignment="center"
                 android:textColor="#FFFF"
-                android:textSize="25sp" />
+                android:textSize="38sp" />
 
         </RelativeLayout>
 
