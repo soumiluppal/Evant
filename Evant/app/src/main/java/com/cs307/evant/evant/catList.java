@@ -25,7 +25,7 @@ public class catList extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.categories);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(5), true));
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(4), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         ArrayList<String>ctnms = new ArrayList<>();
         ctnms.add("Sports");
