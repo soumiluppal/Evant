@@ -106,7 +106,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         listButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(MapView.this, ListView.class);
+                Intent intent = new Intent(MapView.this, catList.class);
                 startActivity(intent);
             }
         });
