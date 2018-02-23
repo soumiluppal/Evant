@@ -26,7 +26,8 @@ public class Profile extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         String uid = b.getString("uid");
         setContentView(R.layout.activity_profile);
-        String name = db.getName(db.getUid());
+        String
+                name = db.getName(db.getUid());
         TextView dispname = (TextView) findViewById(R.id.dispname);
         dispname.setText("Name: " + name);
 

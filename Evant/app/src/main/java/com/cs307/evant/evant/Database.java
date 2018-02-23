@@ -1,5 +1,6 @@
 package com.cs307.evant.evant;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

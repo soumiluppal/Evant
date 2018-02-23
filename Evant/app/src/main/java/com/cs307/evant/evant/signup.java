@@ -35,7 +35,6 @@ public class signup extends AppCompatActivity {
         setContentView(R.layout.sign_up);
 
         final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        final String uid = db.getUid();
 
 
         Button newButton = (Button) findViewById(R.id.register);
@@ -150,7 +149,7 @@ public class signup extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        db.updateName(uid, nam);
+                                        db.updateName(db.getUid(), nam);
 
                                         Intent intent = new Intent(signup.this, MapView.class);
                                         startActivity(intent);
