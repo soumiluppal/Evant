@@ -38,7 +38,7 @@ public class Profile extends AppCompatActivity {
         ArrayList<String> ctnms = new ArrayList<>();
         ctnms.add("event1");
         ctnms.add("event2");
-        catAdapter cadapter = new catAdapter(ctnms);
+        catAdapter cadapter = new catAdapter(ctnms,this);
         recyclerView.setAdapter(cadapter);
     }
 }

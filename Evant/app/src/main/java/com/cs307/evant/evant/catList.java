@@ -35,7 +35,7 @@ public class catList extends AppCompatActivity {
         ctnms.add("Community");
         ctnms.add("Food");
         ctnms.add("Flash Mobs");
-        catAdapter cadapter = new catAdapter(ctnms);
+        catAdapter cadapter = new catAdapter(ctnms,this);
         recyclerView.setAdapter(cadapter);
     }
 

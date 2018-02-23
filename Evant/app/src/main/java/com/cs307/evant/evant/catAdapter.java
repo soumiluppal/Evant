@@ -3,6 +3,7 @@ package com.cs307.evant.evant;
 
         import android.content.Context;
         import android.content.DialogInterface;
+        import android.content.Intent;
         import android.graphics.Bitmap;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.widget.PopupMenu;
@@ -46,10 +47,11 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
     }
 
 
-    public catAdapter( ArrayList <String> b)
+    public catAdapter( ArrayList <String> b,Context c)
     {
         //catPhotos = a;
         cattitles = b;
+        ct = c;
     }
 
     @Override
@@ -70,6 +72,8 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(ct, eventList.class);
+                ct.startActivity(intent);
 
             }
         });
