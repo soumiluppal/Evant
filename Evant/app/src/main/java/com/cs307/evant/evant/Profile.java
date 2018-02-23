@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import java.util.ArrayList;
 
 public class Profile extends AppCompatActivity {
@@ -22,12 +24,26 @@ public class Profile extends AppCompatActivity {
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        com.getbase.floatingactionbutton.FloatingActionButton actionC = new com.getbase.floatingactionbutton.FloatingActionButton(getBaseContext());
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        final FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        //fam.addButton(actionC);
+        com.getbase.floatingactionbutton.FloatingActionButton create = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Profile.this, NewEventActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        com.getbase.floatingactionbutton.FloatingActionButton attend = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.attend);
+        attend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Profile.this, catList.class);
                 startActivity(intent);
             }
         });
