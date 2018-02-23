@@ -48,8 +48,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
         private final View contentsView;
         LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        infoWindowAdapter(){
+        infoWindowAdapter() {
             contentsView = inflater.inflate(R.layout.map_info_window,null);
         }
 

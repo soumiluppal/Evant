@@ -20,131 +20,88 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<include layout="@layout/content_new_event" />-->
-
-
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="657dp">
+        android:layout_height="match_parent">
 
         <EditText
             android:id="@+id/titleText"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="200dp"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
             android:ems="10"
             android:hint="Title"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/dateText"
             android:layout_width="121dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
 
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_alignEnd="@+id/textView"
+            android:layout_alignRight="@+id/textView"
+            android:layout_below="@+id/titleText"
+            android:layout_marginTop="12dp"
             android:clickable="true"
+            android:editable="false"
             android:ems="10"
             android:focusable="false"
             android:hint="Date"
-            android:editable="false"
-            android:longClickable="false"
             android:inputType="none"
-            app:layout_constraintEnd_toStartOf="@+id/timeText"
-            app:layout_constraintHorizontal_bias="0.855"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleText" />
+            android:longClickable="false" />
 
         <EditText
             android:id="@+id/timeText"
             android:layout_width="104dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="84dp"
-            android:layout_marginTop="8dp"
+            android:layout_alignBaseline="@+id/dateText"
+            android:layout_alignBottom="@+id/dateText"
+            android:layout_alignEnd="@+id/titleText"
+            android:layout_alignRight="@+id/titleText"
             android:clickable="true"
+            android:editable="false"
             android:ems="10"
             android:focusable="false"
-            android:editable="false"
-            android:longClickable="false"
             android:hint="Time"
             android:inputType="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleText" />
+            android:longClickable="false" />
 
         <EditText
             android:id="@+id/locationText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="150dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_below="@+id/dateText"
+            android:layout_marginTop="28dp"
+            android:layout_toLeftOf="@+id/timeText"
+            android:layout_toStartOf="@+id/timeText"
             android:ems="10"
             android:hint="Address"
-            android:inputType="textPostalAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dateText" />
+            android:inputType="textPostalAddress" />
 
         <Button
             android:id="@+id/setLocButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_alignBottom="@+id/locationText"
+
+            android:layout_toEndOf="@+id/privSwitch"
+            android:layout_toRightOf="@+id/privSwitch"
+            android:background="@color/black_semi_transparent"
             android:text="Choose on map"
-            app:layout_constraintBottom_toTopOf="@+id/descriptionText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/locationText"
-            app:layout_constraintTop_toBottomOf="@+id/timeText" />
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/descriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_below="@+id/setLocButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="Description"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationText" />
-
-        <Switch
-            android:id="@+id/privSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
-            android:text="Private"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            android:inputType="textMultiLine" />
 
         <TextView
             android:id="@+id/textView"
@@ -155,11 +112,31 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="75dp"
             android:text="Create new event"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/titleText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            android:textSize="24sp" />
+
+        <Switch
+            android:id="@+id/privSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descriptionText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:text="Private" />
+
+        <Button
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/privSwitch"
+            android:layout_alignStart="@+id/privSwitch"
+            android:layout_below="@+id/privSwitch"
+            android:layout_marginTop="26dp"
+            android:text="Confirm" />
+
+    </RelativeLayout>
+
+    <!--<include layout="@layout/content_new_event" />-->
+
+
 
 </android.support.design.widget.CoordinatorLayout>
