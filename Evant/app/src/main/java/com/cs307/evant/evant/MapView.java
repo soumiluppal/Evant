@@ -140,7 +140,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             @Override
             public void onClick(View view) {
                 //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MapView.this, ListView.class);
+                Intent intent = new Intent(MapView.this, catList.class);
                 startActivity(intent);
             }
         });
