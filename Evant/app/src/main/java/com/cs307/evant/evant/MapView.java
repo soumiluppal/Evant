@@ -230,6 +230,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     public boolean onMarkerClick(Marker marker) {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
         marker.showInfoWindow();
+        Toast.makeText(getApplicationContext(), "DISTANCE = " + calculateDistance(marker), Toast.LENGTH_SHORT).show();
 
 
         return true;
@@ -309,6 +310,21 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 //        lawson.showInfoWindow();
 
         mMap.setOnMarkerClickListener(this);
+    }
+
+    private double calculateDistance(Marker marker){
+        Location curLoc = new Location("curLoc");
+        curLoc.setLatitude(curLoc.getLatitude());
+        curLoc.setLongitude(curLoc.getLongitude());
+
+        Location markerLoc = new Location("markerLoc");
+        markerLoc.setLatitude(marker.getPosition().latitude);
+        markerLoc.setLongitude(marker.getPosition().longitude);
+
+        double distance = curLoc.distanceTo(markerLoc);
+        distance = distance / 1000;
+
+        return distance;
     }
 
 
