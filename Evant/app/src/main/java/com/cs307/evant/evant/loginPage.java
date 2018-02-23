@@ -77,7 +77,10 @@ public class loginPage extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    System.out.println("logged in");
+                                    Intent intent = new Intent(loginPage.this, MapView.class);
+                                    startActivity(intent);
+                                    Toast.makeText(loginPage.this, "Logged in.",
+                                            Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If sign in fails, display a message to the user.
 
