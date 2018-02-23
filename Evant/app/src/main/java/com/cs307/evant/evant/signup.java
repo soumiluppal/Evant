@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static com.cs307.evant.evant.MainActivity.db;
+
 /**
  * Created by avi12 on 2/16/2018.
  */
@@ -32,12 +34,9 @@ public class signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
 
-        final FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference mDatabase;
-// ...
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        final String uid = db.getUid();
+
 
         Button newButton = (Button) findViewById(R.id.register);
         EditText uname = (EditText) findViewById(R.id.username);
@@ -151,9 +150,8 @@ public class signup extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                        db.updateName(uid, nam);
 
-                                        mDatabase.child("users").child(user.getUid()).setValue(nam);
                                         Intent intent = new Intent(signup.this, MapView.class);
                                         startActivity(intent);
                                         Toast.makeText(signup.this, "Signup success.",

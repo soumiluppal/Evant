@@ -17,14 +17,12 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     /*test*/
-
+    static Database db = new Database();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
-        System.out.println(FirebaseAuth.getInstance().getCurrentUser());
-        FirebaseAuth.getInstance().signOut();
 
         myRef.setValue("Hello, World!");
         setContentView(R.layout.temp_main);

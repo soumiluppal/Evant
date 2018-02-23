@@ -9,9 +9,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+import static com.cs307.evant.evant.MainActivity.db;
 
 public class Profile extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -22,6 +27,9 @@ public class Profile extends AppCompatActivity {
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
 
+        String name = db.getName(db.getUid());
+        TextView dispname = (TextView) findViewById(R.id.dispname);
+        dispname.setText("Name: " + name);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
