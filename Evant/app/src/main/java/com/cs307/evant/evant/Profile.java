@@ -3,13 +3,18 @@ package com.cs307.evant.evant;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class Profile extends AppCompatActivity {
 
+import java.util.ArrayList;
+
+public class Profile extends AppCompatActivity {
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +22,7 @@ public class Profile extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +31,15 @@ public class Profile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        recyclerView = (RecyclerView) findViewById(R.id.events);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        ArrayList<String> ctnms = new ArrayList<>();
+        ctnms.add("event1");
+        ctnms.add("event2");
+        catAdapter cadapter = new catAdapter(ctnms);
+        recyclerView.setAdapter(cadapter);
     }
-
 }
+

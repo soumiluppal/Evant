@@ -1,6 +1,8 @@
 package com.cs307.evant.evant;
 
 import android.Manifest;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,7 +10,7 @@ import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
 import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
+//import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -41,7 +43,6 @@ import java.util.List;
 
 
 public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
-
 
 
     class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
@@ -106,7 +107,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         listButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Intent intent = new Intent(MapView.this, ListView.class);
+                Intent intent = new Intent(MapView.this, catList.class);
                 startActivity(intent);
             }
         });
@@ -121,17 +122,29 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton actionC = new FloatingActionButton(getBaseContext());
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        final FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        //fam.addButton(actionC);
+        FloatingActionButton create = (FloatingActionButton) findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MapView.this, NewEventActivity.class);
                 startActivity(intent);
             }
         });
 
-
+        FloatingActionButton attend = (FloatingActionButton) findViewById(R.id.attend);
+        attend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MapView.this, ListView.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -279,7 +292,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         tempMarkerOptionsPMU.position(tempLatLngPMU).title("temp Marker PMU").snippet("hihihi");
         Marker pmu = mMap.addMarker(tempMarkerOptionsPMU);
 
-       // pmu.showInfoWindow();
+        // pmu.showInfoWindow();
 
         LatLng tempLatLngCorec = new LatLng(40.428329,-86.922496);
         MarkerOptions tempMarkerOptionsCorec = new MarkerOptions();
