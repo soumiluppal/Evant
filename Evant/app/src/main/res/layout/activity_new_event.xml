@@ -35,22 +35,22 @@
             android:hint="Title"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/dateText"
-            android:layout_width="121dp"
-            android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/dateText"
+                android:layout_width="121dp"
+                android:layout_height="wrap_content"
 
-            android:layout_alignEnd="@+id/textView"
-            android:layout_alignRight="@+id/textView"
-            android:layout_below="@+id/titleText"
-            android:layout_marginTop="12dp"
-            android:clickable="true"
-            android:editable="false"
-            android:ems="10"
-            android:focusable="false"
-            android:hint="Date"
-            android:inputType="none"
-            android:longClickable="false" />
+                android:layout_alignLeft="@+id/titleText"
+                android:layout_alignStart="@+id/titleText"
+                android:layout_below="@+id/titleText"
+                android:layout_marginTop="13dp"
+                android:clickable="true"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Date"
+                android:inputType="none"
+                android:longClickable="false" />
 
         <EditText
             android:id="@+id/timeText"
@@ -103,16 +103,15 @@
             android:hint="Description"
             android:inputType="textMultiLine" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="75dp"
-            android:text="Create new event"
-            android:textSize="24sp" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="82dp"
+                android:text="Create new event"
+                android:textSize="24sp" />
 
         <Switch
             android:id="@+id/privSwitch"

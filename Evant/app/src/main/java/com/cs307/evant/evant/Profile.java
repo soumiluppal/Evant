@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import com.google.firebase.database.FirebaseDatabase;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
 
@@ -24,18 +24,30 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
         String name = db.getName(db.getUid());
         TextView dispname = (TextView) findViewById(R.id.dispname);
         dispname.setText("Name: " + name);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        com.getbase.floatingactionbutton.FloatingActionButton actionC = new com.getbase.floatingactionbutton.FloatingActionButton(getBaseContext());
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        final FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        //fam.addButton(actionC);
+        com.getbase.floatingactionbutton.FloatingActionButton create = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Profile.this, NewEventActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        com.getbase.floatingactionbutton.FloatingActionButton attend = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.attend);
+        attend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Profile.this, catList.class);
                 startActivity(intent);
             }
         });
@@ -50,4 +62,3 @@ public class Profile extends AppCompatActivity {
         recyclerView.setAdapter(cadapter);
     }
 }
-
