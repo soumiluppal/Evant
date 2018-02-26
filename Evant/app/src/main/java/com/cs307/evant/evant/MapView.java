@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -288,8 +289,50 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     }
 
     private void testingMarkers(){
-        //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
 
+        ArrayList<Double> lats = new ArrayList<>();
+        ArrayList<Double> lngs = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> discrips = new ArrayList<>();
+
+        titles.add("PMU");
+        lats.add(40.424800);
+        lngs.add(-86.911000);
+        discrips.add("PMU Bowling Tourney");
+
+        titles.add("Corec");
+        lats.add(40.428329);
+        lngs.add(-86.922496);
+        discrips.add("Corec Yoga Class");
+
+        titles.add("Lawson");
+        lats.add(40.427728);
+        lngs.add(-86.916975);
+        discrips.add("Lawson Hackaton");
+
+        titles.add("House");
+        lats.add(40.462390);
+        lngs.add(-86.947603);
+        discrips.add("Soun's home party");
+
+        ArrayList<LatLng> markerLatlngs = new ArrayList<>();
+        ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
+        ArrayList<Marker> markers = new ArrayList<>();
+
+        for(int a=0; a < lats.size(); a++){
+            LatLng tempLatLng = new LatLng(lats.get(a), lngs.get(a));
+            markerLatlngs.add(tempLatLng);
+            MarkerOptions tempMarkerOptions = new MarkerOptions();
+            tempMarkerOptions.position(markerLatlngs.get(a)).title(titles.get(a)).snippet(discrips.get(a));
+            markerOptions.add(tempMarkerOptions);
+        }
+
+        for(int a=0; a<lats.size(); a++){
+            Marker tempMarker = mMap.addMarker(markerOptions.get(a));
+            markers.add(tempMarker);
+        }
+        /*
+        //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
         LatLng tempLatLngPMU = new LatLng(40.424800,-86.911000);
         MarkerOptions tempMarkerOptionsPMU = new MarkerOptions();
         tempMarkerOptionsPMU.position(tempLatLngPMU).title("temp Marker PMU").snippet("hihihi");
@@ -308,7 +351,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         tempMarkerOptionsLawson.position(tempLatLngLawson).title("temp Marker Lawson").snippet("testing");
         Marker lawson = mMap.addMarker(tempMarkerOptionsLawson);
 //        lawson.showInfoWindow();
-
+*/
         mMap.setOnMarkerClickListener(this);
     }
 
