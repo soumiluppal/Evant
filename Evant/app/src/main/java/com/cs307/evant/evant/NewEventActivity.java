@@ -125,6 +125,27 @@ public class NewEventActivity extends AppCompatActivity {
             }
         });
 
+        emage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageView = emage;
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 100);
+            }
+        });
+
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK && requestCode == 100) {
+            Uri imageUri = data.getData();
+            image = imageUri;
+            imageView.setImageURI(imageUri);
+        }
     }
 
     private void updateLabel(EditText dText, Calendar calendar) {
