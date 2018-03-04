@@ -30,6 +30,8 @@ public class Database {
     ArrayList loc = new ArrayList();
     ArrayList descriptions = new ArrayList();
     ArrayList host = new ArrayList();
+    ArrayList lat = new ArrayList();
+    ArrayList lng = new ArrayList();
     FirebaseDatabase db;
     DatabaseReference mDatabase;
     public Database(){
@@ -108,6 +110,28 @@ public class Database {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        mDatabase.child("lat").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                lat = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        mDatabase.child("long").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                lng = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     String getName(String uid){
@@ -156,6 +180,10 @@ public class Database {
     ArrayList<String> getDescription(){ return descriptions;}
 
     ArrayList<String> getHost(){ return host;}
+
+    ArrayList<Double> getLat(){ return lat;}
+
+    ArrayList<Double> getLng(){return lng;}
 
     void signOut(){
         FirebaseAuth.getInstance().signOut();
