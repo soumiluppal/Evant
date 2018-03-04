@@ -150,7 +150,7 @@ public class Database {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    void addEvent(String name, String addr, String desc, String dt, String uid){
+    void addEvent(String name, String addr, String desc, String dt, String uid, double latitude, double longitude){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         //System.out.println(titles);
         titles.add(name);
@@ -158,11 +158,15 @@ public class Database {
         descriptions.add(desc);
         dttime.add(dt);
         host.add(uid);
+        lat.add(latitude);
+        lng.add(longitude);
         mDatabase.child("titles").setValue(titles);
         mDatabase.child("description").setValue(descriptions);
         mDatabase.child("loc").setValue(loc);
         mDatabase.child("dttime").setValue(dttime);
         mDatabase.child("host").setValue(host);
+        mDatabase.child("lat").setValue(lat);
+        mDatabase.child("long").setValue(lng);
     }
 
     ArrayList<String> getTitles(){

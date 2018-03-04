@@ -36,6 +36,8 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
     private SensorManager mSensorManager;
     private CircleOptions circleOptions;
     private Circle circle;
+    private Double lat;
+    private Double lng;
 
 
     @Override
@@ -108,6 +110,9 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
             public void onMapClick(LatLng point) {
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(point));
+                lat = point.latitude;
+                lng = point.longitude;
+                Toast.makeText(getApplicationContext(), "lat = " + lat + " lng = " + lng, Toast.LENGTH_SHORT).show();
             }
         });
 
