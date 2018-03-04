@@ -52,6 +52,8 @@ public class NewEventActivity extends AppCompatActivity {
         final EditText addrText = (EditText) findViewById(R.id.locationText);
         final EditText descText = (EditText) findViewById(R.id.descriptionText);
         final Switch prSwitch = (Switch) findViewById(R.id.privSwitch);
+        final Double lat;
+        final Double lng;
 
 
         final Button setLocButton = (Button) findViewById(R.id.setLocButton);
