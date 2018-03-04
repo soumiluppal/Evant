@@ -32,7 +32,7 @@ public class DataHelp extends SQLiteOpenHelper
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 1) {
             db.execSQL("CREATE TABLE ITEMDATA (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "CAT TEXT, "
+                    + "LOC TEXT, "
                     + "NAME TEXT, "
                     + "PATH TEXT, "
                     + "INFO TEXT, "
@@ -50,7 +50,7 @@ public class DataHelp extends SQLiteOpenHelper
         }
 
         ContentValues cv = new ContentValues();
-        cv.put("CAT","Outfits");
+        cv.put("LOC","14505 Chester ave Saratoga California");
         cv.put("ROTATE", 99);
         cv.put("CNT",0);
         db.insert("CATDATA",null,cv);
