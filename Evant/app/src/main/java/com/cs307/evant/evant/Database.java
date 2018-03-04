@@ -126,8 +126,7 @@ public class Database {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    void addEvent(String name, String addr, String desc, String dt){
-        String uid = getUid();
+    void addEvent(String name, String addr, String desc, String dt, String uid){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         //System.out.println(titles);
         titles.add(name);
