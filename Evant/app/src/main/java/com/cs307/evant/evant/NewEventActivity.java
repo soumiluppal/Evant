@@ -36,6 +36,8 @@ public class NewEventActivity extends AppCompatActivity {
     String dttime;
     Uri image;
     ImageView imageView;
+    Double lat;
+    Double lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,7 +3,11 @@ package com.cs307.evant.evant;
 import android.Manifest;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -29,10 +33,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.text.InputType;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +53,7 @@ import static com.cs307.evant.evant.MainActivity.db;
 
 public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+    final Context context = this;
 
     class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
         private final View contentsView;
@@ -78,7 +85,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private SensorManager mSensorManager;
     private CircleOptions circleOptions;
     private Circle circle;
-
+    private double radiusVal = 500;
+    private String radiusStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +154,51 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MapView.this, catList.class);
                 startActivity(intent);
+            }
+        });
+        FloatingActionButton radius = (FloatingActionButton) findViewById(R.id.radius);
+        radius.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                Toast.makeText(getApplicationContext(), "DISTANCE = " + radiusVal, Toast.LENGTH_SHORT).show();
+
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("Set Radius");
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                alertDialogBuilder.setView(input);
+
+                alertDialogBuilder.setMessage("Current radius is = " + radiusVal)
+                        .setCancelable(false)
+                        .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                radiusStr = input.getText().toString();
+                                radiusVal = Double.parseDouble(radiusStr);
+                            }
+                        })
+                        .setNegativeButton("Calcel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+                /*
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.set_radius);
+                dialog.setTitle("Set Radius");
+                TextView text = (TextView)dialog.findViewById(R.id.text);
+                Button dialogButton = (Button)dialog.findViewById(R.id.dialogButtonOK);
+                dialogButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+                */
             }
         });
 
@@ -268,7 +321,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             circleOptions = new CircleOptions()
                     .center(cur)
-                    .radius(500)
+                    .radius(radiusVal)
                     .fillColor(0x40ff0000)
                     .strokeColor(Color.GREEN)
                     .strokeWidth(5);
@@ -289,7 +342,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     }
 
     private void testingMarkers(){
-
         ArrayList<Double> lats = new ArrayList<>();
         ArrayList<Double> lngs = new ArrayList<>();
         ArrayList<String> titles = new ArrayList<>();
