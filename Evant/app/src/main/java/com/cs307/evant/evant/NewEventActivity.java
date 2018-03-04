@@ -3,7 +3,10 @@ package com.cs307.evant.evant;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
@@ -30,6 +34,8 @@ public class NewEventActivity extends AppCompatActivity {
     String address = "";
     String description = "";
     String dttime;
+    Uri image;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class NewEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_event);
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);*/
-
+        final ImageView emage = (ImageView) findViewById(R.id.eventImage);
         final Calendar calendar = Calendar.getInstance();
         final Calendar clock = Calendar.getInstance();
         final EditText dText = (EditText) findViewById(R.id.dateText);
@@ -46,6 +52,8 @@ public class NewEventActivity extends AppCompatActivity {
         final EditText addrText = (EditText) findViewById(R.id.locationText);
         final EditText descText = (EditText) findViewById(R.id.descriptionText);
         final Switch prSwitch = (Switch) findViewById(R.id.privSwitch);
+
+
         final Button setLocButton = (Button) findViewById(R.id.setLocButton);
 
         Button fab = (Button) findViewById(R.id.fab);

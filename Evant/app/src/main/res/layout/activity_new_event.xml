@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,29 +28,41 @@
             android:id="@+id/titleText"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="310dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
             android:ems="10"
             android:hint="Title"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eventImage" />
 
-            <EditText
-                android:id="@+id/dateText"
-                android:layout_width="121dp"
-                android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/dateText"
+            android:layout_width="121dp"
+            android:layout_height="wrap_content"
 
-                android:layout_alignLeft="@+id/titleText"
-                android:layout_alignStart="@+id/titleText"
-                android:layout_below="@+id/titleText"
-                android:layout_marginTop="13dp"
-                android:clickable="true"
-                android:editable="false"
-                android:ems="10"
-                android:focusable="false"
-                android:hint="Date"
-                android:inputType="none"
-                android:longClickable="false" />
+            android:layout_alignLeft="@+id/titleText"
+            android:layout_alignStart="@+id/titleText"
+            android:layout_below="@+id/titleText"
+            android:layout_marginEnd="135dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Date"
+            android:inputType="none"
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
         <EditText
             android:id="@+id/timeText"
@@ -60,25 +72,36 @@
             android:layout_alignBottom="@+id/dateText"
             android:layout_alignEnd="@+id/titleText"
             android:layout_alignRight="@+id/titleText"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:clickable="true"
             android:editable="false"
             android:ems="10"
             android:focusable="false"
             android:hint="Time"
             android:inputType="none"
-            android:longClickable="false" />
+            android:longClickable="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/dateText"
+            app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
         <EditText
             android:id="@+id/locationText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dateText"
-            android:layout_marginTop="28dp"
+            android:layout_above="@+id/descriptionText"
+            android:layout_marginEnd="140dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_toLeftOf="@+id/timeText"
             android:layout_toStartOf="@+id/timeText"
             android:ems="10"
             android:hint="Address"
-            android:inputType="textPostalAddress" />
+            android:inputType="textPostalAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateText" />
 
         <Button
             android:id="@+id/setLocButton"
@@ -86,53 +109,99 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/locationText"
 
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/privSwitch"
             android:layout_toRightOf="@+id/privSwitch"
             android:background="@color/black_semi_transparent"
             android:text="Choose on map"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/locationText"
+            app:layout_constraintTop_toBottomOf="@+id/timeText" />
 
         <EditText
             android:id="@+id/descriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/setLocButton"
+            android:layout_alignBottom="@+id/privSwitch"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Description"
-            android:inputType="textMultiLine" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="82dp"
-                android:text="Create new event"
-                android:textSize="24sp" />
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationText" />
 
         <Switch
             android:id="@+id/privSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/descriptionText"
+            android:layout_above="@+id/fab"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="36dp"
-            android:text="Private" />
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:text="Private"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+            app:layout_constraintVertical_bias="0.383" />
 
         <Button
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/privSwitch"
+            android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/privSwitch"
-            android:layout_below="@+id/privSwitch"
-            android:layout_marginTop="26dp"
-            android:text="Confirm" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privSwitch" />
 
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/eventImage"
+            android:layout_width="match_parent"
+            android:layout_height="137dp"
+            android:layout_above="@+id/titleText"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="400dp"
+            android:layout_marginTop="85dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/titleText"
+            app:layout_constraintStart_toStartOf="@+id/titleText"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_upload" />
+
+        <Button
+            android:id="@+id/catButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black_semi_transparent"
+            android:text="Categories"
+            android:textColor="#FFFFFF"
+            tools:layout_editor_absoluteX="85dp"
+            tools:layout_editor_absoluteY="433dp" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <!--<include layout="@layout/content_new_event" />-->
 
