@@ -1,7 +1,9 @@
 package com.cs307.evant.evant;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -132,9 +134,24 @@ public class NewEventActivity extends AppCompatActivity {
         emage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageView = emage;
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 100);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewEventActivity.this);
+                alertDialog.setTitle("Upload image");
+                alertDialog.setMessage("Choose one of the following to upload a picture for the event.");
+                alertDialog.setPositiveButton("From camera", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                alertDialog.setNegativeButton("From gallery", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imageView = emage;
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, 1);
+                    }
+                });
+                alertDialog.show();
             }
         });
 
@@ -145,7 +162,7 @@ public class NewEventActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == 100) {
+        if(resultCode == RESULT_OK && requestCode == 0) {
             Uri imageUri = data.getData();
             image = imageUri;
             imageView.setImageURI(imageUri);
