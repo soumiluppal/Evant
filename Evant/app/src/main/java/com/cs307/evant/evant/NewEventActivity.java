@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -69,17 +70,24 @@ public class NewEventActivity extends AppCompatActivity {
                 description = descText.getText().toString();
                 dttime = dText.getText().toString() + "   " + tText.getText().toString();
                 priv = prSwitch.isChecked();
-                if (title.length() > 0 && address.length() > 0 && description.length() > 0 && dText.getText().length() > 0 && tText.getText().length() > 0) {
-                    Snackbar.make(view, "Event added", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    db.addEvent(title, address, description, dttime, FirebaseAuth.getInstance().getUid(),0, 0);
-                    Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
-                    startActivity(intent);
+                if(FirebaseAuth.getInstance().getUid()!= null) {
+                    if (title.length() > 0 && address.length() > 0 && description.length() > 0 && dText.getText().length() > 0 && tText.getText().length() > 0) {
+                        Snackbar.make(view, "Event added", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        db.addEvent(title, address, description, dttime, FirebaseAuth.getInstance().getUid(),0, 0);
+                        Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
+                        startActivity(intent);
 
-                } else {
-                    Snackbar.make(view, "Please fill out all fields", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    } else {
+                        Snackbar.make(view, "Please fill out all fields", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                }else{
+                    Toast.makeText(NewEventActivity.this, "You must sign in.",
+                            Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
 
