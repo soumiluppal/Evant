@@ -140,7 +140,9 @@ public class NewEventActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("From camera", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                imageView = emage;
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                startActivityForResult(intent, 0);
                             }
                         });
                 alertDialog.setNegativeButton("From gallery", new DialogInterface.OnClickListener() {
@@ -163,6 +165,11 @@ public class NewEventActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == 0) {
+            Uri imageUri = data.getData();
+            image = imageUri;
+            imageView.setImageURI(imageUri);
+        }
+        else if(resultCode == RESULT_OK && requestCode == 1) {
             Uri imageUri = data.getData();
             image = imageUri;
             imageView.setImageURI(imageUri);
