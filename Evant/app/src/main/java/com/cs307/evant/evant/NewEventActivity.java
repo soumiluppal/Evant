@@ -1,14 +1,20 @@
 package com.cs307.evant.evant;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,11 +25,16 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.os.Environment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -39,6 +50,7 @@ public class NewEventActivity extends AppCompatActivity {
     ImageView imageView;
     Double lat;
     Double lng;
+    File img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,20 +152,55 @@ public class NewEventActivity extends AppCompatActivity {
         emage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageView = emage;
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 100);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(NewEventActivity.this);
+                alertDialog.setTitle("Upload image");
+                alertDialog.setMessage("Choose one of the following to upload a picture for the event.");
+                alertDialog.setPositiveButton("From camera", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imageView = emage;
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        //File file = Environment.getExternalStorageDirectory();
+                        img = null;
+                        try {
+                            img = createImageFile();
+                            if(img != null) {
+                                Toast.makeText(NewEventActivity.this, "It is null", Toast.LENGTH_SHORT).show();
+                            }
+                            Uri photoURI = FileProvider.getUriForFile(NewEventActivity.this, "com.cs307.evant.evant.fileprovider", img);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                            startActivityForResult(intent, 0);
+                        } catch (IOException e) {
+
+                        }
+                    }
+                });
+                alertDialog.setNegativeButton("From gallery", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imageView = emage;
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, 1);
+                    }
+                });
+                alertDialog.show();
             }
         });
 
 
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == 100) {
+        if (resultCode == RESULT_OK && requestCode == 0) {
+
+            Uri imageUri = Uri.parse(img.toString());
+            //imageView.setImageBitmap(imageBitmap);
+            image = imageUri;
+            imageView.setImageURI(imageUri);
+        } else if (resultCode == RESULT_OK && requestCode == 1) {
             Uri imageUri = data.getData();
             image = imageUri;
             imageView.setImageURI(imageUri);
@@ -172,6 +219,20 @@ public class NewEventActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         tText.setText(sdf.format(clock.getTime()));
+    }
+
+    String mCurrentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 }
 
