@@ -3,14 +3,18 @@ package com.cs307.evant.evant;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -20,11 +24,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TimePicker;
+import android.widget.Toast;
+import android.os.Environment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -40,6 +50,7 @@ public class NewEventActivity extends AppCompatActivity {
     ImageView imageView;
     Double lat;
     Double lng;
+    File img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +85,7 @@ public class NewEventActivity extends AppCompatActivity {
                 if (title.length() > 0 && address.length() > 0 && description.length() > 0 && dText.getText().length() > 0 && tText.getText().length() > 0) {
                     Snackbar.make(view, "Event added", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    db.addEvent(title, address, description, dttime, FirebaseAuth.getInstance().getUid(),0, 0);
+                    db.addEvent(title, address, description, dttime, FirebaseAuth.getInstance().getUid(), 0, 0);
                     Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
                     startActivity(intent);
 
@@ -138,13 +149,25 @@ public class NewEventActivity extends AppCompatActivity {
                 alertDialog.setTitle("Upload image");
                 alertDialog.setMessage("Choose one of the following to upload a picture for the event.");
                 alertDialog.setPositiveButton("From camera", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                imageView = emage;
-                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                startActivityForResult(intent, 0);
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        imageView = emage;
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        //File file = Environment.getExternalStorageDirectory();
+                        img = null;
+                        try {
+                            img = createImageFile();
+                            if(img != null) {
+                                Toast.makeText(NewEventActivity.this, "It is null", Toast.LENGTH_SHORT).show();
                             }
-                        });
+                            Uri photoURI = FileProvider.getUriForFile(NewEventActivity.this, "com.cs307.evant.evant.fileprovider", img);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                            startActivityForResult(intent, 0);
+                        } catch (IOException e) {
+
+                        }
+                    }
+                });
                 alertDialog.setNegativeButton("From gallery", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -158,18 +181,19 @@ public class NewEventActivity extends AppCompatActivity {
         });
 
 
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == 0) {
-            Uri imageUri = data.getData();
+        if (resultCode == RESULT_OK && requestCode == 0) {
+
+            Uri imageUri = Uri.parse(img.toString());
+            //imageView.setImageBitmap(imageBitmap);
             image = imageUri;
             imageView.setImageURI(imageUri);
-        }
-        else if(resultCode == RESULT_OK && requestCode == 1) {
+        } else if (resultCode == RESULT_OK && requestCode == 1) {
             Uri imageUri = data.getData();
             image = imageUri;
             imageView.setImageURI(imageUri);
@@ -188,6 +212,20 @@ public class NewEventActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         tText.setText(sdf.format(clock.getTime()));
+    }
+
+    String mCurrentPhotoPath;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 }
 
