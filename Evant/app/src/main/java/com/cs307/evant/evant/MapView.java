@@ -449,6 +449,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     private double calculateDistance(LatLng marLoc){
         Location curLoc = new Location(LocationManager.GPS_PROVIDER);
+
         try {
             curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
@@ -456,12 +457,22 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         }
 
+
         Location markerLoc = new Location("");
         markerLoc.setLatitude(marLoc.latitude);
         markerLoc.setLongitude(marLoc.longitude);
 
-        double distance = curLoc.distanceTo(markerLoc);
+        double distance = 0;
+
+        try {
+            distance = curLoc.distanceTo(markerLoc);
+        }
+        catch (NullPointerException e){
+
+        }
+
         distance = distance / 1000;
+
 
         return distance;
     }
