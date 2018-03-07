@@ -51,6 +51,7 @@ public class NewEventActivity extends AppCompatActivity {
     Double lat;
     Double lng;
     File img;
+    boolean latlngCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +68,7 @@ public class NewEventActivity extends AppCompatActivity {
         final EditText addrText = (EditText) findViewById(R.id.locationText);
         final EditText descText = (EditText) findViewById(R.id.descriptionText);
         final Switch prSwitch = (Switch) findViewById(R.id.privSwitch);
-        final Double lat;
-        final Double lng;
+
 
 
         final Button setLocButton = (Button) findViewById(R.id.setLocButton);
@@ -77,26 +77,31 @@ public class NewEventActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                title = titleText.getText().toString();
-                address = addrText.getText().toString();
-                description = descText.getText().toString();
-                dttime = dText.getText().toString() + "   " + tText.getText().toString();
-                priv = prSwitch.isChecked();
-                if(FirebaseAuth.getInstance().getUid()!= null) {
-                    if (title.length() > 0 && address.length() > 0 && description.length() > 0 && dText.getText().length() > 0 && tText.getText().length() > 0) {
-                        Snackbar.make(view, "Event added", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        db.addEvent(title, address, description, dttime, FirebaseAuth.getInstance().getUid(),0, 0);
-                        Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
-                        startActivity(intent);
+                if(latlngCheck == false){
+                    Toast.makeText(getApplicationContext(), "Please specify the location", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    title = titleText.getText().toString();
+                    address = addrText.getText().toString();
+                    description = descText.getText().toString();
+                    dttime = dText.getText().toString() + "   " + tText.getText().toString();
+                    priv = prSwitch.isChecked();
+                    if (FirebaseAuth.getInstance().getUid() != null) {
+                        if (title.length() > 0 && address.length() > 0 && description.length() > 0 && dText.getText().length() > 0 && tText.getText().length() > 0) {
+                            Snackbar.make(view, "Event added", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            db.addEvent(title, address, description, dttime, FirebaseAuth.getInstance().getUid(), lat, lng);
+                            Intent intent = new Intent(NewEventActivity.this, MainActivity.class);
+                            startActivity(intent);
 
+                        } else {
+                            Snackbar.make(view, "Please fill out all fields", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
                     } else {
-                        Snackbar.make(view, "Please fill out all fields", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
+                        Toast.makeText(NewEventActivity.this, "You must sign in.",
+                                Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(NewEventActivity.this, "You must sign in.",
-                            Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -145,7 +150,8 @@ public class NewEventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //moveTaskToBack(true);
                 Intent intent = new Intent(NewEventActivity.this, MapSelectView.class);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, 101);
             }
         });
 
@@ -204,6 +210,11 @@ public class NewEventActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             image = imageUri;
             imageView.setImageURI(imageUri);
+        }
+        if(resultCode == RESULT_OK && requestCode == 101){
+            lat = data.getDoubleExtra("LAT", 0.0);
+            lng = data.getDoubleExtra("LNG", 0.0);
+            latlngCheck = data.getBooleanExtra("LOCCHECK", false);
         }
     }
 

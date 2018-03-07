@@ -249,7 +249,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         }
 
         startLocationService();
-        testingMarkers();
+ //       testingMarkers();
+        placeMarkers();
         mMap.setInfoWindowAdapter(new infoWindowAdapter());
 
     }
@@ -340,12 +341,71 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15),2000, null);
         }
     }
+    private void placeMarkers(){
+        ArrayList<Double> lats;
+        ArrayList<Double> lngs;
+        ArrayList<String> titles;
+        ArrayList<String> discrips;
+
+        lats = db.getLat();
+        lngs = db.getLng();
+        titles = db.getTitles();
+        discrips = db.getDescription();
+
+        int totalEvents = lats.size();
+
+        ArrayList<LatLng> markerLatlngs = new ArrayList<>();
+        ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
+        ArrayList<Marker> markers = new ArrayList<>();
+
+
+        for(int index = 0; index < totalEvents; index++){
+            final Object latObj = lats.get(index);
+            final Object lngObj = lngs.get(index);
+            final double douLat = ((Number)latObj).doubleValue();
+            final double douLng = ((Number)lngObj).doubleValue();
+
+            LatLng tempLatLng = new LatLng(douLat, douLng);
+            markerLatlngs.add(tempLatLng);
+            MarkerOptions tempMarkerOptions = new MarkerOptions();
+            tempMarkerOptions.position(markerLatlngs.get(index)).title(titles.get(index)).snippet(discrips.get(index));
+            markerOptions.add(tempMarkerOptions);
+
+        }
+
+        for(int index =0; index<totalEvents; index++){
+            Marker tempMarker = mMap.addMarker(markerOptions.get(index));
+            markers.add(tempMarker);
+        }
+
+        mMap.setOnMarkerClickListener(this);
+
+ //       Toast.makeText(getApplicationContext(), "Lat = " + lats.get(0) + " Lng = " + lngs.get(0) + " titles = " + titles.get(0) + " discrips = " + discrips.get(0), Toast.LENGTH_SHORT).show();
+        /*
+        for(int a=0; a < lats.size(); a++){
+            LatLng tempLatLng = new LatLng(lats.get(a), lngs.get(a));
+            markerLatlngs.add(tempLatLng);
+            MarkerOptions tempMarkerOptions = new MarkerOptions();
+            tempMarkerOptions.position(markerLatlngs.get(a)).title(titles.get(a)).snippet(discrips.get(a));
+            markerOptions.add(tempMarkerOptions);
+        }
+
+        for(int a=0; a<lats.size(); a++){
+            Marker tempMarker = mMap.addMarker(markerOptions.get(a));
+            markers.add(tempMarker);
+        }
+
+        mMap.setOnMarkerClickListener(this);
+        */
+    }
+
 
     private void testingMarkers(){
-        ArrayList<Double> lats = new ArrayList<>();
-        ArrayList<Double> lngs = new ArrayList<>();
-        ArrayList<String> titles = new ArrayList<>();
-        ArrayList<String> discrips = new ArrayList<>();
+        ArrayList<Double> lats = new ArrayList<Double>();
+        ArrayList<Double> lngs = new ArrayList<Double>();
+        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> discrips = new ArrayList<String>();
+
 
         titles.add("PMU");
         lats.add(40.424800);
@@ -383,27 +443,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             Marker tempMarker = mMap.addMarker(markerOptions.get(a));
             markers.add(tempMarker);
         }
-        /*
-        //mMap.setOnInfoWindowClickListener((GoogleMap.OnInfoWindowClickListener) this);
-        LatLng tempLatLngPMU = new LatLng(40.424800,-86.911000);
-        MarkerOptions tempMarkerOptionsPMU = new MarkerOptions();
-        tempMarkerOptionsPMU.position(tempLatLngPMU).title("temp Marker PMU").snippet("hihihi");
-        Marker pmu = mMap.addMarker(tempMarkerOptionsPMU);
 
-        // pmu.showInfoWindow();
-
-        LatLng tempLatLngCorec = new LatLng(40.428329,-86.922496);
-        MarkerOptions tempMarkerOptionsCorec = new MarkerOptions();
-        tempMarkerOptionsCorec.position(tempLatLngCorec).title("temp Marker Corec").snippet("More Info");
-        Marker corec = mMap.addMarker(tempMarkerOptionsCorec);
-//        corec.showInfoWindow();
-
-        LatLng tempLatLngLawson = new LatLng(40.427728,-86.916975);
-        MarkerOptions tempMarkerOptionsLawson = new MarkerOptions();
-        tempMarkerOptionsLawson.position(tempLatLngLawson).title("temp Marker Lawson").snippet("testing");
-        Marker lawson = mMap.addMarker(tempMarkerOptionsLawson);
-//        lawson.showInfoWindow();
-*/
         mMap.setOnMarkerClickListener(this);
     }
 

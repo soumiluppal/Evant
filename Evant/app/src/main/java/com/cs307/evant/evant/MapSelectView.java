@@ -1,6 +1,7 @@
 package com.cs307.evant.evant;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -38,6 +39,7 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
     private Circle circle;
     private Double lat;
     private Double lng;
+    boolean locCheck = false;
 
 
     @Override
@@ -112,7 +114,7 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
                 mMap.addMarker(new MarkerOptions().position(point));
                 lat = point.latitude;
                 lng = point.longitude;
-                Toast.makeText(getApplicationContext(), "lat = " + lat + " lng = " + lng, Toast.LENGTH_SHORT).show();
+                locCheck = true;
             }
         });
 
@@ -120,6 +122,11 @@ public class MapSelectView extends FragmentActivity implements OnMapReadyCallbac
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("LAT", lat);
+                intent.putExtra("LNG", lng);
+                intent.putExtra("LOCCHECK", locCheck);
+                setResult(Activity.RESULT_OK, intent);
                 MapSelectView.this.finish();
             }
         });
