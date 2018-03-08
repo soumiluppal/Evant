@@ -81,6 +81,16 @@ public class NewEventActivity extends AppCompatActivity {
         final Button catButton = (Button) findViewById(R.id.catButton);
 
 
+        if(first) {
+            checkButtons.put("Sports", false);
+            checkButtons.put("Food", false);
+            checkButtons.put("Gaming", false);
+            checkButtons.put("Education", false);
+            checkButtons.put("Music", false);
+            checkButtons.put("Movies", false);
+            checkButtons.put("Workout", false);
+            checkButtons.put("Hobbies", false);
+        }
         //UNCOMMENT TO TEST IMAGE RETRIEVAL
         /*ImageView imageViewer = (ImageView) findViewById(R.id.testimage);
         ArrayList<Bitmap> images = db.getImage();
