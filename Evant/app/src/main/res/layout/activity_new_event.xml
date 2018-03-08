@@ -191,6 +191,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_upload" />
 
+
         <Button
             android:id="@+id/catButton"
             android:layout_width="wrap_content"
@@ -200,6 +201,17 @@
             android:textColor="#FFFFFF"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="433dp" />
+
+        <!--<ImageView
+            android:id="@+id/testimage"
+            android:layout_width="match_parent"
+            android:layout_height="179dp"
+            app:layout_constraintEnd_toEndOf="@+id/catButton"
+            app:layout_constraintHorizontal_bias="0.233"
+            app:layout_constraintStart_toStartOf="@+id/catButton"
+            app:srcCompat="@android:drawable/ic_menu_today"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteY="331dp" />-->
 
     </android.support.constraint.ConstraintLayout>
 
