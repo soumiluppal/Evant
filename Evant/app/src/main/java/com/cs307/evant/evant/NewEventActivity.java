@@ -80,7 +80,7 @@ public class NewEventActivity extends AppCompatActivity {
         final Switch prSwitch = (Switch) findViewById(R.id.privSwitch);
         final Button catButton = (Button) findViewById(R.id.catButton);
 
-        
+
         //UNCOMMENT TO TEST IMAGE RETRIEVAL
         /*ImageView imageViewer = (ImageView) findViewById(R.id.testimage);
         ArrayList<Bitmap> images = db.getImage();
