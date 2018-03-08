@@ -6,6 +6,8 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import java.util.regex.Pattern;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.*;
 
 
 
@@ -21,15 +23,21 @@ public class ExampleUnitTest {
         this.email = e;
     }
 
+    @Rule
+    public ErrorCollector collector = new ErrorCollector();
+
     @Parameters
     public static String[] data(){
-        String[] data = new String[] {"name@example.com", "algkhagh@gmail.com"};
+        String[] data = new String[] {"name@example.com", "algkhagh@gmail", ""};
         return data;
     }
 
     @Test
     public void emailValidator_CorrectEmailSimple_ReturnsTrue(){
-
-        assertEquals(true, email.matches(".+@.+\\..+"));
+        try {
+            assertEquals(true, email.matches(".+@.+\\..+"));
+        }catch (Throwable e){
+            collector.addError(e);
+        }
     }
 }
