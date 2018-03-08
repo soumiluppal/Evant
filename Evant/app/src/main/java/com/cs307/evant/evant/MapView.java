@@ -5,7 +5,10 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,6 +41,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,7 +49,10 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -87,6 +94,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private Circle circle;
     private double radiusVal = 500;
     private String radiusStr = "";
+    private String curTime = DateFormat.getDateTimeInstance().format(new Date());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,7 +172,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setTitle("Set Radius");
                 final EditText input = new EditText(context);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 alertDialogBuilder.setView(input);
 
                 alertDialogBuilder.setMessage("Current radius is = " + radiusVal)
@@ -185,20 +193,33 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
 
-                /*
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.set_radius);
-                dialog.setTitle("Set Radius");
-                TextView text = (TextView)dialog.findViewById(R.id.text);
-                Button dialogButton = (Button)dialog.findViewById(R.id.dialogButtonOK);
-                dialogButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-                */
+            }
+        });
+        FloatingActionButton time = (FloatingActionButton) findViewById(R.id.time);
+        time.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("Set Time");
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_DATETIME);
+                alertDialogBuilder.setView(input);
+
+                alertDialogBuilder.setMessage("Current time setting is = " + curTime)
+                        .setCancelable(false)
+                        .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                curTime = input.getText().toString();
+                            }
+                        })
+                        .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
@@ -484,7 +505,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         return distance;
     }
-
 
 }
 
