@@ -283,12 +283,19 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
-        marker.showInfoWindow();
-        Toast.makeText(getApplicationContext(), "DISTANCE = " + calculateDistance(marker.getPosition()), Toast.LENGTH_SHORT).show();
+        double distance = calculateDistance(marker.getPosition());
+        System.out.println(distance);
+        if(distance<0){
+            return false;
+        }else{
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
+            marker.showInfoWindow();
+            Toast.makeText(getApplicationContext(), "DISTANCE = " + distance, Toast.LENGTH_SHORT).show();
 
 
-        return true;
+            return true;
+        }
+
     }
 
     private class GPSListener implements LocationListener{
@@ -455,6 +462,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         }
         catch (SecurityException e) {
 
+
         }
 
 
@@ -462,13 +470,13 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         markerLoc.setLatitude(marLoc.latitude);
         markerLoc.setLongitude(marLoc.longitude);
 
-        double distance = 0;
+        double distance = -1;
 
         try {
             distance = curLoc.distanceTo(markerLoc);
         }
         catch (NullPointerException e){
-
+            Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_SHORT).show();
         }
 
         distance = distance / 1000;
