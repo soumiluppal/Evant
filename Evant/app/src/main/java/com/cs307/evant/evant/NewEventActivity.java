@@ -38,7 +38,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Locale;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -57,6 +60,8 @@ public class NewEventActivity extends AppCompatActivity {
     File img;
     Bitmap bm;
     boolean latlngCheck = false;
+    HashMap<String, Boolean> checkButtons = new HashMap<>();
+    boolean first = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,9 @@ public class NewEventActivity extends AppCompatActivity {
         final EditText addrText = (EditText) findViewById(R.id.locationText);
         final EditText descText = (EditText) findViewById(R.id.descriptionText);
         final Switch prSwitch = (Switch) findViewById(R.id.privSwitch);
+        final Button catButton = (Button) findViewById(R.id.catButton);
 
+        
         //UNCOMMENT TO TEST IMAGE RETRIEVAL
         /*ImageView imageViewer = (ImageView) findViewById(R.id.testimage);
         ArrayList<Bitmap> images = db.getImage();
@@ -164,6 +171,18 @@ public class NewEventActivity extends AppCompatActivity {
             }
         });
 
+        catButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //moveTaskToBack(true);
+                Intent intent = new Intent(NewEventActivity.this, CatActivity.class);
+                //startActivity(intent);
+                intent.putExtra("map", checkButtons);
+                startActivityForResult(intent, 102);
+                first = false;
+            }
+        });
+
         emage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,6 +245,11 @@ public class NewEventActivity extends AppCompatActivity {
             lat = data.getDoubleExtra("LAT", 0.0);
             lng = data.getDoubleExtra("LNG", 0.0);
             latlngCheck = data.getBooleanExtra("LOCCHECK", false);
+        }
+        if(resultCode == RESULT_OK && requestCode == 102) {
+            //Intent intent = getIntent();
+            //Toast.makeText(NewEventActivity.this, "HELLO", Toast.LENGTH_SHORT);
+            checkButtons = (HashMap<String, Boolean>)data.getSerializableExtra("map");
         }
     }
 
