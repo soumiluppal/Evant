@@ -62,29 +62,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     final Context context = this;
 
-    class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
-        private final View contentsView;
-        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        infoWindowAdapter() {
-            contentsView = inflater.inflate(R.layout.map_info_window,null);
-        }
-
-        @Override
-        public View getInfoWindow(Marker marker) {
-
-            return null;
-        }
-
-        @Override
-        public View getInfoContents(Marker marker) {
-            TextView tvTitle = ((TextView)contentsView.findViewById(R.id.title));
-            tvTitle.setText(marker.getTitle());
-            TextView tvSnippet = ((TextView)contentsView.findViewById(R.id.snippet));
-            tvSnippet.setText(marker.getSnippet());
-
-            return contentsView;
-        }
-    }
+    
 
 
     private static final int MY_REQUEST_INT = 177;
@@ -396,6 +374,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             LatLng tempLatLng = new LatLng(douLat, douLng);
             markerLatlngs.add(tempLatLng);
             MarkerOptions tempMarkerOptions = new MarkerOptions();
+
             tempMarkerOptions.position(markerLatlngs.get(index)).title(titles.get(index)).snippet(discrips.get(index));
             markerOptions.add(tempMarkerOptions);
 
