@@ -293,7 +293,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 alertDialog.setNegativeButton("Learn more", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        
+                        Intent intent = new Intent(MapView.this, eventPage.class);
+                        startActivity(intent);
                     }
                 });
                 alertDialog.show();
