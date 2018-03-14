@@ -2,13 +2,16 @@ package com.cs307.evant.evant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -95,5 +98,25 @@ public class Profile extends AppCompatActivity {
 
 
         recyclerView.setAdapter(adapter);
+
+        ArrayList<String> interests = new ArrayList<>(5);
+
+        for(int i = 0; i < 5; i++) {
+            interests.add("Interest " + (i+1));
+        }
+        LinearLayout intLayout = (LinearLayout)findViewById(R.id.linearLayout);
+        intLayout.setOrientation(LinearLayout.VERTICAL);
+        TextView text = null;
+        for(int i = 0; i < interests.size(); i++) {
+            text = new TextView(Profile.this);
+            text.setText(interests.get(i));
+            text.setId(i);
+            intLayout.setLayoutParams(intLayout.getLayoutParams());
+            text.setGravity(Gravity.CENTER);
+            intLayout.addView(text);
+        }
+        /*for(int i = 0; i < interests.size(); i++) {
+
+        }*/
     }
 }
