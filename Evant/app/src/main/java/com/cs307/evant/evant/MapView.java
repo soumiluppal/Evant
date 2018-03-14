@@ -16,8 +16,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
+import android.net.Uri;
 import android.os.Build;
 //import android.support.design.widget.FloatingActionButton;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -36,6 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.v4.content.FileProvider;
 import android.text.InputType;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -43,12 +46,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,7 +67,29 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     final Context context = this;
 
-    
+    class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
+        private final View contentsView;
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        infoWindowAdapter() {
+            contentsView = inflater.inflate(R.layout.map_info_window,null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            TextView tvTitle = ((TextView)contentsView.findViewById(R.id.title));
+            tvTitle.setText(marker.getTitle());
+            TextView tvSnippet = ((TextView)contentsView.findViewById(R.id.description));
+            tvSnippet.setText(marker.getSnippet());
+            //ImageView imgView = (ImageView)contentsView.findViewById(R.id.)
+            return contentsView;
+        }
+    }
 
 
     private static final int MY_REQUEST_INT = 177;
@@ -251,6 +278,27 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
  //       testingMarkers();
         placeMarkers();
         mMap.setInfoWindowAdapter(new infoWindowAdapter());
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapView.this);
+                alertDialog.setTitle("Choose an option");
+                alertDialog.setMessage("What I would you like to do?");
+                alertDialog.setPositiveButton("Attend event", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.setNegativeButton("Learn more", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        
+                    }
+                });
+                alertDialog.show();
+            }
+        });
 
     }
     LocationManager manager;
