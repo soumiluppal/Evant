@@ -9,6 +9,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
@@ -100,6 +102,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private double radiusVal = 500;
     private String radiusStr = "";
     private String curTime = DateFormat.getDateTimeInstance().format(new Date());
+    private Calendar timeCalendar = Calendar.getInstance();
+    private Calendar curCalendar = Calendar.getInstance();
+    private Date date = curCalendar.getTime();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,6 +176,28 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 startActivity(intent);
             }
         });
+
+
+
+        final DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                timeCalendar.set(Calendar.YEAR, year);
+                timeCalendar.set(Calendar.MONTH, month);
+                timeCalendar.set(Calendar.DAY_OF_MONTH, day);
+
+            }
+        };
+
+        final TimePickerDialog.OnTimeSetListener tpd = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int min) {
+                timeCalendar.set(Calendar.HOUR, hour);
+                timeCalendar.set(Calendar.MINUTE, min);
+            }
+        };
+
+
         FloatingActionButton radius = (FloatingActionButton) findViewById(R.id.radius);
         radius.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -206,17 +235,24 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setTitle("Set Time");
                 final EditText input = new EditText(context);
-                input.setInputType(InputType.TYPE_CLASS_DATETIME);
-                alertDialogBuilder.setView(input);
-
-                alertDialogBuilder.setMessage("Current time setting is = " + curTime)
+                date = timeCalendar.getTime();
+                alertDialogBuilder.setMessage("Current time setting is = " + date)
                         .setCancelable(false)
-                        .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Change Date", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        new TimePickerDialog(MapView.this, tpd, timeCalendar.get(Calendar.HOUR), timeCalendar.get(Calendar.MINUTE),false).show();
+                                        new DatePickerDialog(MapView.this, dpd, timeCalendar.get(Calendar.YEAR), timeCalendar.get(Calendar.MONTH), timeCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                                    }
+                                }
+                        )
+                        /*
+                        .setPositiveButton("Change Time", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                curTime = input.getText().toString();
                             }
                         })
+                        */
                         .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -225,11 +261,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                         });
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
+
             }
         });
 
     }
-
 
     protected void onPause() {
         super.onPause();
