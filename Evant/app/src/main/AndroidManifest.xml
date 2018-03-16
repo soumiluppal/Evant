@@ -93,6 +93,9 @@
             android:name=".eventPage"
             android:label="@string/title_activity_event_page"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".atten_events"
+            android:label="atten_events" />
         <activity android:name=".CatActivity"></activity>
     </application>
 

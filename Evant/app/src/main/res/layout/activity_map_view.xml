@@ -151,6 +151,14 @@
             fab:fab_icon="@drawable/add"
             fab:fab_colorPressed="#F0E9E8"
             fab:fab_title="Set Time" />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/attended"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="#FFFFFF"
+            fab:fab_icon="@drawable/add"
+            fab:fab_colorPressed="#F0E9E8"
+            fab:fab_title="Attended Events" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 

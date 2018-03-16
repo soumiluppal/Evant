@@ -265,6 +265,15 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
+        FloatingActionButton attended = (FloatingActionButton) findViewById(R.id.attended);
+        attended.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapView.this, atten_events.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     protected void onPause() {
