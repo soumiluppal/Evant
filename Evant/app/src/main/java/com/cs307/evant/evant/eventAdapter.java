@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,6 +110,17 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
             @Override
             public boolean onLongClick(View view) {
                 Toast.makeText(view.getContext(), "success", Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        return false;
+                    }
+                });
+
+                popupMenu.show();
                 return true;
             }
         });
