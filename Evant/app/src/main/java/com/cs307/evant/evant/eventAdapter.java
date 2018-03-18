@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,8 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
                     ct.startActivity(intent);
                 }
             });
+
+
             //cnts = (TextView) view.findViewById(R.id.count);
             //iv = (ImageView) view.findViewById(R.id.photo);
 
@@ -100,6 +103,15 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
 
             }
         });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(view.getContext(), "success", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
 
 
     }

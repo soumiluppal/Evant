@@ -6,6 +6,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,25 +33,42 @@ public class atten_events extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //populate arrays
-/*
-        ArrayList<String> titles = new ArrayList<>();
-        ArrayList<String> dttime = new ArrayList<>();
-        ArrayList<String> loc = new ArrayList<>();
-        ArrayList<String> descrip = new ArrayList<>();
+        recyclerView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
 
-        titles = db.getTitles();
+                return true;
+            }
+        });
+        dummyList();
+    }
 
-        dttime = db.getTime();
 
-        loc = db.getLoc();
 
-        descrip = db.getDescription();
+    private void dummyList(){
+        ArrayList<String> titles = new ArrayList<String>();
+        ArrayList<String> descrips = new ArrayList<String>();
+        ArrayList<String> loc = new ArrayList<String>();
+        ArrayList<String> dtTime = new ArrayList<String>();
 
-        eventAdapter cadapter = new eventAdapter(titles,descrip,dttime,loc,this);
+        titles.add("dummy1");
+        descrips.add("dummy1 descrips");
+        loc.add("dummy1 loc");
+        dtTime.add("dummy1 dtTime");
 
-        recyclerView.setAdapter(cadapter);
-        */
+        titles.add("dummy2");
+        descrips.add("dummy2 descrips");
+        loc.add("dummy2 loc");
+        dtTime.add("dummy2 dtTime");
+
+        titles.add("dummy3");
+        descrips.add("dummy3 descrips");
+        loc.add("dummy3 loc");
+        dtTime.add("dummy3 dtTime");
+
+        eventAdapter eAdapter = new eventAdapter(titles,descrips, loc, dtTime, this);
+        recyclerView.setAdapter(eAdapter);
     }
 
 }
