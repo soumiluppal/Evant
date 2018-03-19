@@ -25,7 +25,7 @@ public class catList extends AppCompatActivity {
         setContentView(R.layout.content_cat_lst);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        
+
         recyclerView = (RecyclerView) findViewById(R.id.categories);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
