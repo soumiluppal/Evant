@@ -1,6 +1,9 @@
 package com.cs307.evant.evant;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -143,11 +146,40 @@ public class signup extends AppCompatActivity {
                 {
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                    nvalid = false;
+                    //nvalid = false;
                 }
                 else
                 {
                     final String nam = nm;
+                    //check for keep logged in
+                    if(klog.isChecked())
+                    {
+                        SQLiteOpenHelper DatabaseHelper = new DataHelp(signup.this);
+                        SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
+                        //cursor = db.query("LOGINDATA", new String[]{"CAT", "PATH","CNT","ROTATE","IMAGE"}, null, null, null, null, "_id DESC");
+
+                        db.delete("LOGINDATA",null,null);
+                        ContentValues cv = new ContentValues();
+                        cv.put("USER",username);
+                        cv.put("PASS", password);
+                        cv.put("LOGGED",1);
+                        db.insert("LOGINDATA",null,cv);
+                        db.close();
+                    }
+                    else
+                    {
+                        SQLiteOpenHelper DatabaseHelper = new DataHelp(signup.this);
+                        SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
+                        //cursor = db.query("LOGINDATA", new String[]{"CAT", "PATH","CNT","ROTATE","IMAGE"}, null, null, null, null, "_id DESC");
+
+                        ContentValues cv = new ContentValues();
+                        //cv.put("USER",username);
+                        //cv.put("PASS", password);
+                        cv.put("LOGGED",0);
+                        db.insert("LOGINDATA",null,cv);
+                        db.close();
+                    }
+
                     mAuth.createUserWithEmailAndPassword(username, password)
                             .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
                                 @Override
