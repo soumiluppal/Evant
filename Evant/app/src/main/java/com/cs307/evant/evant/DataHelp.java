@@ -31,28 +31,17 @@ public class DataHelp extends SQLiteOpenHelper
 
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 1) {
-            db.execSQL("CREATE TABLE ITEMDATA (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "LOC TEXT, "
-                    + "NAME TEXT, "
-                    + "PATH TEXT, "
-                    + "INFO TEXT, "
-                    + "IMAGE BLOB, "
-                    + "FAV INT, "
-                    + "ROTATE INT"
-                    + "MARK INT);");
-            db.execSQL("CREATE TABLE CATDATA (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "CAT TEXT, "
-                    + "PATH TEXT, "
-                    + "CNT INT, "
-                    + "ROTATE INT, "
-                    + "IMAGE BLOB, "
+            db.execSQL("CREATE TABLE LOGINDATA (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "USER TEXT, "
+                    + "PASS TEXT, "
+                    + "LOGGED INT, "
                     + "XTR TEXT) ;");
         }
 
         ContentValues cv = new ContentValues();
-        cv.put("LOC","14505 Chester ave Saratoga California");
-        cv.put("ROTATE", 99);
-        cv.put("CNT",0);
-        db.insert("CATDATA",null,cv);
+        //cv.put("USER","avi7agarwal");
+        //cv.put("PASS", "Hello");
+        cv.put("LOGGED",0);
+        db.insert("LOGINDATA",null,cv);
     }
 }
