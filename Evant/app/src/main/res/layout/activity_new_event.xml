@@ -191,15 +191,33 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_upload" />
 
+
         <Button
             android:id="@+id/catButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="8dp"
             android:background="@color/black_semi_transparent"
             android:text="Categories"
             android:textColor="#FFFFFF"
-            tools:layout_editor_absoluteX="85dp"
-            tools:layout_editor_absoluteY="433dp" />
+            app:layout_constraintBottom_toTopOf="@+id/fab"
+            app:layout_constraintEnd_toStartOf="@+id/privSwitch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
+
+        <!--<ImageView
+            android:id="@+id/testimage"
+            android:layout_width="match_parent"
+            android:layout_height="179dp"
+            app:layout_constraintEnd_toEndOf="@+id/catButton"
+            app:layout_constraintHorizontal_bias="0.233"
+            app:layout_constraintStart_toStartOf="@+id/catButton"
+            app:srcCompat="@android:drawable/ic_menu_today"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteY="331dp" />-->
 
     </android.support.constraint.ConstraintLayout>
 

@@ -135,6 +135,11 @@ public class signup extends AppCompatActivity {
                     //AlertDialog dialog = builder.create();
                     nvalid = true;
                     //dialog.show();
+                }else {
+                    if (!username.matches(".+@.+\\..+")) {
+                        builder.setMessage("Please enter a valid email address").setTitle("Incomplete Page");
+                        nvalid = true;
+                    }
                 }
 
                 if(nvalid)

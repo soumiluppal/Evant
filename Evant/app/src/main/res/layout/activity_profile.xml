@@ -25,51 +25,22 @@
         android:id="@+id/include"
         layout="@layout/content_profile" />
 
-    <TextView
-        android:id="@+id/dispname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name: "
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="75dp" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Events: "
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/events"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:divider="@android:color/transparent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="125dp"
-        android:layout_marginBottom="4dp" />
-
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="right|bottom"
         fab:fab_addButtonColorNormal="@color/colorPrimary"
         fab:fab_addButtonColorPressed="@color/colorPrimaryDark"
         fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_labelsPosition="left"
-        fab:fab_plusIconColor="#404040">
+        fab:fab_plusIconColor="#404040"
+        tools:layout_editor_absoluteX="254dp"
+        tools:layout_editor_absoluteY="275dp">
         <!--fab:fab_labelStyle="@style/menu_labels_style"-->
 
 
@@ -92,5 +63,64 @@
             fab:fab_title="Create Event" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Events: "
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="100dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="252dp"
+            android:layout_height="149dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="400dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dispname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name: "
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="75dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/events"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="125dp" />
+
+        <TextView
+            android:id="@+id/interestsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="350dp"
+            android:text="Interests"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

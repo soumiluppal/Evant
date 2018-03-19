@@ -38,10 +38,10 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
         public MyViewHolder(View view)
         {
             super(view);
+
             title = (TextView) view.findViewById(R.id.title);
             //cnts = (TextView) view.findViewById(R.id.count);
             iv = (ImageView) view.findViewById(R.id.photo);
-
 
         }
     }
@@ -58,6 +58,7 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
     public catAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ct = parent.getContext();
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cat_card, parent, false);
+
 
         return new catAdapter.MyViewHolder(itemView);
     }
@@ -77,8 +78,6 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
 
             }
         });
-
-
     }
 
 

@@ -5,7 +5,11 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,8 +17,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
+import android.net.Uri;
 import android.os.Build;
 //import android.support.design.widget.FloatingActionButton;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -33,19 +39,27 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.v4.content.FileProvider;
 import android.text.InputType;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -72,9 +86,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         public View getInfoContents(Marker marker) {
             TextView tvTitle = ((TextView)contentsView.findViewById(R.id.title));
             tvTitle.setText(marker.getTitle());
-            TextView tvSnippet = ((TextView)contentsView.findViewById(R.id.snippet));
+            TextView tvSnippet = ((TextView)contentsView.findViewById(R.id.description));
             tvSnippet.setText(marker.getSnippet());
-
+            //ImageView imgView = (ImageView)contentsView.findViewById(R.id.)
             return contentsView;
         }
     }
@@ -87,6 +101,12 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private Circle circle;
     private double radiusVal = 500;
     private String radiusStr = "";
+    private String curTime = DateFormat.getDateTimeInstance().format(new Date());
+    private Calendar timeCalendar = Calendar.getInstance();
+    private Calendar curCalendar = Calendar.getInstance();
+    private Date date = curCalendar.getTime();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +176,28 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 startActivity(intent);
             }
         });
+
+
+
+        final DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                timeCalendar.set(Calendar.YEAR, year);
+                timeCalendar.set(Calendar.MONTH, month);
+                timeCalendar.set(Calendar.DAY_OF_MONTH, day);
+
+            }
+        };
+
+        final TimePickerDialog.OnTimeSetListener tpd = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int min) {
+                timeCalendar.set(Calendar.HOUR, hour);
+                timeCalendar.set(Calendar.MINUTE, min);
+            }
+        };
+
+
         FloatingActionButton radius = (FloatingActionButton) findViewById(R.id.radius);
         radius.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
@@ -164,7 +206,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setTitle("Set Radius");
                 final EditText input = new EditText(context);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 alertDialogBuilder.setView(input);
 
                 alertDialogBuilder.setMessage("Current radius is = " + radiusVal)
@@ -176,7 +218,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                                 radiusVal = Double.parseDouble(radiusStr);
                             }
                         })
-                        .setNegativeButton("Calcel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
@@ -185,25 +227,54 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
 
-                /*
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.set_radius);
-                dialog.setTitle("Set Radius");
-                TextView text = (TextView)dialog.findViewById(R.id.text);
-                Button dialogButton = (Button)dialog.findViewById(R.id.dialogButtonOK);
-                dialogButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-                */
+            }
+        });
+        FloatingActionButton time = (FloatingActionButton) findViewById(R.id.time);
+        time.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("Set Time");
+                final EditText input = new EditText(context);
+                date = timeCalendar.getTime();
+                alertDialogBuilder.setMessage("Current time setting is = " + date)
+                        .setCancelable(false)
+                        .setPositiveButton("Change Date", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        new TimePickerDialog(MapView.this, tpd, timeCalendar.get(Calendar.HOUR), timeCalendar.get(Calendar.MINUTE),false).show();
+                                        new DatePickerDialog(MapView.this, dpd, timeCalendar.get(Calendar.YEAR), timeCalendar.get(Calendar.MONTH), timeCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                                    }
+                                }
+                        )
+                        /*
+                        .setPositiveButton("Change Time", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        })
+                        */
+                        .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+            }
+        });
+
+        FloatingActionButton attended = (FloatingActionButton) findViewById(R.id.attended);
+        attended.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapView.this, atten_events.class);
+                startActivity(intent);
             }
         });
 
     }
-
 
     protected void onPause() {
         super.onPause();
@@ -252,6 +323,28 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
  //       testingMarkers();
         placeMarkers();
         mMap.setInfoWindowAdapter(new infoWindowAdapter());
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapView.this);
+                alertDialog.setTitle("Choose an option");
+                alertDialog.setMessage("What I would you like to do?");
+                alertDialog.setPositiveButton("Attend event", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.setNegativeButton("Learn more", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(MapView.this, eventPage.class);
+                        startActivity(intent);
+                    }
+                });
+                alertDialog.show();
+            }
+        });
 
     }
     LocationManager manager;
@@ -375,6 +468,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             LatLng tempLatLng = new LatLng(douLat, douLng);
             markerLatlngs.add(tempLatLng);
             MarkerOptions tempMarkerOptions = new MarkerOptions();
+
             tempMarkerOptions.position(markerLatlngs.get(index)).title(titles.get(index)).snippet(discrips.get(index));
             markerOptions.add(tempMarkerOptions);
 
@@ -484,7 +578,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         return distance;
     }
-
 
 }
 
