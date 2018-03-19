@@ -8,6 +8,10 @@
     tools:context="com.cs307.evant.evant.cat_lst"
     tools:showIn="@layout/activity_cat_lst">
 
+
+
     <include layout="@layout/cat_list" />
+
+
 
 </android.support.constraint.ConstraintLayout>
