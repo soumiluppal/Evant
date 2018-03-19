@@ -23,11 +23,50 @@ public class MainActivity extends AppCompatActivity {
     /*test*/
     static Database db = new Database();
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
+
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            //load map
+            Intent intent = new Intent(MainActivity.this, MapView.class);
+            startActivity(intent);
+        }else {
+            //prompt login/signup
+            AlertDialog.Builder addItem = new AlertDialog.Builder(MainActivity.this);
+            addItem.setMessage("Please Login or Sign Up");
+            addItem.setTitle("Welcome to Evant!");
+            final Intent lpage = new Intent(MainActivity.this, loginPage.class);
+            final Intent spage = new Intent(MainActivity.this, signup.class);
+            //startActivity(intent);
+            View.OnClickListener login = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //dispatchTakePictureIntent();
+                }
+            };
+            addItem.setPositiveButton("Sign Up!", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface di, int id) {
+                    //dispatchTakePictureIntent();
+                    startActivity(spage);
+                }
+            });
+            addItem.setNegativeButton("Login!", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface di, int id) {
+                    //ImageView iv = (ImageView) findViewById(R.id.testView);
+                    //loadImagefromGallery();
+                    startActivity(lpage);
+                }
+
+            });
+            addItem.create();
+            addItem.show();
+        }
+    }
+
+    //TEMPORARY MAIN PAGE
+    /*protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.temp_main);
 
 
@@ -106,6 +145,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
+    }*/
 
 }
