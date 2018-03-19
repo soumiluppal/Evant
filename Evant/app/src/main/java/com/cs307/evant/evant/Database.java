@@ -15,9 +15,13 @@ import java.lang.Object;
 
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Iterator;
 import java.util.Map;
+
 
 /**
  * Created by Naomi on 2/23/2018.
@@ -33,6 +37,7 @@ public class Database {
     ArrayList lat = new ArrayList();
     ArrayList lng = new ArrayList();
     ArrayList<String> images = new ArrayList();
+    ArrayList<String> categories = new ArrayList();
     FirebaseDatabase db;
     DatabaseReference mDatabase;
     public Database(){
@@ -145,6 +150,17 @@ public class Database {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        mDatabase.child("categories").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                categories = (ArrayList<String>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     String getName(String uid){
@@ -163,7 +179,7 @@ public class Database {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    void addEvent(String name, String addr, String desc, String dt, String uid, double latitude, double longitude, Bitmap bm){
+    void addEvent(String name, String addr, String desc, String dt, String uid, double latitude, double longitude, Bitmap bm, Map checkButtons){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         titles.add(name);
         loc.add(addr);
@@ -172,6 +188,16 @@ public class Database {
         host.add(uid);
         lat.add(latitude);
         lng.add(longitude);
+        String category = "";
+        Iterator<Map.Entry<String, Boolean>> it = checkButtons.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, Boolean> entry = it.next();
+            if(entry.getValue() == true){
+                category += entry.getKey();
+                category += ",";
+            }
+        }
+        categories.add(category);
         if(bm == null){
             images.add("none");
         }else {
@@ -185,6 +211,7 @@ public class Database {
         mDatabase.child("lat").setValue(lat);
         mDatabase.child("long").setValue(lng);
         mDatabase.child("images").setValue(images);
+        mDatabase.child("categories").setValue(categories);
     }
 
     String encodeBitmap(Bitmap bm){
@@ -225,6 +252,19 @@ public class Database {
     ArrayList<Double> getLat(){ return lat;}
 
     ArrayList<Double> getLng(){return lng;}
+
+    ArrayList<String []> getCategories(){
+        ArrayList<String []> list = new ArrayList<>();
+        for(int i = 0; i<categories.size(); i++){
+            String s = categories.get(i);
+            //System.out.print("String: " + s + " ....... ");
+            String [] stringList = s.split(",");
+            //System.out.println("Strings: " + Arrays.toString(stringList));
+            list.add(stringList);
+        }
+        //System.out.println("Final list of arrays: " + list);
+        return list;
+    }
 
     void signOut(){
         FirebaseAuth.getInstance().signOut();
