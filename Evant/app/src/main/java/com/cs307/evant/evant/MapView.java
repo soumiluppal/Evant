@@ -153,6 +153,19 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
+        //attempt
+        Button settingsButton = (Button) findViewById(R.id.settingsbutton);
+
+        settingsButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(MapView.this, Settings.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
+        //attempt end
+
         FloatingActionButton actionC = new FloatingActionButton(getBaseContext());
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         final FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.multiple_actions);

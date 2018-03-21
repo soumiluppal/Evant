@@ -96,7 +96,11 @@
         <activity
             android:name=".atten_events"
             android:label="atten_events" />
-        <activity android:name=".CatActivity"></activity>
+        <activity android:name=".CatActivity" />
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
