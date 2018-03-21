@@ -2,6 +2,7 @@ package com.cs307.evant.evant;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,7 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
@@ -22,6 +25,7 @@ import static com.cs307.evant.evant.MainActivity.db;
 public class eventList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private String category;
+    private ArrayList<Integer> needIndexs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,21 @@ public class eventList extends AppCompatActivity {
         ArrayList<String> descrip = new ArrayList<>();
         ArrayList<String> hst = new ArrayList<>();
 
+        ArrayList<String> ntitles = new ArrayList<>();
+        ArrayList<String> ndttime = new ArrayList<>();
+        ArrayList<String> nloc = new ArrayList<>();
+        ArrayList<String> ndescrip = new ArrayList<>();
+        ArrayList<String> nhst = new ArrayList<>();
+
+        ArrayList<String[]> cats = new ArrayList<>();
+
+
+        cats = db.getCategories();
+
+        System.out.println(cats.get(0)[0]);
+
+        filterCats(cats);
+
         titles = db.getTitles();
 
         hst = db.getHost();
@@ -58,10 +77,45 @@ public class eventList extends AppCompatActivity {
 
         descrip = db.getDescription();
 
-        eventAdapter cadapter = new eventAdapter(titles,descrip,dttime,loc,hst,this);
+        ntitles = stpdfilter(titles);
+        ndttime = stpdfilter(dttime);
+        nloc = stpdfilter(loc);
+        ndescrip = stpdfilter(descrip);
+        nhst = stpdfilter(hst);
+
+
+        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc,nhst,this);
 
 
         recyclerView.setAdapter(cadapter);
     }
+
+
+    private void filterCats(ArrayList<String[]> cts)
+    {
+        for(int i = 0; i < cts.size() ; i++)
+        {
+            if(Arrays.asList(cts.get(i)).contains(category))
+            {
+                needIndexs.add(i);
+                System.out.println(i);
+            }
+        }
+
+    }
+
+    private ArrayList<String> stpdfilter(ArrayList<String> gve)
+    {
+        ArrayList<String> actualy = new ArrayList<>();
+
+        for(int i = 0; i < needIndexs.size(); i++)
+        {
+            actualy.add(gve.get(needIndexs.get(i)));
+        }
+        return  actualy;
+    }
+
+
+
 
 }
