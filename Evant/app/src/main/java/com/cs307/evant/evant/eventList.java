@@ -30,6 +30,8 @@ public class eventList extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        category = getIntent().getStringExtra("Category");
+
         recyclerView = (RecyclerView) findViewById(R.id.categories);
         //RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setHasFixedSize(true);
@@ -44,8 +46,11 @@ public class eventList extends AppCompatActivity {
         ArrayList<String> dttime = new ArrayList<>();
         ArrayList<String> loc = new ArrayList<>();
         ArrayList<String> descrip = new ArrayList<>();
+        ArrayList<String> hst = new ArrayList<>();
 
         titles = db.getTitles();
+
+        hst = db.getHost();
 
         dttime = db.getTime();
 
@@ -53,7 +58,8 @@ public class eventList extends AppCompatActivity {
 
         descrip = db.getDescription();
 
-        eventAdapter cadapter = new eventAdapter(titles,descrip,dttime,loc,this);
+        eventAdapter cadapter = new eventAdapter(titles,descrip,dttime,loc,hst,this);
+
 
         recyclerView.setAdapter(cadapter);
     }

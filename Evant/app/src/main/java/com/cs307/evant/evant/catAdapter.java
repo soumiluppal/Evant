@@ -74,6 +74,7 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ct, eventList.class);
+                intent.putExtra("Category",cattitles.get(position));
                 ct.startActivity(intent);
 
             }
