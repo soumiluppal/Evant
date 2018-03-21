@@ -60,7 +60,9 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
@@ -69,11 +71,15 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     final Context context = this;
 
+    Map<Marker, String> markerLoc = new HashMap<Marker, String>();
+    Map<Marker, String> markerTime = new HashMap<Marker, String>();
+
+
     class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
         private final View contentsView;
         LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         infoWindowAdapter() {
-            contentsView = inflater.inflate(R.layout.map_info_window,null);
+            contentsView = inflater.inflate(R.layout.event_card,null);
         }
 
         @Override
@@ -84,10 +90,21 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         @Override
         public View getInfoContents(Marker marker) {
-            TextView tvTitle = ((TextView)contentsView.findViewById(R.id.title));
+            TextView tvTitle = ((TextView)contentsView.findViewById(R.id.eventTitle));
             tvTitle.setText(marker.getTitle());
-            TextView tvSnippet = ((TextView)contentsView.findViewById(R.id.description));
-            tvSnippet.setText(marker.getSnippet());
+            TextView tvDescription = ((TextView)contentsView.findViewById(R.id.description));
+            tvDescription.setText(marker.getSnippet());
+            TextView tvLoc = ((TextView)contentsView.findViewById(R.id.locationText));
+            tvLoc.setText(markerLoc.get(marker));
+            TextView tvTime = ((TextView)contentsView.findViewById(R.id.time));
+            if(markerTime.get(marker) != null) {
+                tvTime.setText(markerTime.get(marker));
+            }
+            else{
+                tvTime.setText("NULL");
+            }
+            //TextView tvLocation = ((TextView)contentsView.findViewById(R.id.locationText));
+            //tvLocation.setText(marker.get);
             //ImageView imgView = (ImageView)contentsView.findViewById(R.id.)
             return contentsView;
         }
@@ -336,6 +353,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
  //       testingMarkers();
         placeMarkers();
         mMap.setInfoWindowAdapter(new infoWindowAdapter());
+        
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -358,6 +376,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 alertDialog.show();
             }
         });
+
 
     }
     LocationManager manager;
@@ -459,18 +478,21 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         ArrayList<Double> lngs;
         ArrayList<String> titles;
         ArrayList<String> discrips;
+        ArrayList<String> locations;
+        ArrayList<String> times;
 
         lats = db.getLat();
         lngs = db.getLng();
         titles = db.getTitles();
         discrips = db.getDescription();
+        locations = db.getLoc();
+        times = db.getTime();
 
         int totalEvents = lats.size();
 
         ArrayList<LatLng> markerLatlngs = new ArrayList<>();
         ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
         ArrayList<Marker> markers = new ArrayList<>();
-
 
         for(int index = 0; index < totalEvents; index++){
             final Object latObj = lats.get(index);
@@ -489,6 +511,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         for(int index =0; index<totalEvents; index++){
             Marker tempMarker = mMap.addMarker(markerOptions.get(index));
+            markerLoc.put(tempMarker, locations.get(index));
+            markerTime.put(tempMarker, times.get(index));
             markers.add(tempMarker);
         }
 
