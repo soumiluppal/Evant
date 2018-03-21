@@ -356,7 +356,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public void onInfoWindowClick(Marker marker) {
+            public void onInfoWindowClick(final Marker marker) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapView.this);
                 alertDialog.setTitle("Choose an option");
                 alertDialog.setMessage("What I would you like to do?");
@@ -370,6 +370,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(MapView.this, eventPage.class);
+                        intent.putExtra("Title",marker.getTitle());
+                        intent.putExtra("Description",(marker.getSnippet()));
+                        intent.putExtra("dttime",markerTime.get(marker));
+                        intent.putExtra("location",markerLoc.get(marker));
                         startActivity(intent);
                     }
                 });
