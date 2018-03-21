@@ -1,6 +1,9 @@
 package com.cs307.evant.evant;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,6 +48,17 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 db.signOut();
+                SQLiteOpenHelper DatabaseHelper = new DataHelp(Settings.this);
+                SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
+                //cursor = db.query("LOGINDATA", new String[]{"CAT", "PATH","CNT","ROTATE","IMAGE"}, null, null, null, null, "_id DESC");
+                db.delete("LOGINDATA", null, null);
+                ContentValues cv = new ContentValues();
+
+                cv.put("USER","");
+                cv.put("PASS", "");
+                cv.put("LOGGED",0);
+                db.insert("LOGINDATA",null,cv);
+
                 Intent intent = new Intent(Settings.this, MainActivity.class);
                 startActivity(intent);
             }

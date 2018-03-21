@@ -63,7 +63,7 @@ public class eventList extends AppCompatActivity {
 
         cats = db.getCategories();
 
-        System.out.println(cats.get(0)[0]);
+        //System.out.println(cats.get(0)[0]);
 
         filterCats(cats);
 
