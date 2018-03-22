@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Iterator;
 import java.util.Map;
+import com.google.gson.*;
 
 
 /**
@@ -29,7 +30,7 @@ import java.util.Map;
 
 public class Database {
     Map<String, Object> users;
-    ArrayList titles = new ArrayList();
+    ArrayList<String> titles = new ArrayList();
     ArrayList dttime = new ArrayList();
     ArrayList loc = new ArrayList();
     ArrayList descriptions = new ArrayList();
@@ -166,13 +167,31 @@ public class Database {
     String getName(String uid){
         String user =  users.get(uid).toString();
         String name = user.split("name=")[1];
-        name = name.substring(0, name.indexOf("}"));
+        name = name.substring(0, name.indexOf(","));
         return name;
     }
 
     void updateName(String uid, String name){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(uid).child("name").setValue(name);
+    }
+
+    ArrayList<Integer> getMyEvents(String uid){
+        String user =  users.get(uid).toString();
+        System.out.println(user);
+        String events = user.split("events=")[1];
+        events = events.substring(0, events.indexOf("}"));
+        Gson gson = new Gson();
+        ArrayList liste = gson.fromJson(events, ArrayList.class);
+        ArrayList<Integer> result = searchByName(liste);
+        return result;
+    }
+
+    void updateMyEvents(String uid, ArrayList<String> events){
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        Gson gson = new Gson();
+        String stringe = gson.toJson(events);
+        mDatabase.child("users").child(uid).child("events").setValue(stringe);
     }
 
     String getUid(){
@@ -264,6 +283,19 @@ public class Database {
         }
         //System.out.println("Final list of arrays: " + list);
         return list;
+    }
+
+    ArrayList<Integer> searchByName (ArrayList<String> names){
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for(int i = 0; i<titles.size(); i++){
+            String currTitle = titles.get(i);
+            for(int j = 0; j<names.size(); j++) {
+                if (currTitle.contains(names.get(j))) {
+                    indexes.add(i);
+                }
+            }
+        }
+        return indexes;
     }
 
     void signOut(){

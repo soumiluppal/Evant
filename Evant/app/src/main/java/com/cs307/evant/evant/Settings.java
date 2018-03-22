@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import static com.cs307.evant.evant.MainActivity.db;
 
 public class Settings extends AppCompatActivity {
@@ -35,7 +37,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Intent intent = new Intent(Settings.this, MainActivity.class);
-                startActivity(intent);
+               startActivity(intent);
             }
         });
 
