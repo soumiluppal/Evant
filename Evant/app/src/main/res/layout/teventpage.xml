@@ -113,9 +113,17 @@
             android:shadowDx="1.5"
             android:shadowDy="1.3"
             android:shadowRadius="2"
-            android:text="Chocolate chip cookies are commonly made with white sugar; brown sugar; flour; a small portion of salt; eggs; a leavening agent such as baking powder; a fat, typically butter or shortening; vanilla extract; and semi-sweet chocolate pieces."
+            android:text="test"
             android:textColor="#000"
             android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/joinEvent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/PrimaryFlatButton"
+            android:gravity="center|bottom"
+            android:text="Join Event" />
         />
 
     </LinearLayout>
