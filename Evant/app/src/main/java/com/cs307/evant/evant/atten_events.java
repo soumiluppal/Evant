@@ -51,23 +51,27 @@ public class atten_events extends AppCompatActivity {
         ArrayList<String> descrips = new ArrayList<String>();
         ArrayList<String> loc = new ArrayList<String>();
         ArrayList<String> dtTime = new ArrayList<String>();
+        ArrayList<String> hst = new ArrayList<>();
 
         titles.add("dummy1");
         descrips.add("dummy1 descrips");
         loc.add("dummy1 loc");
         dtTime.add("dummy1 dtTime");
+        hst.add("dummy1 hst");
 
         titles.add("dummy2");
         descrips.add("dummy2 descrips");
         loc.add("dummy2 loc");
         dtTime.add("dummy2 dtTime");
+        hst.add("dummy1 hst");
 
         titles.add("dummy3");
         descrips.add("dummy3 descrips");
         loc.add("dummy3 loc");
         dtTime.add("dummy3 dtTime");
+        hst.add("dummy1 hst");
 
-        eventAdapter eAdapter = new eventAdapter(titles,descrips, loc, dtTime, this);
+        eventAdapter eAdapter = new eventAdapter(titles,descrips, loc, dtTime,hst, this);
         recyclerView.setAdapter(eAdapter);
     }
 

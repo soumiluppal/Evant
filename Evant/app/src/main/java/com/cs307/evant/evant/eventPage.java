@@ -24,7 +24,7 @@ public class eventPage extends AppCompatActivity {
         descrip.setText(getIntent().getStringExtra("Description"));
         String location = "Location:  " + getIntent().getStringExtra("location") + "  " + getIntent().getStringExtra("dttime");
         Loc.setText(location);
-        peps.setText("Added after parameter conflict is solved");
+        peps.setText(getIntent().getStringExtra("Host"));
 
 
     }
