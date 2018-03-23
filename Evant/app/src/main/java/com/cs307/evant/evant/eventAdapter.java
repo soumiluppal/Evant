@@ -50,14 +50,6 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
             info = view.findViewById(R.id.minfo);
 
 
-            info.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(ct, eventPage.class);
-                    ct.startActivity(intent);
-                }
-            });
-
 
             //cnts = (TextView) view.findViewById(R.id.count);
             //iv = (ImageView) view.findViewById(R.id.photo);
@@ -97,6 +89,18 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         //String fpath = photopath.get(position);
         //holder.iv.setImageBitmap(catPhotos.get(position));
 
+        holder.info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ct, eventPage.class);
+                intent.putExtra("Host",hosts.get(position));
+                intent.putExtra("Title",titles.get(position));
+                intent.putExtra("Description",descrip.get(position));
+                intent.putExtra("dttime",dttme.get(position));
+                intent.putExtra("location",location.get(position));
+                ct.startActivity(intent);
+            }
+        });
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
