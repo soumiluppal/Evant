@@ -1,6 +1,7 @@
 package com.cs307.evant.evant;
 
 import android.Manifest;
+
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -40,6 +41,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -52,6 +57,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import org.w3c.dom.Text;
 
@@ -75,11 +81,12 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     Map<Marker, String> markerTime = new HashMap<Marker, String>();
 
 
-    class infoWindowAdapter implements GoogleMap.InfoWindowAdapter{
+    class infoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         private final View contentsView;
         LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         infoWindowAdapter() {
-            contentsView = inflater.inflate(R.layout.event_card,null);
+            contentsView = inflater.inflate(R.layout.event_card, null);
         }
 
         @Override
@@ -90,17 +97,16 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         @Override
         public View getInfoContents(Marker marker) {
-            TextView tvTitle = ((TextView)contentsView.findViewById(R.id.eventTitle));
+            TextView tvTitle = ((TextView) contentsView.findViewById(R.id.eventTitle));
             tvTitle.setText(marker.getTitle());
-            TextView tvDescription = ((TextView)contentsView.findViewById(R.id.description));
+            TextView tvDescription = ((TextView) contentsView.findViewById(R.id.description));
             tvDescription.setText(marker.getSnippet());
-            TextView tvLoc = ((TextView)contentsView.findViewById(R.id.locationText));
+            TextView tvLoc = ((TextView) contentsView.findViewById(R.id.locationText));
             tvLoc.setText(markerLoc.get(marker));
-            TextView tvTime = ((TextView)contentsView.findViewById(R.id.time));
-            if(markerTime.get(marker) != null) {
+            TextView tvTime = ((TextView) contentsView.findViewById(R.id.time));
+            if (markerTime.get(marker) != null) {
                 tvTime.setText(markerTime.get(marker));
-            }
-            else{
+            } else {
                 tvTime.setText("NULL");
             }
             //TextView tvLocation = ((TextView)contentsView.findViewById(R.id.locationText));
@@ -122,7 +128,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private Calendar timeCalendar = Calendar.getInstance();
     private Calendar curCalendar = Calendar.getInstance();
     private Date date = curCalendar.getTime();
-
 
 
     @Override
@@ -151,9 +156,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         Button listButton = (Button) findViewById(R.id.listbutton);
 
-        listButton.setOnClickListener(new View.OnClickListener(){
+        listButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(MapView.this, catList.class);
                 startActivity(intent);
             }
@@ -161,9 +166,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         Button profileButton = (Button) findViewById(R.id.profilebutton);
 
-        profileButton.setOnClickListener(new View.OnClickListener(){
+        profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(MapView.this, Profile.class);
                 intent.putExtra("uid", db.getUid());
                 startActivity(intent);
@@ -173,9 +178,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         //attempt
         Button settingsButton = (Button) findViewById(R.id.settingsbutton);
 
-        settingsButton.setOnClickListener(new View.OnClickListener(){
+        settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(MapView.this, Settings.class);
                 intent.putExtra("uid", db.getUid());
                 startActivity(intent);
@@ -208,7 +213,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         });
 
 
-
         final DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -229,8 +233,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
 
         FloatingActionButton radius = (FloatingActionButton) findViewById(R.id.radius);
-        radius.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        radius.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "DISTANCE = " + radiusVal, Toast.LENGTH_SHORT).show();
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -260,8 +264,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
         FloatingActionButton time = (FloatingActionButton) findViewById(R.id.time);
-        time.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        time.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setTitle("Set Time");
                 final EditText input = new EditText(context);
@@ -271,7 +275,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                         .setPositiveButton("Change Date", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        new TimePickerDialog(MapView.this, tpd, timeCalendar.get(Calendar.HOUR), timeCalendar.get(Calendar.MINUTE),false).show();
+                                        new TimePickerDialog(MapView.this, tpd, timeCalendar.get(Calendar.HOUR), timeCalendar.get(Calendar.MINUTE), false).show();
                                         new DatePickerDialog(MapView.this, dpd, timeCalendar.get(Calendar.YEAR), timeCalendar.get(Calendar.MONTH), timeCalendar.get(Calendar.DAY_OF_MONTH)).show();
                                     }
                                 }
@@ -283,7 +287,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                             }
                         })
                         */
-                        .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
@@ -304,13 +308,113 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
+
+        final ToggleButton upcomingButton = (ToggleButton) findViewById(R.id.upcoming);
+        final ToggleButton arrowButton = (ToggleButton) findViewById(R.id.arrowUP);
+        upcomingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (upcomingButton.isChecked()) {
+                    arrowButton.setChecked(true);
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.upcomingRecycler);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.addItemDecoration(new DividerItemDecoration(MapView.this, LinearLayoutManager.VERTICAL));
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MapView.this);
+                    //recyclerView.addItemDecoration(new DividerItemDecoration(HomeScreen.this, LinearLayoutManager.VERTICAL));
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    ArrayList<String> titles = new ArrayList<>();
+                    ArrayList<String> dttime = new ArrayList<>();
+                    ArrayList<String> loc = new ArrayList<>();
+                    ArrayList<String> descrip = new ArrayList<>();
+                    ArrayList<String> hst = new ArrayList<>();
+                    //cats = db.getCategories();
+
+                    //System.out.println(cats.get(0)[0]);
+
+                    //filterCats(cats);
+
+                    titles = db.getTitles();
+
+                    hst = db.getHost();
+
+                    dttime = db.getTime();
+
+                    loc = db.getLoc();
+
+                    descrip = db.getDescription();
+
+                    eventAdapter cadapter = new eventAdapter(titles, descrip, dttime, loc, hst, MapView.this);
+
+                    recyclerView.bringToFront();
+                    recyclerView.setAdapter(cadapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    arrowButton.setChecked(false);
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.upcomingRecycler);
+                    recyclerView.setAdapter(null);
+                    recyclerView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+
+        arrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (arrowButton.isChecked()) {
+                    upcomingButton.setChecked(true);
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.upcomingRecycler);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.addItemDecoration(new DividerItemDecoration(MapView.this, LinearLayoutManager.VERTICAL));
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(MapView.this);
+                    //recyclerView.addItemDecoration(new DividerItemDecoration(HomeScreen.this, LinearLayoutManager.VERTICAL));
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    ArrayList<String> titles = new ArrayList<>();
+                    ArrayList<String> dttime = new ArrayList<>();
+                    ArrayList<String> loc = new ArrayList<>();
+                    ArrayList<String> descrip = new ArrayList<>();
+                    ArrayList<String> hst = new ArrayList<>();
+                    //cats = db.getCategories();
+
+                    //System.out.println(cats.get(0)[0]);
+
+                    //filterCats(cats);
+
+                    titles = db.getTitles();
+
+                    hst = db.getHost();
+
+                    dttime = db.getTime();
+
+                    loc = db.getLoc();
+
+                    descrip = db.getDescription();
+
+                    eventAdapter cadapter = new eventAdapter(titles, descrip, dttime, loc, hst, MapView.this);
+
+                    recyclerView.bringToFront();
+                    recyclerView.setAdapter(cadapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    upcomingButton.setChecked(false);
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.upcomingRecycler);
+                    recyclerView.setAdapter(null);
+                    recyclerView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
     }
 
     protected void onPause() {
         super.onPause();
     }
 
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
         startLocationService();
@@ -350,10 +454,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         }
 
         startLocationService();
- //       testingMarkers();
+        //       testingMarkers();
         placeMarkers();
         mMap.setInfoWindowAdapter(new infoWindowAdapter());
-        
+
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(final Marker marker) {
@@ -370,10 +474,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(MapView.this, eventPage.class);
-                        intent.putExtra("Title",marker.getTitle());
-                        intent.putExtra("Description",(marker.getSnippet()));
-                        intent.putExtra("dttime",markerTime.get(marker));
-                        intent.putExtra("location",markerLoc.get(marker));
+                        intent.putExtra("Title", marker.getTitle());
+                        intent.putExtra("Description", (marker.getSnippet()));
+                        intent.putExtra("dttime", markerTime.get(marker));
+                        intent.putExtra("location", markerLoc.get(marker));
                         startActivity(intent);
                     }
                 });
@@ -383,7 +487,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
 
     }
+
     LocationManager manager;
+
     private void startLocationService() {
         manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -414,9 +520,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     public boolean onMarkerClick(Marker marker) {
         double distance = calculateDistance(marker.getPosition());
         System.out.println(distance);
-        if(distance<0){
+        if (distance < 0) {
             return false;
-        }else{
+        } else {
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15));
             marker.showInfoWindow();
             Toast.makeText(getApplicationContext(), "DISTANCE = " + distance, Toast.LENGTH_SHORT).show();
@@ -427,8 +533,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     }
 
-    private class GPSListener implements LocationListener{
-        public void onLocationChanged(Location location){
+    private class GPSListener implements LocationListener {
+        public void onLocationChanged(Location location) {
             Double latitude = location.getLatitude();
             Double longitude = location.getLongitude();
             showCurrentLocation(latitude, longitude);
@@ -449,8 +555,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         }
 
-        private void showCurrentLocation(Double latitude, Double longitude){
-            if(circle != null){
+        private void showCurrentLocation(Double latitude, Double longitude) {
+            if (circle != null) {
                 circle.remove();
             }
             LatLng cur = new LatLng(latitude, longitude);
@@ -474,10 +580,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             mMap.addCircle(circle);
             prevCircle = circle;
             */
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15),2000, null);
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cur, 15), 2000, null);
         }
     }
-    private void placeMarkers(){
+
+    private void placeMarkers() {
         ArrayList<Double> lats;
         ArrayList<Double> lngs;
         ArrayList<String> titles;
@@ -498,11 +605,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
         ArrayList<Marker> markers = new ArrayList<>();
 
-        for(int index = 0; index < totalEvents; index++){
+        for (int index = 0; index < totalEvents; index++) {
             final Object latObj = lats.get(index);
             final Object lngObj = lngs.get(index);
-            final double douLat = ((Number)latObj).doubleValue();
-            final double douLng = ((Number)lngObj).doubleValue();
+            final double douLat = ((Number) latObj).doubleValue();
+            final double douLng = ((Number) lngObj).doubleValue();
 
             LatLng tempLatLng = new LatLng(douLat, douLng);
             markerLatlngs.add(tempLatLng);
@@ -513,7 +620,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         }
 
-        for(int index =0; index<totalEvents; index++){
+        for (int index = 0; index < totalEvents; index++) {
             Marker tempMarker = mMap.addMarker(markerOptions.get(index));
             markerLoc.put(tempMarker, locations.get(index));
             markerTime.put(tempMarker, times.get(index));
@@ -522,7 +629,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         mMap.setOnMarkerClickListener(this);
 
- //       Toast.makeText(getApplicationContext(), "Lat = " + lats.get(0) + " Lng = " + lngs.get(0) + " titles = " + titles.get(0) + " discrips = " + discrips.get(0), Toast.LENGTH_SHORT).show();
+        //       Toast.makeText(getApplicationContext(), "Lat = " + lats.get(0) + " Lng = " + lngs.get(0) + " titles = " + titles.get(0) + " discrips = " + discrips.get(0), Toast.LENGTH_SHORT).show();
         /*
         for(int a=0; a < lats.size(); a++){
             LatLng tempLatLng = new LatLng(lats.get(a), lngs.get(a));
@@ -542,7 +649,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     }
 
 
-    private void testingMarkers(){
+    private void testingMarkers() {
         ArrayList<Double> lats = new ArrayList<Double>();
         ArrayList<Double> lngs = new ArrayList<Double>();
         ArrayList<String> titles = new ArrayList<String>();
@@ -573,7 +680,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
         ArrayList<Marker> markers = new ArrayList<>();
 
-        for(int a=0; a < lats.size(); a++){
+        for (int a = 0; a < lats.size(); a++) {
             LatLng tempLatLng = new LatLng(lats.get(a), lngs.get(a));
             markerLatlngs.add(tempLatLng);
             MarkerOptions tempMarkerOptions = new MarkerOptions();
@@ -581,7 +688,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             markerOptions.add(tempMarkerOptions);
         }
 
-        for(int a=0; a<lats.size(); a++){
+        for (int a = 0; a < lats.size(); a++) {
             Marker tempMarker = mMap.addMarker(markerOptions.get(a));
             markers.add(tempMarker);
         }
@@ -589,13 +696,12 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         mMap.setOnMarkerClickListener(this);
     }
 
-    private double calculateDistance(LatLng marLoc){
+    private double calculateDistance(LatLng marLoc) {
         Location curLoc = new Location(LocationManager.GPS_PROVIDER);
 
         try {
             curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-        catch (SecurityException e) {
+        } catch (SecurityException e) {
 
 
         }
@@ -609,8 +715,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         try {
             distance = curLoc.distanceTo(markerLoc);
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_SHORT).show();
         }
 
