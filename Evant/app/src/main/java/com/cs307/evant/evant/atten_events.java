@@ -41,7 +41,37 @@ public class atten_events extends AppCompatActivity {
                 return true;
             }
         });
-        dummyList();
+    //    dummyList();
+        loadMyEvents();
+    }
+
+    private void loadMyEvents(){
+        ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+        ArrayList<String> myDescrips = new ArrayList<>();
+        ArrayList<String> myLoc = new ArrayList<>();
+        ArrayList<String> myTime = new ArrayList<>();
+        ArrayList<String> myHst = new ArrayList<>();
+
+        ArrayList<String> titles = db.getTitles();
+        ArrayList<String> descrips = db.getDescription();
+        ArrayList<String> loc = db.getLoc();
+        ArrayList<String> dtTime = db.getTime();
+        ArrayList<String> hst = db.getHost();
+
+        for(int a=0; a<myEvents.size(); a++){
+            for(int b=0; b<titles.size(); b++){
+                if(myEvents.indexOf(a) == titles.indexOf(b)){
+                    myDescrips.add(descrips.get(b));
+                    myLoc.add(loc.get(b));
+                    myTime.add(dtTime.get(b));
+                    myHst.add(hst.get(b));
+                }
+            }
+        }
+
+
+        eventAdapter eAdapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, this);
+        recyclerView.setAdapter(eAdapter);
     }
 
 

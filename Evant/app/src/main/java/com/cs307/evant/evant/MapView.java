@@ -468,6 +468,15 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
+                        String uid = db.getUid();
+                        ArrayList<String> myEvents = db.getMyEvents(uid);
+                        ArrayList<String> events = db.getTitles();
+                        for(int a =0; a < events.size(); a++){
+                            if(marker.getTitle().equals(events.indexOf(a))){
+                                myEvents.add(marker.getTitle());
+                            }
+                        }
+                        db.updateMyEvents(db.getUid(),myEvents);
                     }
                 });
                 alertDialog.setNegativeButton("Learn more", new DialogInterface.OnClickListener() {
