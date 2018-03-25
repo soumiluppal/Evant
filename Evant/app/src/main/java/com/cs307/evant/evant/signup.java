@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 import static com.cs307.evant.evant.MainActivity.db;
 
 /**
@@ -187,7 +189,9 @@ public class signup extends AppCompatActivity {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         db.updateName(db.getUid(), nam);
-
+                                        ArrayList<String> events = new ArrayList<>();
+                                        events.add("none");
+                                        db.updateMyEvents(db.getUid(), events);
                                         Intent intent = new Intent(signup.this, MainActivity.class);
                                         startActivity(intent);
                                         Toast.makeText(signup.this, "Signup success.",
