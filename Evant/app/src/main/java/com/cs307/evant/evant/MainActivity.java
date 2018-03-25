@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             //load map
             Intent intent = new Intent(MainActivity.this, MapView.class);

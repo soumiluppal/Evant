@@ -93,7 +93,7 @@ public class Profile extends AppCompatActivity {
         ctnms.add("event1");
         ctnms.add("event2");
 
-        eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc,nhost,this);
+        eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc, nhost, this);
 
 
         recyclerView.setAdapter(adapter);

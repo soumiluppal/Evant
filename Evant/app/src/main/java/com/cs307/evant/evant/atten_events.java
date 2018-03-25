@@ -71,7 +71,7 @@ public class atten_events extends AppCompatActivity {
         dtTime.add("dummy3 dtTime");
         hst.add("dummy1 hst");
 
-        eventAdapter eAdapter = new eventAdapter(titles,descrips, loc, dtTime,hst, this);
+        eventAdapter eAdapter = new eventAdapter(titles,descrips, loc, dtTime, hst, this);
         recyclerView.setAdapter(eAdapter);
     }
 

@@ -139,6 +139,7 @@ public class Database {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        /*
         mDatabase.child("images").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -150,7 +151,7 @@ public class Database {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
+        });*/
         mDatabase.child("categories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -165,7 +166,12 @@ public class Database {
     }
 
     String getName(String uid){
+        if(users.get(uid) == null){
+            signOut();
+            return null;
+        }
         String user =  users.get(uid).toString();
+        System.out.println("USER: " + user);
         String name = user.split("name=")[1];
         name = name.substring(0, name.indexOf(","));
         return name;
@@ -177,6 +183,7 @@ public class Database {
     }
 
     ArrayList<Integer> getMyEvents(String uid){
+
         String user =  users.get(uid).toString();
         System.out.println(user);
         String events = user.split("events=")[1];
@@ -195,7 +202,12 @@ public class Database {
     }
 
     String getUid(){
-        return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+        }else{
+            signOut();
+            return null;
+        }
     }
 
     void addEvent(String name, String addr, String desc, String dt, String uid, double latitude, double longitude, Bitmap bm, Map checkButtons){
@@ -241,7 +253,7 @@ public class Database {
     }
 
 
-
+    /*
     ArrayList<Bitmap> getImage(){
         ArrayList<Bitmap> bitmaps = new ArrayList();
         for(int i = 0; i<images.size(); i++) {
@@ -250,7 +262,7 @@ public class Database {
             bitmaps.add(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
         }
         return bitmaps;
-    }
+    }*/
 
     ArrayList<String> getTitles(){
         return titles;
@@ -276,12 +288,12 @@ public class Database {
         ArrayList<String []> list = new ArrayList<>();
         for(int i = 0; i<categories.size(); i++){
             String s = categories.get(i);
-            //System.out.print("String: " + s + " ....... ");
+            System.out.print("String: " + s + " ....... ");
             String [] stringList = s.split(",");
-            //System.out.println("Strings: " + Arrays.toString(stringList));
+            System.out.println("Strings: " + Arrays.toString(stringList));
             list.add(stringList);
         }
-        //System.out.println("Final list of arrays: " + list);
+        System.out.println("Final list of arrays: " + list);
         return list;
     }
 

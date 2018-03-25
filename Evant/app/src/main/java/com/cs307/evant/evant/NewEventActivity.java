@@ -84,7 +84,7 @@ public class NewEventActivity extends AppCompatActivity {
         if(first) {
             checkButtons.put("Sports", false);
             checkButtons.put("Food", false);
-            checkButtons.put("Gaming", false);
+            checkButtons.put("Video Games", false);
             checkButtons.put("Education", false);
             checkButtons.put("Music", false);
             checkButtons.put("Movies", false);

@@ -1,58 +1,27 @@
 {
   "project_info": {
-    "project_number": "903966923734",
-    "firebase_url": "https://evant-cs307.firebaseio.com",
-    "project_id": "evant-cs307",
-    "storage_bucket": "evant-cs307.appspot.com"
+    "project_number": "614919060055",
+    "firebase_url": "https://evant-8c972.firebaseio.com",
+    "project_id": "evant-8c972",
+    "storage_bucket": "evant-8c972.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:903966923734:android:3f6b26c35b63ddc6",
+        "mobilesdk_app_id": "1:614919060055:android:3f6b26c35b63ddc6",
         "android_client_info": {
           "package_name": "com.cs307.evant.evant"
         }
       },
       "oauth_client": [
         {
-          "client_id": "903966923734-7om6fs6l0j5beob98kk1m85fh1koof0m.apps.googleusercontent.com",
+          "client_id": "614919060055-ksrrbh0hk55e9mjp7i64n77pdanf62b3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBLsaUu3dLd7v07xxp0PLs88tcfKNvSJIs"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:903966923734:android:b39d872cb74524bd",
-        "android_client_info": {
-          "package_name": "com.cs307.evant.evant"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "903966923734-7om6fs6l0j5beob98kk1m85fh1koof0m.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBLsaUu3dLd7v07xxp0PLs88tcfKNvSJIs"
+          "current_key": "AIzaSyCOL2LcwX_TKkdq8QD2PCmFCL5Kx8hlays"
         }
       ],
       "services": {

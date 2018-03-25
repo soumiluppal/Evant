@@ -24,6 +24,7 @@ public class eventPage extends AppCompatActivity {
         descrip.setText(getIntent().getStringExtra("Description"));
         String location = "Location:  " + getIntent().getStringExtra("location") + "  " + getIntent().getStringExtra("dttime");
         Loc.setText(location);
+        System.out.println("HOST IN PAGE: " + getIntent().getStringExtra("Host"));
         peps.setText(getIntent().getStringExtra("Host"));
 
 

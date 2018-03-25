@@ -38,6 +38,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         public TextView loca;
         public ImageView iv;
         public Button info;
+        private ArrayList<String> hosts;
         //public TextView cnts;
 
         public MyViewHolder(View view)
@@ -58,15 +59,15 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         }
     }
 
-    public eventAdapter( ArrayList <String> title, ArrayList <String> descrp, ArrayList <String> dte, ArrayList <String> loc,ArrayList <String> h,Context c)
+    public eventAdapter( ArrayList <String> title, ArrayList <String> descrp, ArrayList <String> dte, ArrayList <String> loc, ArrayList <String> h, Context c)
     {
         //catPhotos = a;
         titles = title;
         descrip = descrp;
         dttme = dte;
         location = loc;
-        ct = c;
         hosts = h;
+        ct = c;
     }
 
     @Override
@@ -93,6 +94,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ct, eventPage.class);
+                System.out.println("HOSTS IN ADAPTER: " + hosts.get(position));
                 intent.putExtra("Host",hosts.get(position));
                 intent.putExtra("Title",titles.get(position));
                 intent.putExtra("Description",descrip.get(position));
@@ -108,7 +110,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(ct, eventPage.class);
 
-                intent.putExtra("Host",hosts.get(position));
+
                 intent.putExtra("Title",titles.get(position));
                 intent.putExtra("Description",descrip.get(position));
                 intent.putExtra("dttime",dttme.get(position));

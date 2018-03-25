@@ -63,8 +63,6 @@ public class eventList extends AppCompatActivity {
 
         cats = db.getCategories();
 
-        //System.out.println(cats.get(0)[0]);
-
         filterCats(cats);
 
         titles = db.getTitles();
@@ -84,7 +82,7 @@ public class eventList extends AppCompatActivity {
         nhst = stpdfilter(hst);
 
 
-        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc,nhst,this);
+        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc, nhst, this);
 
 
         recyclerView.setAdapter(cadapter);
@@ -98,7 +96,7 @@ public class eventList extends AppCompatActivity {
             if(Arrays.asList(cts.get(i)).contains(category))
             {
                 needIndexs.add(i);
-                System.out.println(i);
+                //System.out.println(i);
             }
         }
 
@@ -106,13 +104,15 @@ public class eventList extends AppCompatActivity {
 
     private ArrayList<String> stpdfilter(ArrayList<String> gve)
     {
-        ArrayList<String> actualy = new ArrayList<>();
+
+       ArrayList<String> actualy = new ArrayList<>();
 
         for(int i = 0; i < needIndexs.size(); i++)
         {
             actualy.add(gve.get(needIndexs.get(i)));
         }
         return  actualy;
+       //return gve;
     }
 
 
