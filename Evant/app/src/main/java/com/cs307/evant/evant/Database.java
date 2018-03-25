@@ -188,7 +188,7 @@ public class Database {
         mDatabase.child("users").child(uid).child("thumbsdown").setValue("0");
     }
 
-    ArrayList<Integer> getMyEvents(String uid){
+    ArrayList<String> getMyEvents(String uid){
 
         String user =  users.get(uid).toString();
         System.out.println(user);
@@ -196,8 +196,11 @@ public class Database {
         events = events.substring(0, events.indexOf("}"));
         Gson gson = new Gson();
         ArrayList liste = gson.fromJson(events, ArrayList.class);
-        ArrayList<Integer> result = searchByName(liste);
-        return result;
+        ArrayList<String> stringe = new ArrayList<>();
+        ArrayList<Integer> result = searchByName(liste, stringe);
+
+
+        return stringe;
     }
 
     void updateMyEvents(String uid, ArrayList<String> events){
@@ -360,13 +363,14 @@ public class Database {
         return list;
     }
 
-    ArrayList<Integer> searchByName (ArrayList<String> names){
+    ArrayList<Integer> searchByName (ArrayList<String> names, ArrayList<String> results){
         ArrayList<Integer> indexes = new ArrayList<>();
         for(int i = 0; i<titles.size(); i++){
             String currTitle = titles.get(i);
             for(int j = 0; j<names.size(); j++) {
                 if (currTitle.contains(names.get(j))) {
                     indexes.add(i);
+                    results.add(currTitle);
                 }
             }
         }
