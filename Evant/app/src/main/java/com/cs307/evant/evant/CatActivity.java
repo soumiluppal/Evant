@@ -26,7 +26,7 @@ public class CatActivity extends AppCompatActivity {
         check = (CheckBox) findViewById(R.id.foodCheck);
         check.setChecked(checkButtons.get("Food"));
         check = (CheckBox) findViewById(R.id.gamingCheck);
-        check.setChecked(checkButtons.get("Gaming"));
+        check.setChecked(checkButtons.get("Video Games"));
         check = (CheckBox) findViewById(R.id.eduCheck);
         check.setChecked(checkButtons.get("Education"));
         check = (CheckBox) findViewById(R.id.musicCheck);
