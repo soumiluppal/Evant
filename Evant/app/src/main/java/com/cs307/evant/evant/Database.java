@@ -182,6 +182,12 @@ public class Database {
         mDatabase.child("users").child(uid).child("name").setValue(name);
     }
 
+    void initializeRating(String uid){
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(uid).child("thumbsup").setValue("0");
+        mDatabase.child("users").child(uid).child("thumbsdown").setValue("0");
+    }
+
     ArrayList<Integer> getMyEvents(String uid){
 
         String user =  users.get(uid).toString();
@@ -208,6 +214,63 @@ public class Database {
             signOut();
             return null;
         }
+    }
+
+    int getRating(String uid){
+        String user =  users.get(uid).toString();
+        System.out.println("USER: " + user);
+        String upstr = user.split("thumbsup=")[1];
+        int thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
+        String downstr = user.split("thumbsdown=")[1];
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+
+        //INSERT CALCULATION HERE
+        int result = thumbsUp - thumbsDown;
+        return result;
+    }
+
+    void addThumbsUp(String uid){
+        String user =  users.get(uid).toString();
+        System.out.println(user);
+        String upstr = user.split("thumbsup=")[1];
+        int thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
+        thumbsUp++;
+        System.out.println("New thumbs up: " + thumbsUp);
+        String str = Integer.toString(thumbsUp);
+        mDatabase.child("users").child(uid).child("thumbsup").setValue(str);
+    }
+
+    void addThumbsDown(String uid){
+        String user =  users.get(uid).toString();
+        System.out.println(user);
+        String downstr = user.split("thumbsdown=")[1];
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+        thumbsDown++;
+        System.out.println("New thumbs down: " + thumbsDown);
+        String str = Integer.toString(thumbsDown);
+        mDatabase.child("users").child(uid).child("thumbsdown").setValue(str);
+    }
+
+    void subtractThumbsUp(String uid){
+        String user =  users.get(uid).toString();
+        System.out.println(user);
+        String upstr = user.split("thumbsup=")[1];
+        int thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
+        thumbsUp--;
+        System.out.println("New thumbs up: " + thumbsUp);
+        String str = Integer.toString(thumbsUp);
+        mDatabase.child("users").child(uid).child("thumbsup").setValue(str);
+    }
+
+    void subtractThumbsDown(String uid){
+        String user =  users.get(uid).toString();
+        System.out.println(user);
+        String downstr = user.split("thumbsdown=")[1];
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+        thumbsDown--;
+        System.out.println("New thumbs down: " + thumbsDown);
+        String str = Integer.toString(thumbsDown);
+        mDatabase.child("users").child(uid).child("thumbsdown").setValue(str);
     }
 
     void addEvent(String name, String addr, String desc, String dt, String uid, double latitude, double longitude, Bitmap bm, Map checkButtons){
