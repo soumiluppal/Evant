@@ -44,7 +44,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBy1Nv2rL8hSZnleE2IPl46sBvOzGED3GY" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,7 +63,8 @@
             android:label="DatabaseInterface" />
         <activity
             android:name=".catList"
-            android:label="catList" />
+            android:label="catList"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".eventList"
             android:label="eventList"
@@ -85,10 +86,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MapSelectView"
-            android:label="@string/title_activity_map_select_view" />
+            android:label="@string/title_activity_map_select_view"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".cat_lst"
-            android:label="@string/title_activity_cat_lst" />
+            android:label="@string/title_activity_cat_lst"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".eventPage"
             android:label="@string/title_activity_event_page"
