@@ -409,6 +409,18 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
+        if(getIntent().getExtras() != null && getIntent().getExtras().getBoolean("firstTime")) {
+            Intent intent = new Intent(MapView.this, MapView.class);
+            intent.putExtra("firstTime", false);
+            try {
+                Thread.sleep(1000);
+            }
+            catch (Exception e) {
+
+            }
+            startActivity(intent);
+        }
+
     }
 
     protected void onPause() {
