@@ -41,8 +41,8 @@ public class atten_events extends AppCompatActivity {
                 return true;
             }
         });
-    //    dummyList();
-        loadMyEvents();
+        dummyList();
+    //    loadMyEvents();
     }
 
     private void loadMyEvents(){
