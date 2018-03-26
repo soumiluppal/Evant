@@ -193,7 +193,6 @@ public class signup extends AppCompatActivity {
                                         events.add("none");
                                         db.updateMyEvents(db.getUid(), events);
                                         db.initializeRating(db.getUid());
-                                        db.updateRadius(db.getUid(), 500);
                                         Intent intent = new Intent(signup.this, MainActivity.class);
                                         startActivity(intent);
                                         Toast.makeText(signup.this, "Signup success.",
