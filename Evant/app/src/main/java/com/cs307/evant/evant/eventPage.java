@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class eventPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teventpage);
 
+        //this.setMovementMethod(new ScrollingMovementMethod());
         TextView title = findViewById(R.id.eventTitle);
         TextView descrip = findViewById(R.id.description);
         TextView Loc = findViewById(R.id.loc);
