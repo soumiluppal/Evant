@@ -79,6 +79,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
     Map<Marker, String> markerLoc = new HashMap<Marker, String>();
     Map<Marker, String> markerTime = new HashMap<Marker, String>();
+    Map<Marker, String> markerHost = new HashMap<Marker, String>();
 
 
     class infoWindowAdapter implements GoogleMap.InfoWindowAdapter {
@@ -467,9 +468,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 alertDialog.setPositiveButton("Attend event", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
-                        String uid = db.getUid();
-                        ArrayList<String> myEvents = db.getMyEvents(uid);
+                       String uid = db.getUid();
+                       Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_LONG).show();
+/*
+                        ArrayList<String> myEvents = db.getMyEvents("2t1O9DuHH4ePPINBMKLDWvmC4wJ3");
                         ArrayList<String> events = db.getTitles();
                         for(int a =0; a < events.size(); a++){
                             if(marker.getTitle().equals(events.indexOf(a))){
@@ -477,6 +479,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                             }
                         }
                         db.updateMyEvents(db.getUid(),myEvents);
+*/
                     }
                 });
                 alertDialog.setNegativeButton("Learn more", new DialogInterface.OnClickListener() {
@@ -487,6 +490,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                         intent.putExtra("Description", (marker.getSnippet()));
                         intent.putExtra("dttime", markerTime.get(marker));
                         intent.putExtra("location", markerLoc.get(marker));
+                        intent.putExtra("Host", markerHost.get(marker));
                         startActivity(intent);
                     }
                 });
@@ -600,6 +604,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         ArrayList<String> discrips;
         ArrayList<String> locations;
         ArrayList<String> times;
+        ArrayList<String> host;
 
         lats = db.getLat();
         lngs = db.getLng();
@@ -607,6 +612,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         discrips = db.getDescription();
         locations = db.getLoc();
         times = db.getTime();
+        host = db.getHost();
 
         int totalEvents = lats.size();
 
@@ -633,6 +639,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             Marker tempMarker = mMap.addMarker(markerOptions.get(index));
             markerLoc.put(tempMarker, locations.get(index));
             markerTime.put(tempMarker, times.get(index));
+            markerHost.put(tempMarker, host.get(index));
             markers.add(tempMarker);
         }
 

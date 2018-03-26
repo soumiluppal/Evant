@@ -7,10 +7,10 @@
         android:text="Please rate this event" />
     <item
         android:id="@+id/menu01"
-        android:title="Like!"
+        android:title="Thumbs Up!"
         />
     <item
         android:id="@+id/menu02"
-        android:title="nope"
+        android:title="Thumbs Down!"
         />
 </menu>

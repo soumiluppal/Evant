@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.cs307.evant.evant.MainActivity.db;
+
 /**
  * Created by avi12 on 2/22/2018.
  */
@@ -131,11 +133,21 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        return false;
+                        switch(menuItem.getItemId()){
+                            case R.id.menu01:
+                                db.addThumbsUp(db.getUid());
+                                return true;
+                            case R.id.menu02:
+                                db.addThumbsDown(db.getUid());
+                                return true;
+                            default:
+                                return false;
+                        }
                     }
                 });
 
                 popupMenu.show();
+
                 return true;
             }
         });

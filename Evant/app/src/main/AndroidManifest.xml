@@ -101,6 +101,9 @@
             android:name=".Settings"
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".host_rating"
+            android:label="Host Rating"></activity>
     </application>
 
 </manifest>

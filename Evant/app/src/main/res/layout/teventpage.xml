@@ -120,11 +120,20 @@
         <Button
             android:id="@+id/joinEvent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:theme="@style/PrimaryFlatButton"
+            android:layout_height="37dp"
             android:gravity="center|bottom"
-            android:text="Join Event" />
-        />
+            android:text="Join Event"
+            android:theme="@style/PrimaryFlatButton" />
+
+
+        <Button
+            android:id="@+id/hostRating"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:gravity="center|bottom"
+            android:theme="@style/PrimaryFlatButton"
+            android:text="Host Rating" />
 
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
