@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,47 @@ public class Profile extends AppCompatActivity {
         String name = db.getName(db.getUid());
         TextView dispname = (TextView) findViewById(R.id.dispname);
         dispname.setText("Name: " + name);
+
+        Button button = findViewById(R.id.homebutton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Profile.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button listButton = (Button) findViewById(R.id.listbutton);
+
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile.this, catList.class);
+                startActivity(intent);
+            }
+        });
+
+        Button profileButton = (Button) findViewById(R.id.profilebutton);
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile.this, Profile.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
+
+        //attempt
+        Button settingsButton = (Button) findViewById(R.id.settingsbutton);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Profile.this, Settings.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
 
         com.getbase.floatingactionbutton.FloatingActionButton actionC = new com.getbase.floatingactionbutton.FloatingActionButton(getBaseContext());
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);

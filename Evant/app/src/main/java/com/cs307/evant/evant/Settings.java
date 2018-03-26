@@ -44,6 +44,48 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        Button button = findViewById(R.id.homebutton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button listButton = (Button) findViewById(R.id.listbutton);
+
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this, catList.class);
+                startActivity(intent);
+            }
+        });
+
+        Button profileButton = (Button) findViewById(R.id.profilebutton);
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this, Profile.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
+
+        //attempt
+        Button settingsButton = (Button) findViewById(R.id.settingsbutton);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this, Settings.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
+        //attempt end
+
         // sign out
         Button signoutButton = (Button) findViewById(R.id.SignOutButton);
         signoutButton.setOnClickListener(new View.OnClickListener(){
