@@ -277,7 +277,7 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println(user);
         String downstr = user.split("thumbsdown=")[1];
-        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
         thumbsDown++;
         System.out.println("New thumbs down: " + thumbsDown);
         String str = Integer.toString(thumbsDown);
