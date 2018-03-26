@@ -24,7 +24,7 @@ public class host_rating extends AppCompatActivity {
         String host = getIntent().getStringExtra("host");
         tvHost.setText(host);
         int rating;
-/*
+
         if(db.getRating(host) == 0){
             rating = 0;
         }
@@ -32,8 +32,9 @@ public class host_rating extends AppCompatActivity {
             rating = db.getRating(host);
         }
 
-        tvRating.setText(rating);
-*/
+        tvRating.setText(String.valueOf(rating));
+
+
     }
 
 }

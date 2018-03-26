@@ -223,10 +223,21 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println("USER: " + user);
         String upstr = user.split("thumbsup=")[1];
-        int thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
+        int thumbsUp;
+        try{
+            thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
+        }
+        catch(StringIndexOutOfBoundsException e){
+            thumbsUp = 0;
+        }
         String downstr = user.split("thumbsdown=")[1];
-        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
-
+        int thumbsDown;
+        try{
+            thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+        }
+        catch(StringIndexOutOfBoundsException e){
+            thumbsDown = 0;
+        }
         //INSERT CALCULATION HERE
         int result = thumbsUp - thumbsDown;
         return result;

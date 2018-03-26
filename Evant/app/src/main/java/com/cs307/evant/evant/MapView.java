@@ -470,8 +470,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     public void onClick(DialogInterface dialogInterface, int i) {
                        String uid = db.getUid();
                        Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_LONG).show();
+//                        ArrayList<String> myEvents = db.getMyEvents("2t1O9DuHH4ePPINBMKLDWvmC4wJ3");
 /*
-                        ArrayList<String> myEvents = db.getMyEvents("2t1O9DuHH4ePPINBMKLDWvmC4wJ3");
                         ArrayList<String> events = db.getTitles();
                         for(int a =0; a < events.size(); a++){
                             if(marker.getTitle().equals(events.indexOf(a))){

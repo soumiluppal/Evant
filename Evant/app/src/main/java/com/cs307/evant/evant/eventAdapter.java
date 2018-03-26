@@ -135,10 +135,10 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch(menuItem.getItemId()){
                             case R.id.menu01:
-                                db.addThumbsUp(db.getUid());
+                                db.addThumbsUp(hosts.get(position));
                                 return true;
                             case R.id.menu02:
-                                db.addThumbsDown(db.getUid());
+                                db.addThumbsDown(hosts.get(position));
                                 return true;
                             default:
                                 return false;
