@@ -182,6 +182,25 @@ public class Database {
         mDatabase.child("users").child(uid).child("name").setValue(name);
     }
 
+    double getRadius(String uid){
+        if(users.get(uid) == null){
+            signOut();
+            return -1;
+        }
+        String user =  users.get(uid).toString();
+        System.out.println("USER: " + user);
+        String name = user.split("radius=")[1];
+        name = name.substring(0, name.indexOf(","));
+        double r = Double.parseDouble(name);
+        System.out.println(uid + "'s radius: " + r);
+        return r;
+    }
+
+    void updateRadius(String uid, double r){
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(uid).child("radius").setValue(Double.toString(r));
+    }
+
     void initializeRating(String uid){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(uid).child("thumbsup").setValue("0");
