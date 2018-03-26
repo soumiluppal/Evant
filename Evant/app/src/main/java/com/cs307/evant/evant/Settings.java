@@ -1,22 +1,28 @@
 package com.cs307.evant.evant;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 import java.util.ArrayList;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
 public class Settings extends AppCompatActivity {
+
+    // Global variables
+    Button setRadius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +114,49 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+
+        // set radius button
+        setRadius = (Button) findViewById(R.id.SetRadiusButton);
+        setRadius.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowDialog();
+            }
+        });
+    }
+
+
+    public void ShowDialog()
+    {
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        final SeekBar seek = new SeekBar(this);
+        seek.setMax(100);
+        popDialog.setIcon(android.R.drawable.ic_menu_compass);
+        popDialog.setTitle("Set Radius");
+        popDialog.setView(seek);
+
+        // Button OK
+        popDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        //seek Change Listener
+        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                //Do something here with new value
+                // TODO update database
+            }
+            public void onStartTrackingTouch(SeekBar arg0) {
+            }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        popDialog.create();
+        popDialog.show();
     }
 
 }

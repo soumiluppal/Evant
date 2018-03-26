@@ -33,8 +33,22 @@
         android:id="@+id/BackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="80dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="@+id/SignOutButton"
+        app:layout_constraintTop_toBottomOf="@+id/SignOutButton" />
+
+    <Button
+        android:id="@+id/SetRadiusButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="141dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="12dp"
+        android:text="Set Radius"
+        app:layout_constraintBottom_toTopOf="@+id/BackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SignOutButton" />
 </android.support.constraint.ConstraintLayout>
