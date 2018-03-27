@@ -99,7 +99,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".atten_events"
-            android:label="atten_events" />
+            android:label="atten_events"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".CatActivity" />
         <activity
             android:name=".Settings"
