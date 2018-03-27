@@ -208,11 +208,12 @@ public class Database {
     }
 
     ArrayList<String> getMyEvents(String uid){
-
+        System.out.println(":::::::::" + uid);
         String user =  users.get(uid).toString();
         System.out.println(user);
         String events = user.split("events=")[1];
-        events = events.substring(0, events.indexOf("}"));
+        events = events.substring(0, events.indexOf("]")+1);
+        System.out.println(events);
         Gson gson = new Gson();
         ArrayList liste = gson.fromJson(events, ArrayList.class);
         ArrayList<String> stringe = new ArrayList<>();

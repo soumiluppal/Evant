@@ -41,12 +41,13 @@ public class atten_events extends AppCompatActivity {
                 return true;
             }
         });
-        dummyList();
-    //    loadMyEvents();
+   //     dummyList();
+        loadMyEvents();
     }
 
     private void loadMyEvents(){
         ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+        System.out.println(":::::" + myEvents.size());
         ArrayList<String> myDescrips = new ArrayList<>();
         ArrayList<String> myLoc = new ArrayList<>();
         ArrayList<String> myTime = new ArrayList<>();
