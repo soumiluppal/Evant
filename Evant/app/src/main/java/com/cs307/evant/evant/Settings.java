@@ -31,15 +31,6 @@ public class Settings extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
         // back button
         Button backButton = (Button) findViewById(R.id.BackButton);
         backButton.setOnClickListener(new View.OnClickListener(){
@@ -83,6 +74,17 @@ public class Settings extends AppCompatActivity {
             }
         });
         //attempt end
+
+        Button EditProfileButton = (Button) findViewById(R.id.EditProfileButton);
+
+        EditProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this, EditProfileSettings.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
 
         // sign out
         Button signoutButton = (Button) findViewById(R.id.SignOutButton);
