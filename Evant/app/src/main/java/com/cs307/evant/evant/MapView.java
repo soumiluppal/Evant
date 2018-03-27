@@ -147,6 +147,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         // position on right bottom
         rlp.setMargins(0, 200, 30, 0);
 
+        ImageView imView = (ImageView) findViewById(R.id.imageView5);
+        imView.bringToFront();
+
+
         Button button = findViewById(R.id.homebutton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

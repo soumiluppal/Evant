@@ -266,6 +266,7 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println(user);
         String upstr = user.split("thumbsup=")[1];
+        System.out.println("UP::"+upstr+"::");
         int thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
         thumbsUp++;
         System.out.println("New thumbs up: " + thumbsUp);
@@ -277,7 +278,8 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println(user);
         String downstr = user.split("thumbsdown=")[1];
-        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
+        System.out.println("HERE::"+downstr+"::");
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
         thumbsDown++;
         System.out.println("New thumbs down: " + thumbsDown);
         String str = Integer.toString(thumbsDown);

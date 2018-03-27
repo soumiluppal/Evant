@@ -7,19 +7,19 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         />
 
     <Button
         android:id="@+id/homebutton"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/profilebutton"
         android:layout_alignLeft="@+id/searchBar"
-        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/searchBar"
-        android:text="Home" />
+        android:background="@drawable/homepage" />
 
     <Button
         android:id="@+id/profilebutton"
@@ -39,12 +39,12 @@
         android:text="List View" />
     <Button
         android:id="@+id/settingsbutton"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/listbutton"
-        android:layout_toRightOf="@+id/listbutton"
-        android:text="Settings" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignBottom="@+id/listbutton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/settings" />
 
 
 
