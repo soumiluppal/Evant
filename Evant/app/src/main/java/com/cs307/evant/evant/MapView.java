@@ -60,6 +60,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
 import org.w3c.dom.Text;
 
 import java.io.IOException;
@@ -148,6 +152,23 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         // position on right bottom
         rlp.setMargins(0, 200, 30, 0);
+
+        final EditText text = (EditText) findViewById(R.id.searchBar);
+        text.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                {
+                    //Toast.makeText(MapView.this, text.getText(), Toast.LENGTH_LONG).show();
+                    mMap.clear();
+                    placeMarkers(text.getText().toString());
+                }
+                return false;
+            }
+        });
+
+
 
 
 
@@ -450,6 +471,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     }
 
 
+
+
     protected void onPause() {
         super.onPause();
     }
@@ -495,7 +518,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         startLocationService();
         //       testingMarkers();
-        placeMarkers();
+        placeMarkers("");
         mMap.setInfoWindowAdapter(new infoWindowAdapter());
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -614,7 +637,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             circleOptions = new CircleOptions()
                     .center(cur)
-                    .radius(radiusVal)
+                    .radius(db.getRadius(db.getUid()))
                     .fillColor(0x40ff0000)
                     .strokeColor(Color.GREEN)
                     .strokeWidth(5);
@@ -634,7 +657,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         }
     }
 
-    private void placeMarkers() {
+    private void placeMarkers(String crit) {
         ArrayList<Double> lats;
         ArrayList<Double> lngs;
         ArrayList<String> titles;
@@ -658,10 +681,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         ArrayList<Marker> markers = new ArrayList<>();
 
         double r = db.getRadius(db.getUid());
-        /*Location curLoc = new Location("");
+        Location curLoc = new Location("");
         curLoc.setLatitude(40.427728);
-        curLoc.setLongitude(-86.947603);*/
-        Location curLoc = new Location(LocationManager.GPS_PROVIDER);
+        curLoc.setLongitude(-86.947603);
+        //Location curLoc = new Location(LocationManager.GPS_PROVIDER);
 
         try {
             curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -670,7 +693,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         }
 
-        ArrayList<Integer> searchResult = db.search("", curLoc, r);
+        ArrayList<Integer> searchResult = db.search(crit, curLoc, r);
         System.out.println("Search result: " + searchResult);
 
         for (int index: searchResult) {

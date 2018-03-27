@@ -433,6 +433,26 @@ public class Database {
                 indexes.add(i);
             }
         }
+
+        System.out.println("Indices in radius: " + indexes);
+
+        if(!criteria.equals("")){
+            ArrayList<Integer> searchIndexes = new ArrayList<>();
+            for(int ind: indexes){
+
+                String currTitle = titles.get(ind).toLowerCase();
+                System.out.println(ind);
+                //System.out.println("currtitle: " + currTitle);
+                if (currTitle.contains(criteria.toLowerCase())) {
+                        //System.out.println("match: " + names.get(j));
+                        searchIndexes.add(ind);
+
+                    }
+
+            }
+            return searchIndexes;
+        }
+
         return indexes;
     }
 
