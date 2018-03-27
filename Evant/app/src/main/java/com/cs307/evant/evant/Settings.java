@@ -122,7 +122,9 @@ public class Settings extends AppCompatActivity {
     {
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
         final SeekBar seek = new SeekBar(this);
-        seek.setMax(100);
+        seek.setMax(10000);
+        // not sure about this one
+        seek.setProgress(db.getRating(db.getUid()));
         popDialog.setIcon(android.R.drawable.ic_menu_compass);
         popDialog.setTitle("Set Radius");
         popDialog.setView(seek);
@@ -139,7 +141,8 @@ public class Settings extends AppCompatActivity {
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
                 //Do something here with new value
-                // TODO update database
+                // not sure about his one
+                db.updateRadius(db.getUid(), progress);
             }
             public void onStartTrackingTouch(SeekBar arg0) {
             }
