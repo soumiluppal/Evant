@@ -64,6 +64,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -334,11 +335,18 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
                     for(int a=0; a<myEvents.size(); a++){
                         for(int b=0; b<titles.size(); b++){
-                            if(myEvents.indexOf(a) == titles.indexOf(b)){
-                                myDescrips.add(descrips.get(b));
-                                myLoc.add(loc.get(b));
-                                myTime.add(dtTime.get(b));
-                                myHst.add(hst.get(b));
+                            if (myEvents.indexOf(a) == titles.indexOf(b)) {
+                                    Date currentTime = Calendar.getInstance().getTime();
+                                    SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+                                    String formattedDate = df.format(currentTime);
+                                    formattedDate = formattedDate.toUpperCase();
+                                    if (formattedDate.compareTo(dtTime.get(b)) < 0) {
+
+                                        myDescrips.add(descrips.get(b));
+                                        myLoc.add(loc.get(b));
+                                        myTime.add(dtTime.get(b));
+                                        myHst.add(hst.get(b));
+                                    }
                             }
                         }
                     }
