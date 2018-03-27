@@ -319,28 +319,32 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     //recyclerView.addItemDecoration(new DividerItemDecoration(HomeScreen.this, LinearLayoutManager.VERTICAL));
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    ArrayList<String> titles = new ArrayList<>();
-                    ArrayList<String> dttime = new ArrayList<>();
-                    ArrayList<String> loc = new ArrayList<>();
-                    ArrayList<String> descrip = new ArrayList<>();
-                    ArrayList<String> hst = new ArrayList<>();
-                    //cats = db.getCategories();
+                    ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                    ArrayList<String> myDescrips = new ArrayList<>();
+                    ArrayList<String> myLoc = new ArrayList<>();
+                    ArrayList<String> myTime = new ArrayList<>();
+                    ArrayList<String> myHst = new ArrayList<>();
 
-                    //System.out.println(cats.get(0)[0]);
+                    ArrayList<String> titles = db.getTitles();
+                    ArrayList<String> descrips = db.getDescription();
+                    ArrayList<String> loc = db.getLoc();
+                    ArrayList<String> dtTime = db.getTime();
+                    ArrayList<String> hst = db.getHost();
 
-                    //filterCats(cats);
+                    for(int a=0; a<myEvents.size(); a++){
+                        for(int b=0; b<titles.size(); b++){
+                            if(myEvents.indexOf(a) == titles.indexOf(b)){
+                                myDescrips.add(descrips.get(b));
+                                myLoc.add(loc.get(b));
+                                myTime.add(dtTime.get(b));
+                                myHst.add(hst.get(b));
+                            }
+                        }
+                    }
 
-                    titles = db.getTitles();
 
-                    hst = db.getHost();
 
-                    dttime = db.getTime();
-
-                    loc = db.getLoc();
-
-                    descrip = db.getDescription();
-
-                    eventAdapter cadapter = new eventAdapter(titles, descrip, dttime, loc, hst, MapView.this);
+                    eventAdapter cadapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
@@ -368,28 +372,33 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     //recyclerView.addItemDecoration(new DividerItemDecoration(HomeScreen.this, LinearLayoutManager.VERTICAL));
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    ArrayList<String> titles = new ArrayList<>();
-                    ArrayList<String> dttime = new ArrayList<>();
-                    ArrayList<String> loc = new ArrayList<>();
-                    ArrayList<String> descrip = new ArrayList<>();
-                    ArrayList<String> hst = new ArrayList<>();
-                    //cats = db.getCategories();
 
-                    //System.out.println(cats.get(0)[0]);
+                    ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                    ArrayList<String> myDescrips = new ArrayList<>();
+                    ArrayList<String> myLoc = new ArrayList<>();
+                    ArrayList<String> myTime = new ArrayList<>();
+                    ArrayList<String> myHst = new ArrayList<>();
 
-                    //filterCats(cats);
+                    ArrayList<String> titles = db.getTitles();
+                    ArrayList<String> descrips = db.getDescription();
+                    ArrayList<String> loc = db.getLoc();
+                    ArrayList<String> dtTime = db.getTime();
+                    ArrayList<String> hst = db.getHost();
 
-                    titles = db.getTitles();
+                    for(int a=0; a<myEvents.size(); a++){
+                        for(int b=0; b<titles.size(); b++){
+                            if(myEvents.indexOf(a) == titles.indexOf(b)){
+                                myDescrips.add(descrips.get(b));
+                                myLoc.add(loc.get(b));
+                                myTime.add(dtTime.get(b));
+                                myHst.add(hst.get(b));
+                            }
+                        }
+                    }
 
-                    hst = db.getHost();
 
-                    dttime = db.getTime();
 
-                    loc = db.getLoc();
-
-                    descrip = db.getDescription();
-
-                    eventAdapter cadapter = new eventAdapter(titles, descrip, dttime, loc, hst, MapView.this);
+                    eventAdapter cadapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
@@ -417,6 +426,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         }
 
     }
+
 
     protected void onPause() {
         super.onPause();
