@@ -635,7 +635,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
             LatLng tempLatLng = new LatLng(douLat, douLng);
             markerLatlngs.add(tempLatLng);
-            MarkerOptions tempMarkerOptions = new MarkerOptions();
+            MarkerOptions tempMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
             tempMarkerOptions.position(markerLatlngs.get(index)).title(titles.get(index)).snippet(discrips.get(index));
             markerOptions.add(tempMarkerOptions);
