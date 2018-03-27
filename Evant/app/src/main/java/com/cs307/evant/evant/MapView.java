@@ -124,7 +124,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private SensorManager mSensorManager;
     private CircleOptions circleOptions;
     private Circle circle;
-    private double radiusVal = 500;
+    private double radiusVal = db.getRadius(db.getUid());
     private String radiusStr = "";
     private String curTime = DateFormat.getDateTimeInstance().format(new Date());
     private Calendar timeCalendar = Calendar.getInstance();
