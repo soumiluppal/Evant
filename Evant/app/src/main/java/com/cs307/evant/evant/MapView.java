@@ -322,6 +322,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                    System.out.println(":::::" + myEvents.size());
                     ArrayList<String> myDescrips = new ArrayList<>();
                     ArrayList<String> myLoc = new ArrayList<>();
                     ArrayList<String> myTime = new ArrayList<>();
@@ -332,16 +333,16 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     ArrayList<String> loc = db.getLoc();
                     ArrayList<String> dtTime = db.getTime();
                     ArrayList<String> hst = db.getHost();
-
+                    ArrayList<String> upcomingTitles = new ArrayList<>();
                     for(int a=0; a<myEvents.size(); a++){
                         for(int b=0; b<titles.size(); b++){
-                            if (myEvents.indexOf(a) == titles.indexOf(b)) {
+                            if (myEvents.get(a) == titles.get(b)) {
                                     Date currentTime = Calendar.getInstance().getTime();
                                     SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
                                     String formattedDate = df.format(currentTime);
                                     formattedDate = formattedDate.toUpperCase();
                                     if (formattedDate.compareTo(dtTime.get(b)) < 0) {
-
+                                        upcomingTitles.add(titles.get(b));
                                         myDescrips.add(descrips.get(b));
                                         myLoc.add(loc.get(b));
                                         myTime.add(dtTime.get(b));
@@ -353,7 +354,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
 
 
-                    eventAdapter cadapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, MapView.this);
+                    eventAdapter cadapter = new eventAdapter(upcomingTitles,myDescrips, myLoc, myTime, myHst, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
@@ -383,6 +384,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                     ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                    System.out.println(":::::" + myEvents.size());
                     ArrayList<String> myDescrips = new ArrayList<>();
                     ArrayList<String> myLoc = new ArrayList<>();
                     ArrayList<String> myTime = new ArrayList<>();
@@ -393,21 +395,30 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     ArrayList<String> loc = db.getLoc();
                     ArrayList<String> dtTime = db.getTime();
                     ArrayList<String> hst = db.getHost();
-
+                    ArrayList<String> upcomingTitles = new ArrayList<>();
                     for(int a=0; a<myEvents.size(); a++){
                         for(int b=0; b<titles.size(); b++){
-                            if(myEvents.indexOf(a) == titles.indexOf(b)){
-                                myDescrips.add(descrips.get(b));
-                                myLoc.add(loc.get(b));
-                                myTime.add(dtTime.get(b));
-                                myHst.add(hst.get(b));
+                            if (myEvents.get(a) == titles.get(b)) {
+                                Date currentTime = Calendar.getInstance().getTime();
+                                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+                                String formattedDate = df.format(currentTime);
+                                formattedDate = formattedDate.toUpperCase();
+                                if (formattedDate.compareTo(dtTime.get(b)) < 0) {
+                                    upcomingTitles.add(titles.get(b));
+                                    myDescrips.add(descrips.get(b));
+                                    myLoc.add(loc.get(b));
+                                    myTime.add(dtTime.get(b));
+                                    myHst.add(hst.get(b));
+                                }
                             }
                         }
                     }
 
 
 
-                    eventAdapter cadapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, MapView.this);
+
+
+                    eventAdapter cadapter = new eventAdapter(upcomingTitles,myDescrips, myLoc, myTime, myHst, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
