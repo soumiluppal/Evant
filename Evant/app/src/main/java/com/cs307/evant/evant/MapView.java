@@ -638,27 +638,57 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
         ArrayList<Marker> markers = new ArrayList<>();
 
-        for (int index = 0; index < totalEvents; index++) {
+        double r = db.getRadius(db.getUid());
+        /*Location curLoc = new Location("");
+        curLoc.setLatitude(40.427728);
+        curLoc.setLongitude(-86.947603);*/
+        Location curLoc = new Location(LocationManager.GPS_PROVIDER);
+
+        try {
+            curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        } catch (SecurityException e) {
+
+
+        }
+
+        ArrayList<Integer> searchResult = db.search("", curLoc, r);
+        System.out.println("Search result: " + searchResult);
+
+        for (int index: searchResult) {
+            System.out.println("Event #" + index + " " + titles.get(index));
+
             final Object latObj = lats.get(index);
             final Object lngObj = lngs.get(index);
             final double douLat = ((Number) latObj).doubleValue();
             final double douLng = ((Number) lngObj).doubleValue();
 
             LatLng tempLatLng = new LatLng(douLat, douLng);
-            markerLatlngs.add(tempLatLng);
-            MarkerOptions tempMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
-            tempMarkerOptions.position(markerLatlngs.get(index)).title(titles.get(index)).snippet(discrips.get(index));
-            markerOptions.add(tempMarkerOptions);
+                markerLatlngs.add(tempLatLng);
+                MarkerOptions tempMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+                tempMarkerOptions.position(tempLatLng).title(titles.get(index)).snippet(discrips.get(index));
+                markerOptions.add(tempMarkerOptions);
+
 
         }
 
-        for (int index = 0; index < totalEvents; index++) {
-            Marker tempMarker = mMap.addMarker(markerOptions.get(index));
-            markerLoc.put(tempMarker, locations.get(index));
-            markerTime.put(tempMarker, times.get(index));
-            markerHost.put(tempMarker, host.get(index));
-            markers.add(tempMarker);
+        int indexNew = 0;
+        for (int index: searchResult) {
+            System.out.println("is it crash " + indexNew);
+            Marker tempMarker = mMap.addMarker(markerOptions.get(indexNew));
+
+                markerLoc.put(tempMarker, locations.get(index));
+            /*if(calculateDistance(tempMarker.getPosition()) <= db.getRadius(db.getUid())) {
+                tempMarker.setVisible(true);
+            }else{
+                tempMarker.setVisible(false);
+            }*/
+                markerTime.put(tempMarker, times.get(index));
+                markerHost.put(tempMarker, host.get(index));
+                markers.add(tempMarker);
+                indexNew++;
+
         }
 
         mMap.setOnMarkerClickListener(this);
@@ -731,14 +761,18 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     }
 
     private double calculateDistance(LatLng marLoc) {
-        Location curLoc = new Location(LocationManager.GPS_PROVIDER);
+        /*Location curLoc = new Location(LocationManager.GPS_PROVIDER);
 
         try {
             curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         } catch (SecurityException e) {
 
 
-        }
+        }*/
+
+        Location curLoc = new Location("");
+        curLoc.setLatitude(40.427728);
+        curLoc.setLongitude(-86.947603);
 
 
         Location markerLoc = new Location("");

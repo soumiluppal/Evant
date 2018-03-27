@@ -2,7 +2,11 @@ package com.cs307.evant.evant;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.util.Base64;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -413,8 +417,50 @@ public class Database {
         return indexes;
     }
 
+    ArrayList<Integer> search(String criteria, Location currLoc, double radius){
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for(int i = 0; i<lat.size(); i++){
+            final Object latObj = lat.get(i);
+            final Object lngObj = lng.get(i);
+            final double douLat = ((Number) latObj).doubleValue();
+            final double douLng = ((Number) lngObj).doubleValue();
+
+            LatLng tempLatLng = new LatLng(douLat, douLng);
+            if(calculateDistance(tempLatLng, currLoc) <= radius){
+                indexes.add(i);
+            }
+        }
+        return indexes;
+    }
+
     void signOut(){
         FirebaseAuth.getInstance().signOut();
+    }
+
+    private double calculateDistance(LatLng marLoc, Location currLoc) {
+        Location curLoc = currLoc;
+
+        //Location curLoc = new Location("");
+        //curLoc.setLatitude(40.427728);
+        //curLoc.setLongitude(-86.947603);
+
+
+        Location markerLoc = new Location("");
+        markerLoc.setLatitude(marLoc.latitude);
+        markerLoc.setLongitude(marLoc.longitude);
+
+        double distance = -1;
+
+        try {
+            distance = curLoc.distanceTo(markerLoc);
+        } catch (NullPointerException e) {
+            //Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_SHORT).show();
+        }
+
+        distance = distance / 1000;
+
+
+        return distance;
     }
 
 }
