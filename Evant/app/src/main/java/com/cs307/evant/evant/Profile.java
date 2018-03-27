@@ -42,15 +42,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        Button listButton = (Button) findViewById(R.id.listbutton);
-
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Profile.this, catList.class);
-                startActivity(intent);
-            }
-        });
 
         Button profileButton = (Button) findViewById(R.id.profilebutton);
 

@@ -58,15 +58,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        Button listButton = (Button) findViewById(R.id.listbutton);
 
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Settings.this, catList.class);
-                startActivity(intent);
-            }
-        });
 
         Button profileButton = (Button) findViewById(R.id.profilebutton);
 
