@@ -4,9 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.util.Base64;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.model.LatLng;
+
+import android.util.Log;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -212,9 +213,8 @@ public class Database {
     }
 
     ArrayList<String> getMyEvents(String uid){
-        System.out.println(":::::::::" + uid);
         String user =  users.get(uid).toString();
-        System.out.println(user);
+        //System.out.println("user: " + user);
         String events = user.split("events=")[1];
         events = events.substring(0, events.indexOf("]")+1);
         System.out.println(events);
@@ -223,6 +223,7 @@ public class Database {
         ArrayList<String> stringe = new ArrayList<>();
         ArrayList<Integer> result = searchByName(liste, stringe);
 
+        //System.out.println("after searchbyname: " + stringe);
 
         return stringe;
     }
@@ -407,8 +408,10 @@ public class Database {
         ArrayList<Integer> indexes = new ArrayList<>();
         for(int i = 0; i<titles.size(); i++){
             String currTitle = titles.get(i);
+            //System.out.println("currtitle: " + currTitle);
             for(int j = 0; j<names.size(); j++) {
                 if (currTitle.contains(names.get(j))) {
+                    //System.out.println("match: " + names.get(j));
                     indexes.add(i);
                     results.add(currTitle);
                 }

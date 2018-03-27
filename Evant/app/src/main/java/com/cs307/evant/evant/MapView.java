@@ -5,6 +5,7 @@ import android.Manifest;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -140,7 +141,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        View locationButton = ((View) findViewById(1).getParent()).findViewById(2);
+        @SuppressLint("ResourceType") View locationButton = ((View) findViewById(1).getParent()).findViewById(2);
 
         // and next place it, for exemple, on bottom right (as Google Maps app)
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
@@ -486,18 +487,15 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                        String uid = db.getUid();
-                       Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_LONG).show();
-                        ArrayList<String> myEvents = db.getMyEvents(uid);
-                        myEvents.add(marker.getTitle());
-//                        ArrayList<String> events = db.getTitles();
-//                        myEvents.add("hihihi");
-//                        for(int a =0; a < events.size(); a++){
-//                            if(marker.getTitle().equals(events.indexOf(a))){
-                                //myEvents.add(marker.getTitle());
-//                            }
-//                        }
-                        db.updateMyEvents(uid,myEvents);
-
+                       //System.out.println(uid);
+                        ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                        ArrayList<String> events = db.getTitles();
+                        if(!myEvents.contains(marker.getTitle())) {
+                            myEvents.add(marker.getTitle());
+                            db.updateMyEvents(uid,myEvents);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Already attending.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
                 alertDialog.setNegativeButton("Learn more", new DialogInterface.OnClickListener() {

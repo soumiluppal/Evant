@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -27,6 +28,8 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+        //Toast.makeText(getApplicationContext(), "GETMYEVEENT: " +  myEvents, Toast.LENGTH_LONG).show();
         Bundle b = getIntent().getExtras();
         String uid = b.getString("uid");
         setContentView(R.layout.activity_profile);
