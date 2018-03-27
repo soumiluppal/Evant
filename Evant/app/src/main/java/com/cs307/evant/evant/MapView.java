@@ -248,6 +248,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 radiusStr = input.getText().toString();
                                 radiusVal = Double.parseDouble(radiusStr);
+                                db.updateRadius(db.getUid(),radiusVal);
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

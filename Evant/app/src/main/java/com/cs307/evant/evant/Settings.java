@@ -1,6 +1,7 @@
 package com.cs307.evant.evant;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,9 +12,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,7 +26,10 @@ import static com.cs307.evant.evant.MainActivity.db;
 public class Settings extends AppCompatActivity {
 
     // Global variables
+    final Context context = this;
     Button setRadius;
+    private double radiusVal = db.getRadius(db.getUid());
+    private String radiusStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +88,6 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Settings.this, EditProfileSettings.class);
-                intent.putExtra("uid", db.getUid());
                 startActivity(intent);
             }
         });
@@ -114,7 +120,34 @@ public class Settings extends AppCompatActivity {
         setRadius.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShowDialog();
+
+                //ShowDialog();
+                Toast.makeText(getApplicationContext(), "DISTANCE = " + radiusVal, Toast.LENGTH_SHORT).show();
+
+                final android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(context);
+                alertDialogBuilder.setTitle("Set Radius");
+                final EditText input = new EditText(context);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                alertDialogBuilder.setView(input);
+
+                alertDialogBuilder.setMessage("Current radius is = " + radiusVal)
+                        .setCancelable(false)
+                        .setPositiveButton("Change", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                radiusStr = input.getText().toString();
+                                radiusVal = Double.parseDouble(radiusStr);
+                                db.updateRadius(db.getUid(),radiusVal);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+                android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }
