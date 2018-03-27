@@ -120,7 +120,7 @@ public class Settings extends AppCompatActivity {
         setRadius.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                radiusVal = db.getRadius(db.getUid());
                 //ShowDialog();
                 Toast.makeText(getApplicationContext(), "DISTANCE = " + radiusVal, Toast.LENGTH_SHORT).show();
 

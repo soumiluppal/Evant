@@ -233,6 +233,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         FloatingActionButton radius = (FloatingActionButton) findViewById(R.id.radius);
         radius.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                radiusVal = db.getRadius(db.getUid());
                 Toast.makeText(getApplicationContext(), "DISTANCE = " + radiusVal, Toast.LENGTH_SHORT).show();
 
                 final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
