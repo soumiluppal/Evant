@@ -242,6 +242,7 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println("USER: " + user);
         String upstr = user.split("thumbsup=")[1];
+
         int thumbsUp;
         try{
             thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
@@ -252,7 +253,7 @@ public class Database {
         String downstr = user.split("thumbsdown=")[1];
         int thumbsDown;
         try{
-            thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+            thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
         }
         catch(StringIndexOutOfBoundsException e){
             thumbsDown = 0;
@@ -279,7 +280,9 @@ public class Database {
         System.out.println(user);
         String downstr = user.split("thumbsdown=")[1];
         System.out.println("HERE::"+downstr+"::");
-        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+        System.out.println("HERE::" + downstr.indexOf("}"));
+        System.out.println((downstr.substring(0, downstr.indexOf("}"))));
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
         thumbsDown++;
         System.out.println("New thumbs down: " + thumbsDown);
         String str = Integer.toString(thumbsDown);
