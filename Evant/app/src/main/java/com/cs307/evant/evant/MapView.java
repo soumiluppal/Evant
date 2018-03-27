@@ -147,8 +147,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         // position on right bottom
         rlp.setMargins(0, 200, 30, 0);
 
-        ImageView imView = (ImageView) findViewById(R.id.imageView5);
-        imView.bringToFront();
+
 
 
         Button button = findViewById(R.id.homebutton);
@@ -159,15 +158,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
-        Button listButton = (Button) findViewById(R.id.listbutton);
 
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapView.this, catList.class);
-                startActivity(intent);
-            }
-        });
 
         Button profileButton = (Button) findViewById(R.id.profilebutton);
 
