@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import static com.cs307.evant.evant.MainActivity.db;
 
 public class EditProfileSettings extends AppCompatActivity {
 
@@ -18,12 +21,22 @@ public class EditProfileSettings extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //THIS IS NECESSARY:
+        final EditText username = (EditText) findViewById(R.id.Password);
+        final EditText password = (EditText) findViewById(R.id.Email);
+        final EditText email = (EditText) findViewById(R.id.Username);
+        final EditText interests = (EditText) findViewById(R.id.Interests);
+
         //Apply button
         Button ApplyButton = (Button) findViewById(R.id.Apply);
 
         ApplyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!username.getText().toString().equals("")){
+                    System.out.println("empty: " + username.getText().toString());
+                    db.updateName(db.getUid(), username.getText().toString());
+                }
                 Intent intent = new Intent(EditProfileSettings.this, Settings.class);
                 startActivity(intent);
             }
