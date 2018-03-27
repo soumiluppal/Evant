@@ -5,6 +5,7 @@ import android.Manifest;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -140,12 +141,15 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        View locationButton = ((View) findViewById(1).getParent()).findViewById(2);
+        @SuppressLint("ResourceType") View locationButton = ((View) findViewById(1).getParent()).findViewById(2);
 
         // and next place it, for exemple, on bottom right (as Google Maps app)
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         // position on right bottom
         rlp.setMargins(0, 200, 30, 0);
+
+
+
 
         Button button = findViewById(R.id.homebutton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -155,15 +159,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
-        Button listButton = (Button) findViewById(R.id.listbutton);
 
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapView.this, catList.class);
-                startActivity(intent);
-            }
-        });
 
         Button profileButton = (Button) findViewById(R.id.profilebutton);
 
@@ -324,28 +320,32 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     //recyclerView.addItemDecoration(new DividerItemDecoration(HomeScreen.this, LinearLayoutManager.VERTICAL));
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    ArrayList<String> titles = new ArrayList<>();
-                    ArrayList<String> dttime = new ArrayList<>();
-                    ArrayList<String> loc = new ArrayList<>();
-                    ArrayList<String> descrip = new ArrayList<>();
-                    ArrayList<String> hst = new ArrayList<>();
-                    //cats = db.getCategories();
+                    ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                    ArrayList<String> myDescrips = new ArrayList<>();
+                    ArrayList<String> myLoc = new ArrayList<>();
+                    ArrayList<String> myTime = new ArrayList<>();
+                    ArrayList<String> myHst = new ArrayList<>();
 
-                    //System.out.println(cats.get(0)[0]);
+                    ArrayList<String> titles = db.getTitles();
+                    ArrayList<String> descrips = db.getDescription();
+                    ArrayList<String> loc = db.getLoc();
+                    ArrayList<String> dtTime = db.getTime();
+                    ArrayList<String> hst = db.getHost();
 
-                    //filterCats(cats);
+                    for(int a=0; a<myEvents.size(); a++){
+                        for(int b=0; b<titles.size(); b++){
+                            if(myEvents.indexOf(a) == titles.indexOf(b)){
+                                myDescrips.add(descrips.get(b));
+                                myLoc.add(loc.get(b));
+                                myTime.add(dtTime.get(b));
+                                myHst.add(hst.get(b));
+                            }
+                        }
+                    }
 
-                    titles = db.getTitles();
 
-                    hst = db.getHost();
 
-                    dttime = db.getTime();
-
-                    loc = db.getLoc();
-
-                    descrip = db.getDescription();
-
-                    eventAdapter cadapter = new eventAdapter(titles, descrip, dttime, loc, hst, MapView.this);
+                    eventAdapter cadapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
@@ -373,28 +373,33 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     //recyclerView.addItemDecoration(new DividerItemDecoration(HomeScreen.this, LinearLayoutManager.VERTICAL));
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    ArrayList<String> titles = new ArrayList<>();
-                    ArrayList<String> dttime = new ArrayList<>();
-                    ArrayList<String> loc = new ArrayList<>();
-                    ArrayList<String> descrip = new ArrayList<>();
-                    ArrayList<String> hst = new ArrayList<>();
-                    //cats = db.getCategories();
 
-                    //System.out.println(cats.get(0)[0]);
+                    ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                    ArrayList<String> myDescrips = new ArrayList<>();
+                    ArrayList<String> myLoc = new ArrayList<>();
+                    ArrayList<String> myTime = new ArrayList<>();
+                    ArrayList<String> myHst = new ArrayList<>();
 
-                    //filterCats(cats);
+                    ArrayList<String> titles = db.getTitles();
+                    ArrayList<String> descrips = db.getDescription();
+                    ArrayList<String> loc = db.getLoc();
+                    ArrayList<String> dtTime = db.getTime();
+                    ArrayList<String> hst = db.getHost();
 
-                    titles = db.getTitles();
+                    for(int a=0; a<myEvents.size(); a++){
+                        for(int b=0; b<titles.size(); b++){
+                            if(myEvents.indexOf(a) == titles.indexOf(b)){
+                                myDescrips.add(descrips.get(b));
+                                myLoc.add(loc.get(b));
+                                myTime.add(dtTime.get(b));
+                                myHst.add(hst.get(b));
+                            }
+                        }
+                    }
 
-                    hst = db.getHost();
 
-                    dttime = db.getTime();
 
-                    loc = db.getLoc();
-
-                    descrip = db.getDescription();
-
-                    eventAdapter cadapter = new eventAdapter(titles, descrip, dttime, loc, hst, MapView.this);
+                    eventAdapter cadapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
@@ -409,7 +414,20 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
+        if(getIntent().getExtras() != null && getIntent().getExtras().getBoolean("firstTime")) {
+            Intent intent = new Intent(MapView.this, MapView.class);
+            intent.putExtra("firstTime", false);
+            try {
+                Thread.sleep(1000);
+            }
+            catch (Exception e) {
+
+            }
+            startActivity(intent);
+        }
+
     }
+
 
     protected void onPause() {
         super.onPause();
@@ -626,7 +644,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
             LatLng tempLatLng = new LatLng(douLat, douLng);
             markerLatlngs.add(tempLatLng);
-            MarkerOptions tempMarkerOptions = new MarkerOptions();
+            MarkerOptions tempMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
             tempMarkerOptions.position(markerLatlngs.get(index)).title(titles.get(index)).snippet(discrips.get(index));
             markerOptions.add(tempMarkerOptions);

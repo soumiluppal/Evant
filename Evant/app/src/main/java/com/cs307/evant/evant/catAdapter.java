@@ -4,7 +4,10 @@ package com.cs307.evant.evant;
         import android.content.Context;
         import android.content.DialogInterface;
         import android.content.Intent;
+        import android.content.res.Resources;
         import android.graphics.Bitmap;
+        import android.graphics.drawable.Drawable;
+        import android.net.Uri;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.widget.PopupMenu;
         import android.support.v7.widget.RecyclerView;
@@ -17,6 +20,7 @@ package com.cs307.evant.evant;
         import android.widget.TextView;
         import android.widget.Toast;
 
+        import java.lang.reflect.Field;
         import java.util.ArrayList;
 
 /**
@@ -25,7 +29,7 @@ package com.cs307.evant.evant;
 
 public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
 
-    private ArrayList<Bitmap> catPhotos;
+    private ArrayList<String> catPhotos;
     private ArrayList<String> cattitles;
     private Context ct;
     //private ImageView iv;
@@ -51,6 +55,12 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
     {
         //catPhotos = a;
         cattitles = b;
+        catPhotos = new ArrayList<>();
+        for(int i = 0; i < cattitles.size(); i++) {
+                String temp = cattitles.get(i).replaceAll("\\s", "");
+                System.out.println("CHECK::"+temp);
+                catPhotos.add(temp.toLowerCase());
+        }
         ct = c;
     }
 
@@ -66,6 +76,9 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
     @Override
     public void onBindViewHolder(catAdapter.MyViewHolder holder, final int position) {
         holder.title.setText(cattitles.get(position));
+        Uri uri = Uri.parse("android.resource://com.cs307.evant.evant/drawable/" + catPhotos.get(position));
+        holder.iv.setImageURI(uri);
+        holder.iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         //Drawable myDrawable = getApplicationContext().getResources().getDrawable(R.drawable.shoebackground);
         //String fpath = photopath.get(position);
         //holder.iv.setImageBitmap(catPhotos.get(position));
@@ -85,5 +98,16 @@ public class catAdapter extends RecyclerView.Adapter<catAdapter.MyViewHolder>{
     @Override
     public int getItemCount() {
         return cattitles.size();
+    }
+
+    public int getResId(String resName, Class<?> c) {
+
+        try {
+            Field idField = c.getDeclaredField(resName);
+            return idField.getInt(idField);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

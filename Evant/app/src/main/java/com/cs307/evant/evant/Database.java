@@ -213,7 +213,8 @@ public class Database {
         String user =  users.get(uid).toString();
         //System.out.println("user: " + user);
         String events = user.split("events=")[1];
-        events = events.substring(0, events.indexOf("}"));
+        events = events.substring(0, events.indexOf("]")+1);
+        System.out.println(events);
         Gson gson = new Gson();
         ArrayList liste = gson.fromJson(events, ArrayList.class);
         ArrayList<String> stringe = new ArrayList<>();
@@ -244,6 +245,7 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println("USER: " + user);
         String upstr = user.split("thumbsup=")[1];
+
         int thumbsUp;
         try{
             thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
@@ -254,7 +256,7 @@ public class Database {
         String downstr = user.split("thumbsdown=")[1];
         int thumbsDown;
         try{
-            thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+            thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
         }
         catch(StringIndexOutOfBoundsException e){
             thumbsDown = 0;
@@ -268,6 +270,7 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println(user);
         String upstr = user.split("thumbsup=")[1];
+        System.out.println("UP::"+upstr+"::");
         int thumbsUp = Integer.parseInt((upstr.substring(0, upstr.indexOf(","))));
         thumbsUp++;
         System.out.println("New thumbs up: " + thumbsUp);
@@ -279,7 +282,10 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println(user);
         String downstr = user.split("thumbsdown=")[1];
-        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+        System.out.println("HERE::"+downstr+"::");
+        System.out.println("HERE::" + downstr.indexOf("}"));
+        System.out.println((downstr.substring(0, downstr.indexOf("}"))));
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
         thumbsDown++;
         System.out.println("New thumbs down: " + thumbsDown);
         String str = Integer.toString(thumbsDown);

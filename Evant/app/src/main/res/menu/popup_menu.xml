@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".eventAdapter">
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
@@ -7,10 +9,8 @@
         android:text="Please rate this event" />
     <item
         android:id="@+id/menu01"
-        android:title="Thumbs Up!"
-        />
+        android:title="Thumbs Up!" />
     <item
         android:id="@+id/menu02"
-        android:title="Thumbs Down!"
-        />
+        android:title="Thumbs Down!" />
 </menu>
