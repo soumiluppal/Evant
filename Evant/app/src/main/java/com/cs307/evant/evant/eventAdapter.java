@@ -40,7 +40,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         public TextView loca;
         public ImageView iv;
         public Button info;
-        private ArrayList<String> hosts;
+        //private ArrayList<String> hosts;
         //public TextView cnts;
 
         public MyViewHolder(View view)

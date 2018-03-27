@@ -61,7 +61,8 @@ public class atten_events extends AppCompatActivity {
 
         for(int a=0; a<myEvents.size(); a++){
             for(int b=0; b<titles.size(); b++){
-                if(myEvents.indexOf(a) == titles.indexOf(b)){
+                System.out.println(myEvents.indexOf(a) + " ::::::::::::: " + titles.indexOf(b));
+                if(myEvents.get(a) == titles.get(b)){
                     myDescrips.add(descrips.get(b));
                     myLoc.add(loc.get(b));
                     myTime.add(dtTime.get(b));
