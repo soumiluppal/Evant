@@ -11,8 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="55dp"
         android:orientation="vertical"
+        android:background="@drawable/tempback"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
@@ -21,8 +22,8 @@
             android:layout_height="wrap_content"
             android:text="Edit Profile"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="50dp"
             tools:layout_editor_absoluteX="273dp"
             tools:layout_editor_absoluteY="69dp" />
 
@@ -31,7 +32,7 @@
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             android:text="Sign Out"
             tools:layout_editor_absoluteX="285dp"
             tools:layout_editor_absoluteY="130dp" />
@@ -41,7 +42,7 @@
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             android:text="Back"
             tools:layout_editor_absoluteX="285dp"
             tools:layout_editor_absoluteY="258dp" />
@@ -51,7 +52,7 @@
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="50dp"
             android:text="Set Radius"
             tools:layout_editor_absoluteX="141dp"
             tools:layout_editor_absoluteY="198dp" />
