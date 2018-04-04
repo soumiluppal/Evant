@@ -9,7 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
@@ -53,12 +56,31 @@ public class atten_events extends AppCompatActivity {
         ArrayList<String> myTime = new ArrayList<>();
         ArrayList<String> myHst = new ArrayList<>();
 
+        ArrayList<String> myAttended = new ArrayList<>();
         ArrayList<String> titles = db.getTitles();
         ArrayList<String> descrips = db.getDescription();
         ArrayList<String> loc = db.getLoc();
         ArrayList<String> dtTime = db.getTime();
         ArrayList<String> hst = db.getHost();
 
+        for(int a=0; a<myEvents.size(); a++){
+            for(int b=0; b<titles.size(); b++){
+                if (myEvents.get(a) == titles.get(b)) {
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+                    String formattedDate = df.format(currentTime);
+                    formattedDate = formattedDate.toUpperCase();
+                    if (formattedDate.compareTo(dtTime.get(b)) > 0) {
+                        myAttended.add(titles.get(b));
+                        myDescrips.add(descrips.get(b));
+                        myLoc.add(loc.get(b));
+                        myTime.add(dtTime.get(b));
+                        myHst.add(hst.get(b));
+                    }
+                }
+            }
+        }
+        /*
         for(int a=0; a<myEvents.size(); a++){
             for(int b=0; b<titles.size(); b++){
                 System.out.println(myEvents.indexOf(a) + " ::::::::::::: " + titles.indexOf(b));
@@ -70,9 +92,9 @@ public class atten_events extends AppCompatActivity {
                 }
             }
         }
+        */
 
-
-        eventAdapter eAdapter = new eventAdapter(myEvents,myDescrips, myLoc, myTime, myHst, this);
+        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, this);
         recyclerView.setAdapter(eAdapter);
     }
 
