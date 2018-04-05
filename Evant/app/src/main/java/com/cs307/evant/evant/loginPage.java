@@ -39,6 +39,7 @@ public class loginPage extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
+        Switch slog = findViewById(R.id.stayLog);
 
         Button logn = (Button) findViewById(R.id.login);
         final EditText uname = (EditText) findViewById(R.id.userName);
@@ -54,6 +55,7 @@ public class loginPage extends AppCompatActivity {
             String currpass = cursor.getString(1);
             uname.setText(curruser);
             pass.setText(currpass);
+
 
             mAuth.signInWithEmailAndPassword(curruser, currpass)
                     .addOnCompleteListener(loginPage.this, new OnCompleteListener<AuthResult>() {
@@ -80,6 +82,7 @@ public class loginPage extends AppCompatActivity {
         }
         cursor.close();
         db.close();
+        slog.setChecked(true);
 
 
         logn.setOnClickListener(new View.OnClickListener(){
