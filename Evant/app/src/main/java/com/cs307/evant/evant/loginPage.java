@@ -44,6 +44,7 @@ public class loginPage extends AppCompatActivity {
         Button logn = (Button) findViewById(R.id.login);
         final EditText uname = (EditText) findViewById(R.id.userName);
         final EditText pass = findViewById(R.id.password);
+        pass.setTransformationMethod(new AsteriskPasswordTransformationMethod());
         SQLiteOpenHelper DatabaseHelper = new DataHelp(loginPage.this);
         SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
         Cursor cursor = db.query("LOGINDATA", new String[]{"LOGGED", "PASS","USER"}, null, null, null, null, "_id DESC");

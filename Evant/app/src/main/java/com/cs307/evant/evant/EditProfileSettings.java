@@ -1,8 +1,12 @@
 package com.cs307.evant.evant;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -104,6 +108,19 @@ public class EditProfileSettings extends AppCompatActivity {
                         oldpw =  input.getText().toString();
                         AuthCredential credential = EmailAuthProvider.getCredential(email,oldpw);
                         System.out.println(oldpw);
+                        //local database pass change
+                        SQLiteOpenHelper DatabaseHelper = new DataHelp(EditProfileSettings.this);
+                        SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
+                        //cursor = db.query("LOGINDATA", new String[]{"CAT", "PATH","CNT","ROTATE","IMAGE"}, null, null, null, null, "_id DESC");
+
+                        //db.delete("LOGINDATA", null, null);
+
+                        ContentValues cv = new ContentValues();
+
+                        cv.put("PASS", newPass);
+                        cv.put("LOGGED",1);
+                        db.insert("LOGINDATA",null,cv);
+
                         user.reauthenticate(credential)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

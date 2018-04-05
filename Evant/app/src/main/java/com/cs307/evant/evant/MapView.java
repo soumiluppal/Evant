@@ -537,9 +537,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                         if(!myEvents.contains(marker.getTitle())) {
                             myEvents.add(marker.getTitle());
                             db.updateMyEvents(uid,myEvents);
-                            Toast.makeText(getApplicationContext(), "Successfully Joined Event!.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Successfully Joined Event!", Toast.LENGTH_LONG).show();
                         }else{
-                            Toast.makeText(getApplicationContext(), "Already attending.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Already attending this Event.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -40,6 +40,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         public TextView loca;
         public ImageView iv;
         public Button info;
+        public Button jEvent;
         //private ArrayList<String> hosts;
         //public TextView cnts;
 
@@ -51,6 +52,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
             dtm = view.findViewById(R.id.time);
             loca = view.findViewById(R.id.locationText);
             info = view.findViewById(R.id.minfo);
+            jEvent = view.findViewById(R.id.joinEvent);
 
 
 
@@ -103,6 +105,23 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
                 intent.putExtra("dttime",dttme.get(position));
                 intent.putExtra("location",location.get(position));
                 ct.startActivity(intent);
+            }
+        });
+
+        holder.jEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uid = db.getUid();
+                //System.out.println(uid);
+                ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+                ArrayList<String> events = db.getTitles();
+                if(!myEvents.contains(titles.get(position))) {
+                    myEvents.add(titles.get(position));
+                    db.updateMyEvents(uid,myEvents);
+                    Toast.makeText(ct, "Successfully Joined Event!", Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(ct, "Already attending this Event.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

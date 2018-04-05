@@ -83,6 +83,8 @@ public class signup extends AppCompatActivity {
                 EditText fullname = (EditText) findViewById(R.id.fullname);
                 String nm = fullname.getText().toString();
                 EditText conpass = (EditText) findViewById(R.id.confpassword);
+                pass.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+                conpass.setTransformationMethod(new AsteriskPasswordTransformationMethod());
                 String repass = conpass.getText().toString();
                 Switch klog = (Switch) findViewById(R.id.switch1);
                 boolean nvalid = false;
