@@ -83,13 +83,14 @@ public class NewEventActivity extends AppCompatActivity {
 
         if(first) {
             checkButtons.put("Sports", false);
-            checkButtons.put("Food", false);
-            checkButtons.put("Video Games", false);
+            checkButtons.put("Social", false);
             checkButtons.put("Education", false);
+            checkButtons.put("Gaming", false);
+            checkButtons.put("Food", false);
+            checkButtons.put("Community", false);
             checkButtons.put("Music", false);
-            checkButtons.put("Movies", false);
-            checkButtons.put("Workout", false);
-            checkButtons.put("Hobbies", false);
+            checkButtons.put("Art", false);
+            checkButtons.put("Others", false);
         }
         //UNCOMMENT TO TEST IMAGE RETRIEVAL
         /*ImageView imageViewer = (ImageView) findViewById(R.id.testimage);

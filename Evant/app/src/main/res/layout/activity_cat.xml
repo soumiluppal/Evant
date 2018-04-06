@@ -32,10 +32,16 @@
                 android:text="Sports" />
 
             <CheckBox
-                android:id="@+id/foodCheck"
+                android:id="@+id/socialCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Food" />
+                android:text="Social" />
+
+            <CheckBox
+                android:id="@+id/educationCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Education" />
 
             <CheckBox
                 android:id="@+id/gamingCheck"
@@ -44,10 +50,16 @@
                 android:text="Gaming" />
 
             <CheckBox
-                android:id="@+id/eduCheck"
+                android:id="@+id/foodCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Education" />
+                android:text="Food" />
+
+            <CheckBox
+                android:id="@+id/communitycheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Community" />
 
             <CheckBox
                 android:id="@+id/musicCheck"
@@ -56,22 +68,15 @@
                 android:text="Music" />
 
             <CheckBox
-                android:id="@+id/moviecheck"
+                android:id="@+id/artCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Movies" />
-
+                android:text="Art" />
             <CheckBox
-                android:id="@+id/workoutCheck"
+                android:id="@+id/othersCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Workout" />
-
-            <CheckBox
-                android:id="@+id/hobbiesCheck"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hobbies" />
+                android:text="Others" />
         </LinearLayout>
     </ScrollView>
 
