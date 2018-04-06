@@ -38,17 +38,20 @@ public class eventPage extends AppCompatActivity {
         TextView descrip = findViewById(R.id.description);
         TextView Loc = findViewById(R.id.loc);
         TextView peps = findViewById(R.id.people);
+        TextView numbAttendee = findViewById(R.id.numbAttendee);
         Button hostRating = (Button)findViewById(R.id.hostRating);
         Button jEvent = (Button)findViewById(R.id.joinEvent);
-
+        final ArrayList<String> attendeeList = new ArrayList<>();
 
         title.setText(getIntent().getStringExtra("Title"));
         descrip.setText(getIntent().getStringExtra("Description"));
-        String location = "\nLocation:  " + getIntent().getStringExtra("location") + " " + getIntent().getStringExtra("dttime");
+        String location = "Location:  " + getIntent().getStringExtra("location") + " " + getIntent().getStringExtra("dttime");
         Loc.setText(location);
         System.out.println("HOST IN PAGE: " + getIntent().getStringExtra("Host"));
         String ahst = "Host of Event: " + db.getName(getIntent().getStringExtra("Host"));
+        String numbAttendeeString = "Number of people: " + attendeeList.size();
         peps.setText(ahst);
+        numbAttendee.setText(numbAttendeeString);
         //String name = db.getName(db.getUid());
         final String tempHost = getIntent().getStringExtra("Host");
 
@@ -61,6 +64,13 @@ public class eventPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+/////////////////////////////////////////////////////////////////////////////////
+        numbAttendee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         jEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +80,7 @@ public class eventPage extends AppCompatActivity {
                 ArrayList<String> myEvents = db.getMyEvents(db.getUid());
                 ArrayList<String> events = db.getTitles();
                 if(!myEvents.contains(title.getText())) {
+                    attendeeList.add(uid);
                     myEvents.add((String) title.getText());
                     db.updateMyEvents(uid,myEvents);
                     Toast.makeText(getApplicationContext(), "Successfully Joined Event!.", Toast.LENGTH_LONG).show();
