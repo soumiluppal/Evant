@@ -467,6 +467,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
             startActivity(intent);
         }
+        startService(new Intent(MapView.this, NotifcationsService.class));
 
     }
 

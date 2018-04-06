@@ -115,6 +115,8 @@
             android:name=".EditProfileSettings"
             android:label="@string/title_activity_edit_profile_settings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service android:enabled="true"
+            android:name=".NotifcationsService"></service>
     </application>
 
 </manifest>
