@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = db.query("LOGINDATA", new String[]{"LOGGED", "PASS","USER"}, null, null, null, null, "_id DESC");
         cursor.moveToFirst();
         mAuth = FirebaseAuth.getInstance();
+
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             //load map
             Intent intent = new Intent(MainActivity.this, MapView.class);
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             addItem.create();
             addItem.show();
         }
+
     }
 
     //TEMPORARY MAIN PAGE
