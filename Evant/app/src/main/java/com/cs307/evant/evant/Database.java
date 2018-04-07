@@ -42,6 +42,7 @@ public class Database {
     ArrayList host = new ArrayList();
     ArrayList lat = new ArrayList();
     ArrayList lng = new ArrayList();
+    ArrayList<ArrayList<String>> attendees = new ArrayList();
     ArrayList<String> images = new ArrayList();
     ArrayList<String> categories = new ArrayList();
     FirebaseDatabase db;
@@ -164,6 +165,21 @@ public class Database {
                 categories = (ArrayList<String>) dataSnapshot.getValue();
             }
 
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        mDatabase.child("attendees").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                ArrayList<String> atts = (ArrayList<String>) dataSnapshot.getValue();
+                System.out.println("from db: " + atts);
+                attendees = toListofLists(atts);
+            }
+
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -206,6 +222,10 @@ public class Database {
         mDatabase.child("users").child(uid).child("radius").setValue(Double.toString(r));
     }
 
+    void signUpForEvent(String uid){
+
+    }
+
     void initializeRating(String uid){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(uid).child("thumbsup").setValue("0");
@@ -232,7 +252,23 @@ public class Database {
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         Gson gson = new Gson();
         String stringe = gson.toJson(events);
+        ArrayList<String> dummy = new ArrayList<>();
+        ArrayList<Integer> indexes = searchByName(events, dummy);
+        for(int i = 0; i<indexes.size(); i++){
+            System.out.println("list: " + attendees.get(indexes.get(i)));
+            if(attendees.get(indexes.get(i)).contains("none")){
+                ArrayList<String> newl = new ArrayList<>();
+                newl.add(uid);
+                attendees.set(indexes.get(i), newl);
+            }else {
+                if (!attendees.get(indexes.get(i)).contains(uid)){
+                    attendees.get(indexes.get(i)).add(uid);
+                }
+            }
+        }
+        System.out.println("whole list after update: " + toListofStrings(attendees));
         mDatabase.child("users").child(uid).child("events").setValue(stringe);
+        mDatabase.child("attendees").setValue(toListofStrings(attendees));
     }
 
     String getUid(){
@@ -324,6 +360,13 @@ public class Database {
         descriptions.add(desc);
         dttime.add(dt);
         host.add(uid);
+        ArrayList newAttendees = new ArrayList();
+        newAttendees.add(uid);
+        attendees.add(newAttendees);
+        ArrayList<String> events = getMyEvents(uid);
+        events.add(name);
+        Gson gson = new Gson();
+        String stringe = gson.toJson(events);
         lat.add(latitude);
         lng.add(longitude);
         String category = "";
@@ -348,8 +391,10 @@ public class Database {
         mDatabase.child("host").setValue(host);
         mDatabase.child("lat").setValue(lat);
         mDatabase.child("long").setValue(lng);
-        mDatabase.child("images").setValue(images);
+        //mDatabase.child("images").setValue(images);
         mDatabase.child("categories").setValue(categories);
+        mDatabase.child("attendees").setValue(toListofStrings(attendees));
+        mDatabase.child("users").child(uid).child("events").setValue(stringe);
     }
 
     String encodeBitmap(Bitmap bm){
@@ -486,4 +531,25 @@ public class Database {
         return distance;
     }
 
+    ArrayList toListofLists(ArrayList<String> atts){
+        ArrayList builder = new ArrayList();
+        System.out.println(atts);
+        for(int i = 0; i<atts.size(); i++){
+            //System.out.println("list: " + atts.get(i));
+            Gson gson = new Gson();
+            builder.add(gson.fromJson(atts.get(i), ArrayList.class));
+        }
+        System.out.println("result of toListofLists: " + builder);
+        return builder;
+    }
+
+    ArrayList<String> toListofStrings(ArrayList list){
+        ArrayList<String> builder = new ArrayList<>();
+        for(int i = 0; i<list.size(); i++){
+            Gson gson = new Gson();
+            String stringe = gson.toJson(list.get(i));
+            builder.add(stringe);
+        }
+        return builder;
+    }
 }
