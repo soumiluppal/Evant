@@ -71,11 +71,12 @@ public class catList extends AppCompatActivity {
         ctnms.add("Sports");
         ctnms.add("Social");
         ctnms.add("Education");
-        ctnms.add("Video Games");
+        ctnms.add("Gaming");
         ctnms.add("Community");
+        ctnms.add("Music");
         ctnms.add("Food");
-        ctnms.add("Flash Mobs");
-        ctnms.add("Sales");
+        ctnms.add("Art");
+        ctnms.add("Others");
         catAdapter cadapter = new catAdapter(ctnms,this);
         recyclerView.setAdapter(cadapter);
     }

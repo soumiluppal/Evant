@@ -54,6 +54,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:enabled="true"
+            android:exported="true"
+            android:name=".NotifcationsService"/>
         <activity
             android:name=".NewEventActivity"
             android:label="@string/title_activity_new_event"
@@ -107,14 +110,15 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".host_rating"
             android:label="Host Rating" />
         <activity
             android:name=".EditProfileSettings"
             android:label="@string/title_activity_edit_profile_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

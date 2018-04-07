@@ -23,20 +23,22 @@ public class CatActivity extends AppCompatActivity {
         checkButtons = (HashMap<String, Boolean>) getIntent().getSerializableExtra("map");
         CheckBox check = (CheckBox) findViewById(R.id.sportsCheck);
         check.setChecked(checkButtons.get("Sports"));
+        check = (CheckBox) findViewById(R.id.socialCheck);
+        check.setChecked(checkButtons.get("Social"));
+        check = (CheckBox) findViewById(R.id.educationCheck);
+        check.setChecked(checkButtons.get("Education"));
+        check = (CheckBox) findViewById(R.id.gamingCheck);
+        check.setChecked(checkButtons.get("Gaming"));
         check = (CheckBox) findViewById(R.id.foodCheck);
         check.setChecked(checkButtons.get("Food"));
-        check = (CheckBox) findViewById(R.id.gamingCheck);
-        check.setChecked(checkButtons.get("Video Games"));
-        check = (CheckBox) findViewById(R.id.eduCheck);
-        check.setChecked(checkButtons.get("Education"));
+        check = (CheckBox) findViewById(R.id.communitycheck);
+        check.setChecked(checkButtons.get("Community"));
         check = (CheckBox) findViewById(R.id.musicCheck);
         check.setChecked(checkButtons.get("Music"));
-        check = (CheckBox) findViewById(R.id.moviecheck);
-        check.setChecked(checkButtons.get("Movies"));
-        check = (CheckBox) findViewById(R.id.workoutCheck);
-        check.setChecked(checkButtons.get("Workout"));
-        check = (CheckBox) findViewById(R.id.hobbiesCheck);
-        check.setChecked(checkButtons.get("Hobbies"));
+        check = (CheckBox) findViewById(R.id.artCheck);
+        check.setChecked(checkButtons.get("Art"));
+        check = (CheckBox) findViewById(R.id.othersCheck);
+        check.setChecked(checkButtons.get("Others"));
 
 
         Button doneButton = (Button) findViewById(R.id.doneButton);
@@ -60,7 +62,7 @@ public class CatActivity extends AppCompatActivity {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
                 }
-                box = (CheckBox)findViewById(R.id.eduCheck);
+                box = (CheckBox)findViewById(R.id.educationCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
@@ -70,17 +72,22 @@ public class CatActivity extends AppCompatActivity {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
                 }
-                box = (CheckBox)findViewById(R.id.moviecheck);
+                box = (CheckBox)findViewById(R.id.artCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
                 }
-                box = (CheckBox)findViewById(R.id.workoutCheck);
+                box = (CheckBox)findViewById(R.id.socialCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
                 }
-                box = (CheckBox)findViewById(R.id.hobbiesCheck);
+                box = (CheckBox)findViewById(R.id.communitycheck);
+                if(box.isChecked()) {
+                    title = box.getText().toString();
+                    checkButtons.put(title, true);
+                }
+                box = (CheckBox)findViewById(R.id.othersCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);

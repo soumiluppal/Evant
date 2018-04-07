@@ -467,6 +467,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
             startActivity(intent);
         }
+        startService(new Intent(MapView.this, NotifcationsService.class));
 
     }
 
@@ -534,7 +535,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                        //System.out.println(uid);
                         ArrayList<String> myEvents = db.getMyEvents(db.getUid());
                         ArrayList<String> events = db.getTitles();
+                        ArrayList<String> attendeeList = new ArrayList<>();
                         if(!myEvents.contains(marker.getTitle())) {
+                            attendeeList.add(uid);
                             myEvents.add(marker.getTitle());
                             db.updateMyEvents(uid,myEvents);
                             Toast.makeText(getApplicationContext(), "Successfully Joined Event!", Toast.LENGTH_LONG).show();
