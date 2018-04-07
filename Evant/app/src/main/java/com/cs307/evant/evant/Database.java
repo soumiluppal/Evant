@@ -436,6 +436,8 @@ public class Database {
 
     ArrayList<Double> getLng(){return lng;}
 
+    ArrayList<ArrayList<String>> getAttendees() { return attendees;}
+
     ArrayList<String []> getCategories(){
         ArrayList<String []> list = new ArrayList<>();
         for(int i = 0; i<categories.size(); i++){
