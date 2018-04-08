@@ -118,7 +118,7 @@
             android:textColor="#000"
             android:textSize="15sp" />
 
-        <TextView
+        <Button
             android:id="@+id/numbAttendee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
             android:textColor="#000"
             android:text="test"
             android:textSize="15sp"
-            android:clickable="true"/>
+            android:theme="@style/PrimaryFlatButton"/>
 
         <LinearLayout
             android:layout_width="match_parent"

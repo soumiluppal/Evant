@@ -535,9 +535,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                        //System.out.println(uid);
                         ArrayList<String> myEvents = db.getMyEvents(db.getUid());
                         ArrayList<String> events = db.getTitles();
-                        ArrayList<String> attendeeList = new ArrayList<>();
+                        ArrayList<ArrayList<String>> attendeeList = db.getAttendees();
+
                         if(!myEvents.contains(marker.getTitle())) {
-                            attendeeList.add(uid);
+                            //attendeeList.add(uid);
+                            int eventIndex = events.indexOf(marker.getTitle());
                             myEvents.add(marker.getTitle());
                             db.updateMyEvents(uid,myEvents);
                             Toast.makeText(getApplicationContext(), "Successfully Joined Event!", Toast.LENGTH_LONG).show();

@@ -114,6 +114,8 @@
         <activity
             android:name=".host_rating"
             android:label="Host Rating" />
+        <activity android:name=".attendee_list"
+            android:label="List of Attendees" />
         <activity
             android:name=".EditProfileSettings"
             android:label="@string/title_activity_edit_profile_settings"

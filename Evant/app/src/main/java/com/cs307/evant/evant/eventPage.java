@@ -38,22 +38,39 @@ public class eventPage extends AppCompatActivity {
         TextView descrip = findViewById(R.id.description);
         TextView Loc = findViewById(R.id.loc);
         TextView peps = findViewById(R.id.people);
-        TextView numbAttendee = findViewById(R.id.numbAttendee);
+        Button numbAttendee = findViewById(R.id.numbAttendee);
         Button hostRating = (Button)findViewById(R.id.hostRating);
         Button jEvent = (Button)findViewById(R.id.joinEvent);
-        final ArrayList<String> attendeeList = new ArrayList<>();
+        final ArrayList<ArrayList<String>> attendeeList = db.getAttendees();
+        final ArrayList<String> eventTitles = db.getTitles();
 
-        title.setText(getIntent().getStringExtra("Title"));
+        final String titleStr = getIntent().getStringExtra("Title");
+        title.setText(titleStr);
+        int eventIndex = eventTitles.indexOf(titleStr);
+
+        final ArrayList<String> list = db.getAttendees().get(eventIndex);
+
         descrip.setText(getIntent().getStringExtra("Description"));
         String location = "Location:  " + getIntent().getStringExtra("location") + " " + getIntent().getStringExtra("dttime");
         Loc.setText(location);
         System.out.println("HOST IN PAGE: " + getIntent().getStringExtra("Host"));
         String ahst = "Host of Event: " + db.getName(getIntent().getStringExtra("Host"));
-        String numbAttendeeString = "Number of people: " + attendeeList.size();
+        String numbAttendeeString = "Number of people: " + attendeeList.get(eventIndex).size();
         peps.setText(ahst);
         numbAttendee.setText(numbAttendeeString);
         //String name = db.getName(db.getUid());
         final String tempHost = getIntent().getStringExtra("Host");
+
+        numbAttendee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "attendee list clicked", Toast.LENGTH_SHORT).show();
+                Intent intent =new Intent(eventPage.this, attendee_list.class);
+                intent.putExtra("title", titleStr);
+                intent.putExtra("list", list);
+                startActivity(intent);
+            }
+        });
 
         hostRating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +79,6 @@ public class eventPage extends AppCompatActivity {
                 Intent intent = new Intent(eventPage.this, host_rating.class);
                 intent.putExtra("host", tempHost);
                 startActivity(intent);
-            }
-        });
-/////////////////////////////////////////////////////////////////////////////////
-        numbAttendee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
             }
         });
 
@@ -80,7 +90,7 @@ public class eventPage extends AppCompatActivity {
                 ArrayList<String> myEvents = db.getMyEvents(db.getUid());
                 ArrayList<String> events = db.getTitles();
                 if(!myEvents.contains(title.getText())) {
-                    attendeeList.add(uid);
+                    //attendeeList.add(uid);
                     myEvents.add((String) title.getText());
                     db.updateMyEvents(uid,myEvents);
                     Toast.makeText(getApplicationContext(), "Successfully Joined Event!.", Toast.LENGTH_LONG).show();
