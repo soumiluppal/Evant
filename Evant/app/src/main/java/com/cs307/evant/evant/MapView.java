@@ -649,6 +649,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     .strokeWidth(5);
             circle = mMap.addCircle(circleOptions);
 
+
+
             /*
             CircleOptions circle = new CircleOptions()
                     .center(cur)
@@ -682,21 +684,29 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         int totalEvents = lats.size();
 
+        if(circle != null)  {
+            System.out.println("Center: " + circle.getCenter());
+        }
+
         ArrayList<LatLng> markerLatlngs = new ArrayList<>();
         ArrayList<MarkerOptions> markerOptions = new ArrayList<>();
         ArrayList<Marker> markers = new ArrayList<>();
 
         double r = db.getRadius(db.getUid());
-        Location curLoc = new Location("");
-        curLoc.setLatitude(40.427728);
-        curLoc.setLongitude(-86.947603);
-        //Location curLoc = new Location(LocationManager.GPS_PROVIDER);
+        Location curLoc = new Location(LocationManager.GPS_PROVIDER);
 
         try {
             curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         } catch (SecurityException e) {
 
 
+        }
+
+        if (curLoc == null) {
+            System.out.println("uhoh");
+            curLoc = new Location("");
+            curLoc.setLatitude(40.427728);
+            curLoc.setLongitude(-86.947603);
         }
 
         ArrayList<Integer> searchResult = db.search(crit, curLoc, r);
@@ -809,18 +819,21 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     }
 
     private double calculateDistance(LatLng marLoc) {
-        /*Location curLoc = new Location(LocationManager.GPS_PROVIDER);
+        Location curLoc = new Location(LocationManager.GPS_PROVIDER);
 
         try {
             curLoc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         } catch (SecurityException e) {
 
 
-        }*/
+        }
 
-        Location curLoc = new Location("");
-        curLoc.setLatitude(40.427728);
-        curLoc.setLongitude(-86.947603);
+        if (curLoc == null) {
+            System.out.println("uhoh");
+            curLoc = new Location("");
+            curLoc.setLatitude(40.427728);
+            curLoc.setLongitude(-86.947603);
+        }
 
 
         Location markerLoc = new Location("");
