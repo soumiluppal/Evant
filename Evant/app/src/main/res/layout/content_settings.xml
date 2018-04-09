@@ -23,7 +23,7 @@
             android:text="Edit Profile"
             android:layout_gravity="center"
             android:layout_marginTop="70dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             tools:layout_editor_absoluteX="273dp"
             tools:layout_editor_absoluteY="69dp" />
 
@@ -32,7 +32,7 @@
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:text="Sign Out"
             tools:layout_editor_absoluteX="285dp"
             tools:layout_editor_absoluteY="130dp" />
@@ -42,17 +42,27 @@
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:text="Set Radius"
             tools:layout_editor_absoluteX="141dp"
             tools:layout_editor_absoluteY="198dp" />
+
+        <Button
+            android:id="@+id/ConnectToOutlook"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:text="Outlook"
+            tools:layout_editor_absoluteX="285dp"
+            tools:layout_editor_absoluteY="258dp" />
 
         <Button
             android:id="@+id/BackButton"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             android:text="Back"
             tools:layout_editor_absoluteX="285dp"
             tools:layout_editor_absoluteY="258dp" />
