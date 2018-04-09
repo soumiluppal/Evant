@@ -324,7 +324,7 @@ public class Database {
         System.out.println("HERE::"+downstr+"::");
         System.out.println("HERE::" + downstr.indexOf("}"));
         System.out.println((downstr.substring(0, downstr.indexOf("}"))));
-        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
         thumbsDown++;
         System.out.println("New thumbs down: " + thumbsDown);
         String str = Integer.toString(thumbsDown);
@@ -351,6 +351,29 @@ public class Database {
         System.out.println("New thumbs down: " + thumbsDown);
         String str = Integer.toString(thumbsDown);
         mDatabase.child("users").child(uid).child("thumbsdown").setValue(str);
+    }
+
+    LatLng getLocation(String uid){
+        if(users.get(uid) == null){
+            signOut();
+            return null;
+        }
+        String user =  users.get(uid).toString();
+        System.out.println("USER: " + user);
+        String plocation = user.split("plocation=")[1];
+        plocation = plocation.substring(0, plocation.indexOf("}"));
+        String[] latlong =  plocation.split(",");
+        LatLng location = new LatLng(Double.parseDouble(latlong[0]), Double.parseDouble(latlong[1]));
+
+
+        System.out.println(uid + "'s permanent location: " + location);
+        return location;
+    }
+
+    void updateLocation(String uid, LatLng r){
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String slocation = r.latitude + "," + r.longitude;
+        mDatabase.child("users").child(uid).child("plocation").setValue(slocation);
     }
 
     void addEvent(String name, String addr, String desc, String dt, String uid, double latitude, double longitude, Bitmap bm, Map checkButtons){
