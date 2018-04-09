@@ -55,7 +55,8 @@ public class eventPage extends AppCompatActivity {
         Loc.setText(location);
         System.out.println("HOST IN PAGE: " + getIntent().getStringExtra("Host"));
         String ahst = "Host of Event: " + db.getName(getIntent().getStringExtra("Host"));
-        String numbAttendeeString = "Number of people: " + attendeeList.get(eventIndex).size();
+        String numbAttendeeString = "Number of people attending event: " + attendeeList.get(eventIndex).size();
+        String fpep = ahst + "\n" + numbAttendeeString;
         peps.setText(ahst);
         numbAttendee.setText(numbAttendeeString);
         //String name = db.getName(db.getUid());

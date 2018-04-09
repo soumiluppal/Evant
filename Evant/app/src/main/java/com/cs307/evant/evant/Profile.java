@@ -29,12 +29,27 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ArrayList<String> myEvents = db.getMyEvents(db.getUid());
+        ArrayList<String[]> ints = db.getCategories();
         //Toast.makeText(getApplicationContext(), "GETMYEVEENT: " +  myEvents, Toast.LENGTH_LONG).show();
         Bundle b = getIntent().getExtras();
         String uid = b.getString("uid");
         setContentView(R.layout.activity_profile);
         String name = db.getName(db.getUid());
         TextView dispname = (TextView) findViewById(R.id.dispname);
+        TextView intrst = findViewById(R.id.interestsText);
+
+        String interets = "";
+
+        for(int i = 0; i < ints.size();i++)
+        {
+            String tmp = "";
+            for(int j = 0; j < ints.get(i).length;j++)
+            {
+                tmp = ints.get(i)[j];
+
+            }
+        }
+
         dispname.setText("Name: " + name);
 
         Button button = findViewById(R.id.homebutton);

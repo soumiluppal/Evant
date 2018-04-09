@@ -126,11 +126,13 @@
             android:gravity= "center"
             android:shadowColor="#000000"
             android:shadowDx="1.5"
+            android:shadowDy="1.3"
             android:shadowRadius="2"
             android:textColor="#000"
             android:text="test"
+            android:theme="@style/PrimaryFlatButton"
             android:textSize="15sp"
-            android:theme="@style/PrimaryFlatButton"/>
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
