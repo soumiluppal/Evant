@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -196,6 +198,8 @@ public class signup extends AppCompatActivity {
                                         db.updateMyEvents(db.getUid(), events);
                                         db.initializeRating(db.getUid());
                                         db.updateRadius(db.getUid(), 10);
+                                        LatLng location = new LatLng(40.427728,-86.947603);
+                                        db.updateLocation(db.getUid(), location);
                                         Intent intent = new Intent(signup.this, MainActivity.class);
                                         startActivity(intent);
                                         Toast.makeText(signup.this, "Signup success.",
