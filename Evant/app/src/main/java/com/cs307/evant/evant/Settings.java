@@ -92,6 +92,17 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+
+        //set Location
+        Button setLocation = (Button) findViewById(R.id.SetLocation);
+        setLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this, LocationSelectView.class);
+                startActivity(intent);
+            }
+        });
+
         // sign out
         Button signoutButton = (Button) findViewById(R.id.SignOutButton);
         signoutButton.setOnClickListener(new View.OnClickListener(){

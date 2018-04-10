@@ -56,6 +56,15 @@
             android:text="Outlook"
             tools:layout_editor_absoluteX="285dp"
             tools:layout_editor_absoluteY="258dp" />
+        <Button
+            android:id="@+id/SetLocation"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="25dp"
+            android:text="Set Location"
+            tools:layout_editor_absoluteX="285dp"
+            tools:layout_editor_absoluteY="258dp" />
 
         <Button
             android:id="@+id/BackButton"
