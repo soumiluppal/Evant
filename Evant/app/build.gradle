@@ -19,7 +19,14 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url uri('mint-plugin-repo-5.2.2')
+    }
+}
+
 dependencies {
+    compile 'com.splunk:mint-android-sdk:5.2.2'
     compile 'com.getbase:floatingactionbutton:1.10.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'

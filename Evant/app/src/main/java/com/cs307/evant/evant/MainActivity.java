@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.splunk.mint.Mint;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
+        Mint.initAndStartSession(this.getApplication(), "44191314");
         super.onCreate(savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final FirebaseAuth mAuth;
