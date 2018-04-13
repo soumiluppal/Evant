@@ -67,6 +67,12 @@
             tools:layout_editor_absoluteY="258dp" />
 
         <Button
+            android:id="@+id/historyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Event History" />
+
+        <Button
             android:id="@+id/BackButton"
             android:layout_width="110dp"
             android:layout_height="wrap_content"

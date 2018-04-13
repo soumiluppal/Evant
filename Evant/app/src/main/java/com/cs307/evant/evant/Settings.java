@@ -43,8 +43,8 @@ public class Settings extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-               Intent intent = new Intent(Settings.this, MainActivity.class);
-               startActivity(intent);
+                Intent intent = new Intent(Settings.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -159,6 +159,15 @@ public class Settings extends AppCompatActivity {
                         });
                 android.app.AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
+            }
+        });
+
+        Button historyButton = (Button) findViewById(R.id.historyButton);
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this, atten_events.class);
+                startActivity(intent);
             }
         });
     }

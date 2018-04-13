@@ -250,40 +250,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         };
 
-
-        FloatingActionButton radius = (FloatingActionButton) findViewById(R.id.radius);
-        radius.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                radiusVal = db.getRadius(db.getUid());
-                Toast.makeText(getApplicationContext(), "DISTANCE = " + radiusVal, Toast.LENGTH_SHORT).show();
-
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setTitle("Set Radius");
-                final EditText input = new EditText(context);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                alertDialogBuilder.setView(input);
-
-                alertDialogBuilder.setMessage("Current radius is = " + radiusVal)
-                        .setCancelable(false)
-                        .setPositiveButton("Change", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                radiusStr = input.getText().toString();
-                                radiusVal = Double.parseDouble(radiusStr);
-                                db.updateRadius(db.getUid(),radiusVal);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-            }
-        });
         FloatingActionButton time = (FloatingActionButton) findViewById(R.id.time);
         time.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -320,14 +286,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
-        FloatingActionButton attended = (FloatingActionButton) findViewById(R.id.attended);
-        attended.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapView.this, atten_events.class);
-                startActivity(intent);
-            }
-        });
 
 
         final ToggleButton upcomingButton = (ToggleButton) findViewById(R.id.upcoming);
