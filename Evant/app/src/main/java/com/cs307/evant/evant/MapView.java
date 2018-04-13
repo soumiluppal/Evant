@@ -841,9 +841,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         if (curLoc == null) {
             System.out.println("uhoh");
+            LatLng plocation = db.getLocation(db.getUid());
             curLoc = new Location("");
-            curLoc.setLatitude(40.427728);
-            curLoc.setLongitude(-86.947603);
+            curLoc.setLatitude(plocation.latitude);
+            curLoc.setLongitude(plocation.longitude);
+            //hardcoded values: (40.427728,-86.947603)
         }
 
 
