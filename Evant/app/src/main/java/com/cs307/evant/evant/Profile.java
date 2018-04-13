@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
@@ -28,8 +29,9 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<String> myEvents = db.getMyEvents(db.getUid());
-        ArrayList<String[]> ints = db.getCategories();
+        ArrayList<String> myEvents = new ArrayList<>();
+        myEvents = db.getMyEvents(db.getUid());
+        //ArrayList<String[]> ints = db.getCategories();
         //Toast.makeText(getApplicationContext(), "GETMYEVEENT: " +  myEvents, Toast.LENGTH_LONG).show();
         Bundle b = getIntent().getExtras();
         String uid = b.getString("uid");
@@ -40,15 +42,33 @@ public class Profile extends AppCompatActivity {
 
         String interets = "";
 
-        for(int i = 0; i < ints.size();i++)
-        {
-            String tmp = "";
-            for(int j = 0; j < ints.get(i).length;j++)
-            {
-                tmp = ints.get(i)[j];
+        ArrayList<Integer> indxs = new ArrayList<>();
 
+
+
+
+        indxs = db.searchByName(myEvents,new ArrayList<String>());
+        ArrayList<String[]> cats = new ArrayList<>();
+        cats = db.getCategories();
+        ArrayList<String> ins = new ArrayList<>();
+
+        for(int i = 0; i < indxs.size();i++)
+        {
+            String tmp;
+            //System.out.println(cats.get(indxs.get(i))[0]);
+            tmp = cats.get(indxs.get(i))[0];
+            if(!ins.contains(tmp))
+            {
+                ins.add(tmp);
             }
+
         }
+
+        //String intrs = interets.replaceAll("]","");
+        //String tmp = "[";
+        //String fintrs = intrs.replaceAll(tmp,"");
+        //intrst.setText(intrs);
+
 
         dispname.setText("Name: " + name);
 
@@ -151,8 +171,9 @@ public class Profile extends AppCompatActivity {
 
         ArrayList<String> interests = new ArrayList<>(5);
 
-        for(int i = 0; i < 5; i++) {
-            interests.add("Interest " + (i+1));
+        for(int i = 0; i < ins.size(); i++) {
+            //add finished interests here
+            interests.add(ins.get(i));
         }
         LinearLayout intLayout = (LinearLayout)findViewById(R.id.linearLayout);
         intLayout.setOrientation(LinearLayout.VERTICAL);

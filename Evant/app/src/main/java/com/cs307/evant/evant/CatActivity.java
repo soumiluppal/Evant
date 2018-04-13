@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,6 +17,7 @@ import java.util.Iterator;
 public class CatActivity extends AppCompatActivity {
 
     HashMap<String, Boolean> checkButtons = new HashMap<>();
+    ArrayList<String>cked = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,49 +53,64 @@ public class CatActivity extends AppCompatActivity {
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.foodCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.gamingCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.educationCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.musicCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.artCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.socialCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.communitycheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 box = (CheckBox)findViewById(R.id.othersCheck);
                 if(box.isChecked()) {
                     title = box.getText().toString();
                     checkButtons.put(title, true);
+                    cked.add(title);
                 }
                 Intent intent = new Intent();
+                String str = "";
+                for(int i = 0; i < cked.size();i++)
+                {
+                    str += cked.get(i) + " ";
+                }
                 intent.putExtra("map", checkButtons);
+                intent.putExtra("checked",str);
                 setResult(Activity.RESULT_OK, intent);
                 CatActivity.this.finish();
             }

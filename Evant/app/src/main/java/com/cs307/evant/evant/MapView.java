@@ -704,16 +704,20 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         if (curLoc == null) {
             System.out.println("uhoh");
-            LatLng plocation = db.getLocation(db.getUid());
+            //LatLng plocation = db.getLocation(db.getUid());
             curLoc = new Location("");
-            curLoc.setLatitude(plocation.latitude);
-            curLoc.setLongitude(plocation.longitude);
+
+            //curLoc.setLatitude(plocation.latitude);
+            //curLoc.setLongitude(plocation.longitude);
             //hardcoded values: (40.427728,-86.947603)
+            double log = -86.947;
+            curLoc.setLatitude(40.4277);
+            curLoc.setAltitude(log);
         }
 
         //SOUN: right now, it always sets the current location to the permanent location. move it to a button or something?
         LatLng curr = new LatLng(curLoc.getLatitude(), curLoc.getLongitude());
-        db.updateLocation(db.getUid(), curr);
+        //db.updateLocation(db.getUid(), curr);
 
 
         ArrayList<Integer> searchResult = db.search(crit, curLoc, r);
