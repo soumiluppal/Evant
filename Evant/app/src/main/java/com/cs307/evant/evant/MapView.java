@@ -68,6 +68,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -702,19 +703,32 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         int indexNew = 0;
         for (int index: searchResult) {
+            Marker tempMarker;
             System.out.println("is it crash " + indexNew);
-            Marker tempMarker = mMap.addMarker(markerOptions.get(indexNew));
-
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+            try {
+                Date eventDate = df.parse(times.get(index));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String formattedDate = df.format(currentTime);
+            formattedDate = formattedDate.toUpperCase();
+            System.out.println("formattedDate = " + formattedDate + "times.get(index) = "+ times.get(index));
+            if (formattedDate.compareTo(times.get(index)) < 0) {
+                tempMarker = mMap.addMarker(markerOptions.get(indexNew));
                 markerLoc.put(tempMarker, locations.get(index));
+                markerTime.put(tempMarker, times.get(index));
+                markerHost.put(tempMarker, host.get(index));
+                markers.add(tempMarker);
+
+            }
+            indexNew++;
             /*if(calculateDistance(tempMarker.getPosition()) <= db.getRadius(db.getUid())) {
                 tempMarker.setVisible(true);
             }else{
                 tempMarker.setVisible(false);
             }*/
-                markerTime.put(tempMarker, times.get(index));
-                markerHost.put(tempMarker, host.get(index));
-                markers.add(tempMarker);
-                indexNew++;
 
         }
 
