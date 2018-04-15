@@ -1,7 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -9,17 +11,20 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" >
+        android:theme="?attr/actionBarTheme">
 
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <Button
                 android:id="@+id/profilebutton"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
                 android:background="@drawable/profile" />
 
 
@@ -35,8 +40,8 @@
                 android:id="@+id/settingsbutton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_centerInParent="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/settings" />
 
@@ -89,16 +94,23 @@
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_below="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar2">
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="370dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="Events: "
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="100dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dispname" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -107,12 +119,12 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/interestsText">
 
         </LinearLayout>
 
@@ -120,37 +132,45 @@
             android:id="@+id/dispname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="400dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="Name: "
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="75dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/events"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="500px"
 
+            android:layout_marginBottom="200dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:divider="@android:color/transparent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="125dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/interestsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="180dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="8dp"
             android:text="Interests"
             android:textSize="18dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/events" />
     </android.support.constraint.ConstraintLayout>
-
-
-
 
 
 </RelativeLayout>
