@@ -22,6 +22,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -216,6 +218,125 @@ public class Database {
         ArrayList<Double> tally = gson.fromJson(catTally, ArrayList.class);
         System.out.println(tally);
         return tally;
+    }
+
+
+
+    ArrayList<String> getTopThree(String uid){
+        ArrayList<Double> tally = getCatTally(uid);
+        Double first = 0.0, second =0.0, third=0.0;
+        int i1 =-1, i2=-1, i3 =-1;
+
+        for(int i = 0; i<tally.size(); i++){
+            //System.out.println("tally " + i + " value: "  + tally.get(i));
+            if(tally.get(i) > first){
+                first = tally.get(i);
+                i1 = i;
+            }
+        }
+        //System.out.println("i1 after first loop: " + i1);
+        for(int i = 0; i<tally.size(); i++){
+            if(tally.get(i) > second){
+                if(i != i1){
+                    second = tally.get(i);
+                    i2 = i;
+                }
+            }
+        }
+        for(int i = 0; i<tally.size(); i++){
+            if(tally.get(i) > third){
+                if(i != i1 && i !=i2) {
+                    third = tally.get(i);
+                    i3 = i;
+                }
+            }
+        }
+        ArrayList<String> results = new ArrayList<>();
+        switch (i1){
+            case 0:
+                results.add("Sports");
+                break;
+            case 1:
+                results.add("Social");
+                break;
+            case 2:
+                results.add("Education");
+                break;
+            case 3:
+                results.add("Gaming");
+                break;
+            case 4:
+                results.add("Community");
+                break;
+            case 5:
+                results.add("Music");
+                break;
+            case 6:
+                results.add("Food");
+                break;
+            case 7:
+                results.add("Art");
+                break;
+            default:
+                break;
+        }
+        switch (i2){
+            case 0:
+                results.add("Sports");
+                break;
+            case 1:
+                results.add("Social");
+                break;
+            case 2:
+                results.add("Education");
+                break;
+            case 3:
+                results.add("Gaming");
+                break;
+            case 4:
+                results.add("Community");
+                break;
+            case 5:
+                results.add("Music");
+                break;
+            case 6:
+                results.add("Food");
+                break;
+            case 7:
+                results.add("Art");
+                break;
+            default:
+                break;
+        }
+        switch (i3){
+            case 0:
+                results.add("Sports");
+                break;
+            case 1:
+                results.add("Social");
+                break;
+            case 2:
+                results.add("Education");
+                break;
+            case 3:
+                results.add("Gaming");
+                break;
+            case 4:
+                results.add("Community");
+                break;
+            case 5:
+                results.add("Music");
+                break;
+            case 6:
+                results.add("Food");
+                break;
+            case 7:
+                results.add("Art");
+                break;
+            default:
+                break;
+        }
+        return results;
     }
 
     void updateCatTally(String uid, ArrayList<Integer> indexes){

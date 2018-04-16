@@ -82,14 +82,9 @@ public class Settings extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(Settings.this, Settings.class);
+                Intent intent = new Intent(Settings.this, Settings.class);
                 intent.putExtra("uid", db.getUid());
-                startActivity(intent);*/
-                ArrayList<Integer> tally = new ArrayList<>();
-                tally.add(1);
-                tally.add(30);
-                //db.updateCatTally(db.getUid(), tally);
-                db.getCatTally(db.getUid());
+                startActivity(intent);
             }
         });
         //attempt end
