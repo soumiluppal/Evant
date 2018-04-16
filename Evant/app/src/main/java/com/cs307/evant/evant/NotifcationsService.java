@@ -99,25 +99,35 @@ public class NotifcationsService extends Service {
                 }
                 catch (Exception e) {}
                 if (upcomingTitles.size() > 0 && note.equals("ON")) {
-                    System.out.println(note);
-                    int notifyID = 1;
-                    String CHANNEL_ID = "my_channel_01";// The id of the channel.
-                    CharSequence name = "evantNotification";// The user-visible name of the channel.
-                    int importance = NotificationManager.IMPORTANCE_HIGH;
-                    NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        System.out.println(note);
+                        int notifyID = 1;
+                        String CHANNEL_ID = "my_channel_01";// The id of the channel.
+                        CharSequence name = "evantNotification";// The user-visible name of the channel.
+                        int importance = NotificationManager.IMPORTANCE_HIGH;
+                        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
 // Create a notification and set the notification channel.
-                    Notification notification = new Notification.Builder(NotifcationsService.this)
-                            .setContentTitle("Event Reminder")
-                            .setContentText(upcomingTitles.get(0) + " tomorrow at " + myTime.get(0).substring(myTime.get(0).indexOf(' ') + 2, myTime.get(0).length()) + " at " + myLoc.get(0))
-                            .setSmallIcon(R.drawable.logoevant)
-                            .setChannelId(CHANNEL_ID)
-                            .build();
-                    NotificationManager mNotificationManager =
-                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    mNotificationManager.createNotificationChannel(mChannel);
+                        Notification notification = new Notification.Builder(NotifcationsService.this)
+                                .setContentTitle("Event Reminder")
+                                .setContentText(upcomingTitles.get(0) + " tomorrow at " + myTime.get(0).substring(myTime.get(0).indexOf(' ') + 2, myTime.get(0).length()) + " at " + myLoc.get(0))
+                                .setSmallIcon(R.drawable.logoevant)
+                                .setChannelId(CHANNEL_ID)
+                                .build();
+                        NotificationManager mNotificationManager =
+                                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        mNotificationManager.createNotificationChannel(mChannel);
 
 // Issue the notification.
-                    mNotificationManager.notify(notifyID, notification);
+                        mNotificationManager.notify(notifyID, notification);
+                    }
+                    else {
+                        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(NotifcationsService.this);
+                        mBuilder.setSmallIcon(R.drawable.logoevant);
+                        mBuilder.setContentTitle("Event Reminder");
+                        mBuilder.setContentText(upcomingTitles.get(0) + " tomorrow at " + myTime.get(0).substring(myTime.get(0).indexOf(' ') + 2, myTime.get(0).length()) + " at " + myLoc.get(0));
+                        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        mNotificationManager.notify(0, mBuilder.build());
+                    }
                 }
             }
             try {
