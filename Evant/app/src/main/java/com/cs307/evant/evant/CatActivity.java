@@ -107,7 +107,7 @@ public class CatActivity extends AppCompatActivity {
                 String str = "";
                 for(int i = 0; i < cked.size();i++)
                 {
-                    str += " " + cked.get(i);
+                    str += cked.get(i) + " ";
                 }
                 intent.putExtra("map", checkButtons);
                 intent.putExtra("checked",str);

@@ -164,7 +164,7 @@ public class signup extends AppCompatActivity {
                         SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
                         //cursor = db.query("LOGINDATA", new String[]{"CAT", "PATH","CNT","ROTATE","IMAGE"}, null, null, null, null, "_id DESC");
 
-                        db.delete("LOGINDATA",null,null);
+                        //db.delete("LOGINDATA",null,null);
                         ContentValues cv = new ContentValues();
                         cv.put("USER",username);
                         cv.put("PASS", password);

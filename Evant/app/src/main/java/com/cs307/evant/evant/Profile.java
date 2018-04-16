@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -30,6 +31,8 @@ import static com.cs307.evant.evant.MainActivity.db;
 
 public class Profile extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private ArrayList<String> ins = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +57,6 @@ public class Profile extends AppCompatActivity {
         indxs = db.searchByName(myEvents,new ArrayList<String>());
         ArrayList<String[]> cats = new ArrayList<>();
         cats = db.getCategories();
-        ArrayList<String> ins = new ArrayList<>();
         SQLiteOpenHelper DatabaseHelper = new DataHelp(Profile.this);
         SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
         //Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
@@ -69,9 +71,9 @@ public class Profile extends AppCompatActivity {
             tmp = cats.get(indxs.get(i))[0];
             if(!ins.contains(tmp))
             {
-                ins.add(tmp);
                 if(interstNContains(tmp))
                 {
+                    ins.add(tmp);
                     cv.put("INTRST",tmp);
                 }
 
@@ -79,6 +81,7 @@ public class Profile extends AppCompatActivity {
 
         }
         dbs.insert("LOGINDATA",null,cv);
+        dbs.close();
 
 
         //SQLiteOpenHelper DatabaseHelper = new DataHelp(loginPage.this);
@@ -158,9 +161,10 @@ public class Profile extends AppCompatActivity {
             }
         });
         recyclerView = (RecyclerView) findViewById(R.id.events);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
 
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> dttime = new ArrayList<>();
@@ -201,8 +205,24 @@ public class Profile extends AppCompatActivity {
 
         ArrayList<String> interests = new ArrayList<>();
         interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        ins.remove("\n");
+        interests = ins;
 
-        LinearLayout intLayout = (LinearLayout)findViewById(R.id.linearLayout);
+        TextView intin = findViewById(R.id.interestsText);
+        String wholeintrst = "";
+        for(int i = 0; i < ins.size(); i++)
+        {
+            if(ins.get(i) != null)
+                wholeintrst += ins.get(i) + "  ";
+        }
+        intin.setText(wholeintrst);
+        /*LinearLayout intLayout = (LinearLayout)findViewById(R.id.linearLayout);
         intLayout.setOrientation(LinearLayout.VERTICAL);
         TextView text = null;
         for(int i = 0; i < interests.size(); i++) {
@@ -213,9 +233,8 @@ public class Profile extends AppCompatActivity {
             text.setGravity(Gravity.CENTER);
             intLayout.addView(text);
         }
-        /*for(int i = 0; i < interests.size(); i++) {
+        */
 
-        }*/
     }
 
     public boolean interstNContains(String str)
@@ -228,12 +247,15 @@ public class Profile extends AppCompatActivity {
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
         {
             if(cursor.getString(0) == null)
+                cursor.moveToNext();
+            if(cursor.getString(0) == null)
                 break;
             if(cursor.getString(0).equals(str))
             {
                 return false;
             }
         }
+        cursor.close();
         dbs.close();
         return true;
     }
@@ -244,10 +266,17 @@ public class Profile extends AppCompatActivity {
         SQLiteOpenHelper DatabaseHelper = new DataHelp(Profile.this);
         SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
         Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
         {
             ans.add(cursor.getString(0));
+            if(!ins.contains(cursor.getString(0)))
+            {
+                ins.add(cursor.getString(0));
+            }
         }
-        dbs.close();
+        cursor.close();
+
+        //dbs.close();
         return ans;
     }
 }
