@@ -96,6 +96,31 @@ public class EditProfileSettings extends AppCompatActivity {
                     Intent intent = new Intent(EditProfileSettings.this, Settings.class);
                     startActivity(intent);
                 }
+
+                String tmp = "";
+                SQLiteOpenHelper DatabaseHelper = new DataHelp(EditProfileSettings.this);
+                SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
+                //Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+                //cursor.moveToFirst();
+                ContentValues cv = new ContentValues();
+                for(int i = 0; i < intrst.length();i++)
+                {
+                    if(intrst.charAt(i) == ' ')
+                    {
+                        System.out.println("tmp = " + tmp);
+                        if(interstNContains(tmp))
+                        {
+                            cv.put("INTRST",tmp);
+                            tmp = "";
+                        }
+                    }
+                    else {
+                        tmp += intrst.charAt(i);
+                    }
+                }
+
+
+
             }
         });
 
@@ -195,6 +220,25 @@ public class EditProfileSettings extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         intrst = data.getStringExtra("checked");
         interests.setText(intrst);
+
+    }
+
+    public boolean interstNContains(String str)
+    {
+        SQLiteOpenHelper DatabaseHelper = new DataHelp(EditProfileSettings.this);
+        SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
+        Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+        //cursor.moveToFirst();
+        String tmp;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+        {
+            if(cursor.getString(0).equals(str))
+            {
+                return false;
+            }
+        }
+        dbs.close();
+        return true;
     }
 }
 

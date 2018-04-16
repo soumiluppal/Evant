@@ -46,41 +46,42 @@ public class MainActivity extends AppCompatActivity {
         cursor.moveToFirst();
         mAuth = FirebaseAuth.getInstance();
 
-        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-            //load map
-            Intent intent = new Intent(MainActivity.this, MapView.class);
-            startActivity(intent);
-        }else if(cursor.getInt(0) == 1){
+        if(cursor.getInt(0) == 1){
             //prompt login/signup
             //if alreayd logged in should skip
 
 
-                String curruser = cursor.getString(2);
-                String currpass = cursor.getString(1);
-                mAuth.signInWithEmailAndPassword(curruser, currpass)
-                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    Intent intent = new Intent(MainActivity.this, MapView.class);
-                                    startActivity(intent);
-                                    Toast.makeText(MainActivity.this, "Logged in.",
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // If sign in fails, display a message to the user.
+            String curruser = cursor.getString(2);
+            String currpass = cursor.getString(1);
+            mAuth.signInWithEmailAndPassword(curruser, currpass)
+                    .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Intent intent = new Intent(MainActivity.this, MapView.class);
+                                startActivity(intent);
+                                Toast.makeText(MainActivity.this, "Logged in.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                // If sign in fails, display a message to the user.
 
-                                    Toast.makeText(MainActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-
-                                // ...
+                                Toast.makeText(MainActivity.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
                             }
-                        });
 
-            }
+                            // ...
+                        }
+                    });
 
+        }
+
+        else if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            //load map
+            Intent intent = new Intent(MainActivity.this, MapView.class);
+            startActivity(intent);
+        }
 
             else {
 

@@ -136,6 +136,7 @@ public class loginPage extends AppCompatActivity {
                         cv.put("PASS", paswrd);
                         cv.put("LOGGED",1);
                         db.insert("LOGINDATA",null,cv);
+                        db.close();
 
                     }
                     mAuth.signInWithEmailAndPassword(user, paswrd)
