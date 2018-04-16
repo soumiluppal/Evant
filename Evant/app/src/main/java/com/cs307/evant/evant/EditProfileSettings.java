@@ -115,10 +115,17 @@ public class EditProfileSettings extends AppCompatActivity {
                             System.out.println("tmp = " + tmp);
                             if(interstNContains(tmp))
                             {
-                                if(tmp != "")
-                                    cv.put("INTRST",tmp);
-                                tmp = "";
+                                System.out.println("tmp added = " + tmp);
+                                if(tmp != "") {
+                                    cv = new ContentValues();
+                                    cv.put("INTRST", tmp);
+                                    dbs.insert("LOGINDATA",null,cv);
+                                }
+
+
                             }
+                        tmp = "";
+
 
 
 
@@ -130,7 +137,7 @@ public class EditProfileSettings extends AppCompatActivity {
                 //String fint = tmp;
                 //System.out.println("tmp 5 = " + fint);
                 //cv.put("INTRST",fint);
-                dbs.insert("LOGINDATA",null,cv);
+                //dbs.insert("LOGINDATA",null,cv);
                 dbs.close();
 
 

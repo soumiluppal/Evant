@@ -74,13 +74,15 @@ public class Profile extends AppCompatActivity {
                 if(interstNContains(tmp))
                 {
                     ins.add(tmp);
+                    cv = new ContentValues();
                     cv.put("INTRST",tmp);
+                    dbs.insert("LOGINDATA",null,cv);
                 }
 
             }
 
         }
-        dbs.insert("LOGINDATA",null,cv);
+        //dbs.insert("LOGINDATA",null,cv);
         dbs.close();
 
 
@@ -204,13 +206,9 @@ public class Profile extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         ArrayList<String> interests = new ArrayList<>();
+
         interests = getInterst();
-        interests = getInterst();
-        interests = getInterst();
-        interests = getInterst();
-        interests = getInterst();
-        interests = getInterst();
-        interests = getInterst();
+        String cck = interests.get(1);
         ins.remove("\n");
         interests = ins;
 
@@ -269,11 +267,13 @@ public class Profile extends AppCompatActivity {
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
         {
             ans.add(cursor.getString(0));
+            System.out.println("tmp cursor: " + cursor.getString(0));
             if(!ins.contains(cursor.getString(0)))
             {
                 ins.add(cursor.getString(0));
             }
         }
+
         cursor.close();
 
         //dbs.close();
