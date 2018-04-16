@@ -117,6 +117,10 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
                 ArrayList<String> events = db.getTitles();
                 if(!myEvents.contains(titles.get(position))) {
                     myEvents.add(titles.get(position));
+                    ArrayList<String> newOne = new ArrayList<>();
+                    ArrayList<String> dummy = new ArrayList<>();
+                    newOne.add(titles.get(position));
+                    db.updateCatTally(uid, db.searchByName(newOne, dummy));
                     db.updateMyEvents(uid,myEvents);
                     Toast.makeText(ct, "Successfully Joined Event!", Toast.LENGTH_LONG).show();
                 }else{
