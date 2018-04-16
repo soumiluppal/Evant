@@ -68,6 +68,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -250,40 +251,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         };
 
-
-        FloatingActionButton radius = (FloatingActionButton) findViewById(R.id.radius);
-        radius.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                radiusVal = db.getRadius(db.getUid());
-                Toast.makeText(getApplicationContext(), "DISTANCE = " + radiusVal, Toast.LENGTH_SHORT).show();
-
-                final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setTitle("Set Radius");
-                final EditText input = new EditText(context);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                alertDialogBuilder.setView(input);
-
-                alertDialogBuilder.setMessage("Current radius is = " + radiusVal)
-                        .setCancelable(false)
-                        .setPositiveButton("Change", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                radiusStr = input.getText().toString();
-                                radiusVal = Double.parseDouble(radiusStr);
-                                db.updateRadius(db.getUid(),radiusVal);
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-            }
-        });
         FloatingActionButton time = (FloatingActionButton) findViewById(R.id.time);
         time.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -320,14 +287,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
         });
 
-        FloatingActionButton attended = (FloatingActionButton) findViewById(R.id.attended);
-        attended.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MapView.this, atten_events.class);
-                startActivity(intent);
-            }
-        });
 
 
         final ToggleButton upcomingButton = (ToggleButton) findViewById(R.id.upcoming);
@@ -704,11 +663,15 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         if (curLoc == null) {
             System.out.println("uhoh");
-            LatLng plocation = db.getLocation(db.getUid());
+            //LatLng plocation = db.getLocation(db.getUid());
             curLoc = new Location("");
-            curLoc.setLatitude(plocation.latitude);
-            curLoc.setLongitude(plocation.longitude);
+
+            //curLoc.setLatitude(plocation.latitude);
+            //curLoc.setLongitude(plocation.longitude);
             //hardcoded values: (40.427728,-86.947603)
+            double log = -86.947;
+            curLoc.setLatitude(40.4277);
+            curLoc.setAltitude(log);
         }
 
         //SOUN: right now, it always sets the current location to the permanent location. move it to a button or something?
@@ -740,19 +703,32 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
         int indexNew = 0;
         for (int index: searchResult) {
+            Marker tempMarker;
             System.out.println("is it crash " + indexNew);
-            Marker tempMarker = mMap.addMarker(markerOptions.get(indexNew));
-
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+            try {
+                Date eventDate = df.parse(times.get(index));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String formattedDate = df.format(currentTime);
+            formattedDate = formattedDate.toUpperCase();
+            System.out.println("formattedDate = " + formattedDate + "times.get(index) = "+ times.get(index));
+            if (formattedDate.compareTo(times.get(index)) < 0) {
+                tempMarker = mMap.addMarker(markerOptions.get(indexNew));
                 markerLoc.put(tempMarker, locations.get(index));
+                markerTime.put(tempMarker, times.get(index));
+                markerHost.put(tempMarker, host.get(index));
+                markers.add(tempMarker);
+
+            }
+            indexNew++;
             /*if(calculateDistance(tempMarker.getPosition()) <= db.getRadius(db.getUid())) {
                 tempMarker.setVisible(true);
             }else{
                 tempMarker.setVisible(false);
             }*/
-                markerTime.put(tempMarker, times.get(index));
-                markerHost.put(tempMarker, host.get(index));
-                markers.add(tempMarker);
-                indexNew++;
 
         }
 

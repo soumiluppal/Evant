@@ -266,14 +266,14 @@ public class NewEventActivity extends AppCompatActivity {
     }
 
     private void updateLabel(EditText dText, Calendar calendar) {
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "MM/dd/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         dText.setText(sdf.format(calendar.getTime()));
     }
 
     private void updateLabelTime(EditText tText, Calendar clock) {
-        String myFormat = "hh:mm aa"; //In which you need put here
+        String myFormat = "HH:mm aa"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         tText.setText(sdf.format(clock.getTime()));

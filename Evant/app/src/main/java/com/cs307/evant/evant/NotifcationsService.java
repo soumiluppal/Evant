@@ -12,6 +12,9 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,8 +90,16 @@ public class NotifcationsService extends Service {
                         }
                     }
                 }
-                if (upcomingTitles.size() > 0) {
-                    System.out.println("YO");
+                String note = "";
+                try {
+                    File file = new File("notification_settings.txt");
+                    BufferedReader br = new BufferedReader(new FileReader(file));
+                    note = br.readLine();
+                    br.close();
+                }
+                catch (Exception e) {}
+                if (upcomingTitles.size() > 0 && note.equals("ON")) {
+                    System.out.println(note);
                     int notifyID = 1;
                     String CHANNEL_ID = "my_channel_01";// The id of the channel.
                     CharSequence name = "evantNotification";// The user-visible name of the channel.

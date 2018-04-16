@@ -7,7 +7,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +28,7 @@ public class atten_events extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_cat_lst);
+        setContentView(R.layout.atten_events);
         recyclerView = (RecyclerView) findViewById(R.id.categories);
         //RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setHasFixedSize(true);
@@ -46,6 +48,60 @@ public class atten_events extends AppCompatActivity {
         });
    //     dummyList();
         loadMyEvents();
+
+        final ToggleButton distButton = (ToggleButton) findViewById(R.id.distButton);
+        final ToggleButton dateButton = (ToggleButton) findViewById(R.id.dateButton);
+        final ToggleButton titleButton = (ToggleButton) findViewById(R.id.titleButton);
+        titleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    dateButton.setChecked(false);
+                    distButton.setChecked(false);
+                    compoundButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+                else {
+                    compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    compoundButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                }
+            }
+        });
+
+
+        dateButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    titleButton.setChecked(false);
+                    distButton.setChecked(false);
+                    compoundButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+                else {
+                    compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    compoundButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                }
+            }
+        });
+
+
+        distButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    titleButton.setChecked(false);
+                    dateButton.setChecked(false);
+                    compoundButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                }
+                else {
+                    compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                    compoundButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                }
+            }
+        });
+
     }
 
     private void loadMyEvents(){

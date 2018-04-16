@@ -15,10 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -43,8 +50,8 @@ public class Settings extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-               Intent intent = new Intent(Settings.this, MainActivity.class);
-               startActivity(intent);
+                Intent intent = new Intent(Settings.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -164,6 +171,59 @@ public class Settings extends AppCompatActivity {
                         });
                 android.app.AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
+            }
+        });
+
+        Button historyButton = (Button) findViewById(R.id.historyButton);
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Settings.this, atten_events.class);
+                startActivity(intent);
+            }
+        });
+        final File file = getFileStreamPath("notification_settings.txt");
+        Switch notif = (Switch) findViewById(R.id.notifiSwitch);
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String state = br.readLine();
+            br.close();
+            System.out.println("CHECK ME: " + state);
+            if(state.equals("ON")) {
+                notif.setChecked(true);
+            }
+            else {
+                notif.setChecked(false);
+            }
+        }
+        catch (Exception e){
+
+        }
+        notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b) {
+                    try {
+                        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+                        bw.write("ON");
+                        bw.flush();
+                        bw.close();
+                    }
+                    catch (Exception e){
+                        System.out.println("PROBLEM: " + e);
+                    }
+                }
+                else {
+                    try {
+                        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+                        bw.write("OFF");
+                        bw.flush();
+                        bw.close();
+                    }
+                    catch (Exception e){
+                        System.out.println("PROBLEM: " + e);
+                    }
+                }
             }
         });
     }

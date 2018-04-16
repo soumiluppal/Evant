@@ -11,19 +11,21 @@
 
     <Button
         android:id="@+id/Apply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="17dp"
         android:layout_marginStart="16dp"
         android:text="Apply"
+        android:background="@drawable/leafbutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@drawable/leafbutton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="17dp"
         android:layout_marginEnd="17dp"
         android:text="Cancel"
@@ -103,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="11dp"
         android:layout_marginTop="25dp"
+        android:clickable="true"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Interests"

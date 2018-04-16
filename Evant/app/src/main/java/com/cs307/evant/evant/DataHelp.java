@@ -35,6 +35,7 @@ public class DataHelp extends SQLiteOpenHelper
                     + "USER TEXT, "
                     + "PASS TEXT, "
                     + "LOGGED INT, "
+                    + "INTRST TEXT"
                     + "XTR TEXT) ;");
         }
 

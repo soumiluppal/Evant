@@ -128,7 +128,7 @@ public class loginPage extends AppCompatActivity {
                         SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
                         //cursor = db.query("LOGINDATA", new String[]{"CAT", "PATH","CNT","ROTATE","IMAGE"}, null, null, null, null, "_id DESC");
 
-                        db.delete("LOGINDATA", null, null);
+                        //db.delete("LOGINDATA", null, null);
 
                         ContentValues cv = new ContentValues();
 
@@ -136,6 +136,7 @@ public class loginPage extends AppCompatActivity {
                         cv.put("PASS", paswrd);
                         cv.put("LOGGED",1);
                         db.insert("LOGINDATA",null,cv);
+                        db.close();
 
                     }
                     mAuth.signInWithEmailAndPassword(user, paswrd)

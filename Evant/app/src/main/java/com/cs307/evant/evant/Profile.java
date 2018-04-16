@@ -1,12 +1,17 @@
 package com.cs307.evant.evant;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -20,16 +25,20 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
 public class Profile extends AppCompatActivity {
     private RecyclerView recyclerView;
+    private ArrayList<String> ins = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayList<String> myEvents = db.getMyEvents(db.getUid());
-        ArrayList<String[]> ints = db.getCategories();
+        ArrayList<String> myEvents = new ArrayList<>();
+        myEvents = db.getMyEvents(db.getUid());
+        //ArrayList<String[]> ints = db.getCategories();
         //Toast.makeText(getApplicationContext(), "GETMYEVEENT: " +  myEvents, Toast.LENGTH_LONG).show();
         Bundle b = getIntent().getExtras();
         String uid = b.getString("uid");
@@ -40,15 +49,59 @@ public class Profile extends AppCompatActivity {
 
         String interets = "";
 
-        for(int i = 0; i < ints.size();i++)
+        ArrayList<Integer> indxs = new ArrayList<>();
+
+
+
+
+        indxs = db.searchByName(myEvents,new ArrayList<String>());
+        ArrayList<String[]> cats = new ArrayList<>();
+        cats = db.getCategories();
+        SQLiteOpenHelper DatabaseHelper = new DataHelp(Profile.this);
+        SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
+        //Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+        //cursor.moveToFirst();
+        ContentValues cv = new ContentValues();
+
+
+        for(int i = 0; i < indxs.size();i++)
         {
-            String tmp = "";
-            for(int j = 0; j < ints.get(i).length;j++)
+            String tmp;
+            //System.out.println(cats.get(indxs.get(i))[0]);
+            tmp = cats.get(indxs.get(i))[0];
+            if(!ins.contains(tmp))
             {
-                tmp = ints.get(i)[j];
+                if(interstNContains(tmp))
+                {
+                    ins.add(tmp);
+                    cv.put("INTRST",tmp);
+                }
 
             }
+
         }
+        dbs.insert("LOGINDATA",null,cv);
+        dbs.close();
+
+
+        //SQLiteOpenHelper DatabaseHelper = new DataHelp(loginPage.this);
+        //SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
+        //cursor = db.query("LOGINDATA", new String[]{"CAT", "PATH","CNT","ROTATE","IMAGE"}, null, null, null, null, "_id DESC");
+
+        //db.delete("LOGINDATA", null, null);
+
+        //ContentValues cv = new ContentValues();
+
+        //cv.put("USER",user);
+        //cv.put("PASS", paswrd);
+        //cv.put("LOGGED",1);
+        //db.insert("LOGINDATA",null,cv);
+        //db.close();
+        //String intrs = interets.replaceAll("]","");
+        //String tmp = "[";
+        //String fintrs = intrs.replaceAll(tmp,"");
+        //intrst.setText(intrs);
+
 
         dispname.setText("Name: " + name);
 
@@ -108,9 +161,10 @@ public class Profile extends AppCompatActivity {
             }
         });
         recyclerView = (RecyclerView) findViewById(R.id.events);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
 
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> dttime = new ArrayList<>();
@@ -149,12 +203,26 @@ public class Profile extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        ArrayList<String> interests = new ArrayList<>(5);
+        ArrayList<String> interests = new ArrayList<>();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        interests = getInterst();
+        ins.remove("\n");
+        interests = ins;
 
-        for(int i = 0; i < 5; i++) {
-            interests.add("Interest " + (i+1));
+        TextView intin = findViewById(R.id.interestsText);
+        String wholeintrst = "";
+        for(int i = 0; i < ins.size(); i++)
+        {
+            if(ins.get(i) != null)
+                wholeintrst += ins.get(i) + "  ";
         }
-        LinearLayout intLayout = (LinearLayout)findViewById(R.id.linearLayout);
+        intin.setText(wholeintrst);
+        /*LinearLayout intLayout = (LinearLayout)findViewById(R.id.linearLayout);
         intLayout.setOrientation(LinearLayout.VERTICAL);
         TextView text = null;
         for(int i = 0; i < interests.size(); i++) {
@@ -165,8 +233,50 @@ public class Profile extends AppCompatActivity {
             text.setGravity(Gravity.CENTER);
             intLayout.addView(text);
         }
-        /*for(int i = 0; i < interests.size(); i++) {
+        */
 
-        }*/
+    }
+
+    public boolean interstNContains(String str)
+    {
+        SQLiteOpenHelper DatabaseHelper = new DataHelp(Profile.this);
+        SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
+        Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+        //cursor.moveToFirst();
+        String tmp;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+        {
+            if(cursor.getString(0) == null)
+                cursor.moveToNext();
+            if(cursor.getString(0) == null)
+                break;
+            if(cursor.getString(0).equals(str))
+            {
+                return false;
+            }
+        }
+        cursor.close();
+        dbs.close();
+        return true;
+    }
+
+    public ArrayList<String> getInterst()
+    {
+        ArrayList<String> ans = new ArrayList<>();
+        SQLiteOpenHelper DatabaseHelper = new DataHelp(Profile.this);
+        SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
+        Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+        {
+            ans.add(cursor.getString(0));
+            if(!ins.contains(cursor.getString(0)))
+            {
+                ins.add(cursor.getString(0));
+            }
+        }
+        cursor.close();
+
+        //dbs.close();
+        return ans;
     }
 }
