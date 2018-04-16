@@ -59,7 +59,7 @@ public class NotifcationsService extends Service {
                     for (int b = 0; b < titles.size(); b++) {
                         if (myEvents.get(a) == titles.get(b)) {
                             Date currentTime = Calendar.getInstance().getTime();
-                            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yy   hh:mm aa");
+                            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   hh:mm aa");
                             String formattedDate = df.format(currentTime);
                             String eventTime = dtTime.get(b);
                             formattedDate = formattedDate.toUpperCase();
@@ -72,6 +72,10 @@ public class NotifcationsService extends Service {
                             eventlast = eventTime.substring(5, eventTime.length());
 
                             if (!eventfirst.equals(curfirst) || !eventlast.equals(curlast)) {
+                                System.out.println("Eventfirst: " + eventfirst);
+                                System.out.println("Eventlast: " + eventlast);
+                                System.out.println("curfirst: " + curfirst);
+                                System.out.println("curlast: " + curlast);
                                 continue;
                             }
                             curd = formattedDate.substring(3, 5);
