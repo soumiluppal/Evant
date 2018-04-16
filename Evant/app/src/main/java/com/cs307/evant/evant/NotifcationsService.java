@@ -92,15 +92,16 @@ public class NotifcationsService extends Service {
                 }
                 String note = "";
                 try {
-                    File file = new File("notification_settings.txt");
+                    final File file = getFileStreamPath("notification_settings.txt");
                     BufferedReader br = new BufferedReader(new FileReader(file));
                     note = br.readLine();
                     br.close();
                 }
                 catch (Exception e) {}
+                System.out.println("Settings: " + note);
                 if (upcomingTitles.size() > 0 && note.equals("ON")) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        System.out.println(note);
+                        System.out.println("Oreo: " + upcomingTitles.get(0));
                         int notifyID = 1;
                         String CHANNEL_ID = "my_channel_01";// The id of the channel.
                         CharSequence name = "evantNotification";// The user-visible name of the channel.
@@ -121,6 +122,7 @@ public class NotifcationsService extends Service {
                         mNotificationManager.notify(notifyID, notification);
                     }
                     else {
+                        System.out.println("Not Oreo: " + upcomingTitles.get(0));
                         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(NotifcationsService.this);
                         mBuilder.setSmallIcon(R.drawable.logoevant);
                         mBuilder.setContentTitle("Event Reminder");
