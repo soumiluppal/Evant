@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.ByteArrayOutputStream;
 import java.lang.Object;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import java.util.Arrays;
@@ -198,6 +199,82 @@ public class Database {
         return name;
     }
 
+    ArrayList<Double> getCatTally(String uid){
+        if(users.get(uid) == null){
+            signOut();
+            return null;
+        }
+        String user = users.get(uid).toString();
+        System.out.println(user);
+        if(!user.contains("catTally")){
+            return null;
+        }
+        String catTally = user.split("catTally=")[1];
+        catTally = catTally.substring(0, catTally.indexOf("]"));
+        catTally+="]";
+        Gson gson = new Gson();
+        ArrayList<Double> tally = gson.fromJson(catTally, ArrayList.class);
+        System.out.println(tally);
+        return tally;
+    }
+
+    void updateCatTally(String uid, ArrayList<Integer> indexes){
+        ArrayList<Double> tally = getCatTally(uid);
+        if(tally == null){
+            ArrayList<Double> newtally = new ArrayList<>();
+            newtally.add(0.0);
+            newtally.add(0.0);
+            newtally.add(0.0);
+            newtally.add(0.0);
+            newtally.add(0.0);
+            newtally.add(0.0);
+            newtally.add(0.0);
+            newtally.add(0.0);
+            tally = newtally;
+        }
+        System.out.println("indexes: " + indexes);
+
+        for(int i = 0; i<indexes.size(); i++){
+            int curr = indexes.get(i);
+            String currCat = categories.get(curr);
+            if(currCat.contains("Sports")){
+                double oldTally = tally.get(0);
+                tally.set(0, oldTally+1);
+            }
+            if(currCat.contains("Social")){
+                double oldTally = tally.get(1);
+                tally.set(1, oldTally+1);
+            }
+            if(currCat.contains("Education")){
+                double oldTally = tally.get(2);
+                tally.set(2, oldTally+1);
+            }
+            if(currCat.contains("Gaming")){
+                double oldTally = tally.get(3);
+                tally.set(3, oldTally+1);
+            }
+            if(currCat.contains("Community")){
+                double oldTally = tally.get(4);
+                tally.set(4, oldTally+1);
+            }
+            if(currCat.contains("Music")){
+                double oldTally = tally.get(5);
+                tally.set(5, oldTally+1);
+            }
+            if(currCat.contains("Food")){
+                double oldTally = tally.get(6);
+                tally.set(6, oldTally+1);
+            }
+            if(currCat.contains("Art")){
+                double oldTally = tally.get(7);
+                tally.set(7, oldTally+1);
+            }
+        }
+        Gson gson = new Gson();
+        String stringt = gson.toJson(tally);
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(uid).child("catTally").setValue(stringt);
+    }
     void updateName(String uid, String name){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(uid).child("name").setValue(name);
