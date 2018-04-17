@@ -444,10 +444,6 @@ public class Database {
         mDatabase.child("users").child(uid).child("radius").setValue(Double.toString(r));
     }
 
-    void signUpForEvent(String uid){
-
-    }
-
     void initializeRating(String uid){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(uid).child("thumbsup").setValue("0");
@@ -488,7 +484,11 @@ public class Database {
                 }
             }
         }
-        System.out.println("whole list after update: " + toListofStrings(attendees));
+        //System.out.println("stringe: " + stringe);
+        if (stringe == null){
+            stringe = "[]";
+        }
+        //System.out.println("whole list after update: " + toListofStrings(attendees));
         mDatabase.child("users").child(uid).child("events").setValue(stringe);
         mDatabase.child("attendees").setValue(toListofStrings(attendees));
     }

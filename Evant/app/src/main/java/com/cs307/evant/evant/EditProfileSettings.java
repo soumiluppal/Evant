@@ -97,20 +97,21 @@ public class EditProfileSettings extends AppCompatActivity {
                     startActivity(intent);
                 }
 
-                String tmp = "";
-                tmp = "";
-                SQLiteOpenHelper DatabaseHelper = new DataHelp(EditProfileSettings.this);
-                SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
-                //Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
-                //cursor.moveToFirst();
-                ContentValues cv = new ContentValues();
-                int frst = 0;
-                boolean first = true;
-                System.out.println("tmp full = " + intrst);
-                for(int i = 0; i < intrst.length();i++)
-                {
-                    if(intrst.charAt(i) == ' ')
+                if(!interests.getText().toString().equals("")){
+                    String tmp = "";
+                    tmp = "";
+                    SQLiteOpenHelper DatabaseHelper = new DataHelp(EditProfileSettings.this);
+                    SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
+                    //Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+                    //cursor.moveToFirst();
+                    ContentValues cv = new ContentValues();
+                    int frst = 0;
+                    boolean first = true;
+                    System.out.println("tmp full = " + intrst);
+                    for(int i = 0; i < intrst.length();i++)
                     {
+                        if(intrst.charAt(i) == ' ')
+                        {
 
                             System.out.println("tmp = " + tmp);
                             if(interstNContains(tmp))
@@ -124,21 +125,23 @@ public class EditProfileSettings extends AppCompatActivity {
 
 
                             }
-                        tmp = "";
+                            tmp = "";
 
 
 
 
+                        }
+                        else {
+                            tmp = tmp + intrst.charAt(i);
+                        }
                     }
-                    else {
-                        tmp = tmp + intrst.charAt(i);
-                    }
+                    //String fint = tmp;
+                    //System.out.println("tmp 5 = " + fint);
+                    //cv.put("INTRST",fint);
+                    //dbs.insert("LOGINDATA",null,cv);
+                    dbs.close();
                 }
-                //String fint = tmp;
-                //System.out.println("tmp 5 = " + fint);
-                //cv.put("INTRST",fint);
-                //dbs.insert("LOGINDATA",null,cv);
-                dbs.close();
+
 
 
 

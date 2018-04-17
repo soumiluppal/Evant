@@ -192,15 +192,20 @@ public class signup extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-                                        db.updateName(db.getUid(), nam);
+                                        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        db.updateName(uid, nam);
                                         ArrayList<String> events = new ArrayList<>();
                                         events.add("none");
-                                        db.updateMyEvents(db.getUid(), events);
-                                        db.initializeRating(db.getUid());
-                                        db.updateRadius(db.getUid(), 10);
+                                        ArrayList<String> empty = new ArrayList<>();
+                                        db.updateInterest(uid, empty);
+                                        ArrayList<Integer> emptyi = new ArrayList<>();
+                                        db.updateCatTally(uid, emptyi);
+                                        db.updateMyEvents(uid, events);
+                                        db.initializeRating(uid);
+                                        db.updateRadius(uid, 10);
                                         LatLng location = new LatLng(40.427728,-86.947603);
-                                        db.updateLocation(db.getUid(), location);
-                                        Intent intent = new Intent(signup.this, MainActivity.class);
+                                        db.updateLocation(uid, location);
+                                        Intent intent = new Intent(signup.this, MapView.class);
                                         startActivity(intent);
                                         Toast.makeText(signup.this, "Signup success.",
                                                 Toast.LENGTH_SHORT).show();
