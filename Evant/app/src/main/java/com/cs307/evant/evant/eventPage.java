@@ -128,6 +128,39 @@ public class eventPage extends AppCompatActivity {
             }
         });
 
+        Button button = (Button) findViewById(R.id.homebutton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(eventPage.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+        Button profileButton = (Button) findViewById(R.id.profilebutton);
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(eventPage.this, Profile.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
+
+        //attempt
+        Button settingsButton = (Button) findViewById(R.id.settingsbutton);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(eventPage.this, Settings.class);
+                intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
+
 
     }
 
