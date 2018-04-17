@@ -61,10 +61,14 @@ public class atten_events extends AppCompatActivity {
                     dateButton.setChecked(false);
                     distButton.setChecked(false);
                     compoundButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+                    sortMyEvents(1);
                 }
                 else {
                     compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     compoundButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+                    sortMyEvents(0);
                 }
             }
         });
@@ -79,12 +83,12 @@ public class atten_events extends AppCompatActivity {
                     distButton.setChecked(false);
                     compoundButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     // Adam's sorting function call
-                    loadMyEvents(2);
+                    loadMyEvents();
                 }
                 else {
                     compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     compoundButton.setTextColor(getResources().getColor(R.color.colorPrimary));
-                    loadMyEvents(0);
+                    sortMyEvents(2);
                 }
             }
         });
@@ -169,7 +173,7 @@ public class atten_events extends AppCompatActivity {
     // 3 = date descending
     // 4 = distance ascending
     // 5 = distance decending
-    private void loadMyEvents(int sortby){
+    private void sortMyEvents(int sortby){
         ArrayList<String> myEvents = db.getMyEvents(db.getUid());
         System.out.println(":::::" + myEvents.size());
         ArrayList<String> myDescrips = new ArrayList<>();
@@ -228,10 +232,33 @@ public class atten_events extends AppCompatActivity {
             for (j = 0; j < n - i - 1; j++)
             {
                 if (sortby == 0){
-                    // TODO swap if title by title less
+                   //
+                    //swap if title by title less
+                    System.out.println(myAttended.get(j) + ":" + myAttended.get(j));
+                    System.out.println(myAttended.get(j +1) + ":" + myAttended.get(j + 1));
+                    if (myAttended.get(j).compareToIgnoreCase(myAttended.get(j + 1)) < 0)
+                    {
+                        // swap j and j + 1 for all arrays
+                        Collections.swap(myDescrips, j, j+1);
+                        Collections.swap(myLoc, j, j+1);
+                        Collections.swap(myTime, j, j+1);
+                        Collections.swap(myHst, j, j+1);
+                        Collections.swap(myAttended, j, j+1);
+                    }
                 }
                 if (sortby == 1){
-                    // TODO swap if title by title greater
+                    //swap if title by title greater
+                    System.out.println(myAttended.get(j) + ":" + myAttended.get(j));
+                    System.out.println(myAttended.get(j +1) + ":" + myAttended.get(j + 1));
+                    if (myAttended.get(j).compareToIgnoreCase(myAttended.get(j + 1)) >= 0)
+                    {
+                        // swap j and j + 1 for all arrays
+                        Collections.swap(myDescrips, j, j+1);
+                        Collections.swap(myLoc, j, j+1);
+                        Collections.swap(myTime, j, j+1);
+                        Collections.swap(myHst, j, j+1);
+                        Collections.swap(myAttended, j, j+1);
+                    }
                 }
                 if (sortby == 2){
                     System.out.println(myTime.get(j) + ":" + parsedate(myTime.get(j)));
