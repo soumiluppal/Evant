@@ -396,6 +396,29 @@ public class Database {
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(uid).child("catTally").setValue(stringt);
     }
+
+    void updateInterest(String uid, ArrayList<String> cats){
+        Gson gson = new Gson();
+        String stringi = gson.toJson(cats);
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(uid).child("userDefinedInterests").setValue(stringi);
+    }
+
+    ArrayList<String> getInterest(String uid){
+        if(users.get(uid) == null){
+            signOut();
+            return null;
+        }
+        String user =  users.get(uid).toString();
+        //System.out.println("USER: " + user);
+        String stringi = user.split("userDefinedInterests=")[1];
+        stringi = stringi.substring(0, stringi.indexOf("]"));
+        stringi+="]";
+        //System.out.println("stringi: " + stringi);
+        Gson gson = new Gson();
+        ArrayList<String> interest = gson.fromJson(stringi, ArrayList.class);
+        return interest;
+    }
     void updateName(String uid, String name){
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(uid).child("name").setValue(name);
