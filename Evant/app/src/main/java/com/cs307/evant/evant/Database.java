@@ -3,6 +3,7 @@ package com.cs307.evant.evant;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationManager;
 import android.util.Base64;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -752,11 +753,18 @@ public class Database {
     }
 
     private double calculateDistance(LatLng marLoc, Location currLoc) {
-        Location curLoc = currLoc;
+        Location curLoc = new Location(LocationManager.GPS_PROVIDER);
 
-        //Location curLoc = new Location("");
-        //curLoc.setLatitude(40.427728);
-        //curLoc.setLongitude(-86.947603);
+
+
+        if (curLoc == null || curLoc.getLatitude() == 0.0) {
+            System.out.println("uhoh");
+            LatLng plocation = getLocation(getUid());
+            curLoc = new Location("");
+            curLoc.setLatitude(plocation.latitude);
+            curLoc.setLongitude(plocation.longitude);
+            //hardcoded values: (40.427728,-86.947603)
+        }
 
 
         Location markerLoc = new Location("");
@@ -772,6 +780,7 @@ public class Database {
         }
 
         distance = distance / 1000;
+
 
 
         return distance;
