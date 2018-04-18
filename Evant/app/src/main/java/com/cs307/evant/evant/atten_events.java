@@ -1,5 +1,6 @@
 package com.cs307.evant.evant;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -102,10 +105,12 @@ public class atten_events extends AppCompatActivity {
                     titleButton.setChecked(false);
                     dateButton.setChecked(false);
                     compoundButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    sortMyEvents(4);
                 }
                 else {
                     compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     compoundButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    sortMyEvents(3);
                 }
             }
         });
@@ -120,6 +125,8 @@ public class atten_events extends AppCompatActivity {
         ArrayList<String> myLoc = new ArrayList<>();
         ArrayList<String> myTime = new ArrayList<>();
         ArrayList<String> myHst = new ArrayList<>();
+        ArrayList<Double> myLat = new ArrayList<>();
+        ArrayList<Double> myLng = new ArrayList<>();
 
         ArrayList<String> myAttended = new ArrayList<>();
         ArrayList<String> titles = db.getTitles();
@@ -127,6 +134,8 @@ public class atten_events extends AppCompatActivity {
         ArrayList<String> loc = db.getLoc();
         ArrayList<String> dtTime = db.getTime();
         ArrayList<String> hst = db.getHost();
+        ArrayList<Double> lat = db.getLat();
+        ArrayList<Double> lng = db.getLng();
 
         for(int a=0; a<myEvents.size(); a++){
             for(int b=0; b<titles.size(); b++){
@@ -141,6 +150,8 @@ public class atten_events extends AppCompatActivity {
                         myLoc.add(loc.get(b));
                         myTime.add(dtTime.get(b));
                         myHst.add(hst.get(b));
+                        myLat.add(lat.get(b));
+                        myLng.add(lng.get(b));
                     }
                 }
             }
@@ -159,7 +170,7 @@ public class atten_events extends AppCompatActivity {
         }
         */
 
-        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, this);
+        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, myLat, myLng, this);
         recyclerView.setAdapter(eAdapter);
     }
 
@@ -181,12 +192,16 @@ public class atten_events extends AppCompatActivity {
         ArrayList<String> myTime = new ArrayList<>();
         ArrayList<String> myHst = new ArrayList<>();
         ArrayList<String> myAttended = new ArrayList<>();
+        ArrayList<Double> myLat = new ArrayList<>();
+        ArrayList<Double> myLng = new ArrayList<>();
 
         ArrayList<String> titles = db.getTitles();
         ArrayList<String> descrips = db.getDescription();
         ArrayList<String> loc = db.getLoc();
         ArrayList<String> dtTime = db.getTime();
         ArrayList<String> hst = db.getHost();
+        ArrayList<Double> lat = db.getLat();
+        ArrayList<Double> lng = db.getLng();
 
         for(int a=0; a<myEvents.size(); a++){
             for(int b=0; b<titles.size(); b++){
@@ -201,14 +216,16 @@ public class atten_events extends AppCompatActivity {
                         myLoc.add(loc.get(b));
                         myTime.add(dtTime.get(b));
                         myHst.add(hst.get(b));
+                        myLat.add(lat.get(b));
+                        myLng.add(lng.get(b));
                     }
                 }
             }
         }
 
-        bubbleSort(myDescrips, myLoc, myTime, myHst, myAttended, sortby);
+        bubbleSort(myDescrips, myLoc, myTime, myHst, myAttended, myLat, myLng, sortby);
 
-        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, this);
+        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, myLat, myLng, this);
         recyclerView.setAdapter(eAdapter);
     }
 
@@ -221,7 +238,7 @@ public class atten_events extends AppCompatActivity {
     // 3 = date descending
     // 4 = distance ascending
     // 5 = distance decending
-    static void bubbleSort(ArrayList<String> myDescrips, ArrayList<String> myLoc, ArrayList<String> myTime, ArrayList<String> myHst, ArrayList<String> myAttended, int sortby)
+    static void bubbleSort(ArrayList<String> myDescrips, ArrayList<String> myLoc, ArrayList<String> myTime, ArrayList<String> myHst, ArrayList<String> myAttended, ArrayList<Double> myLat, ArrayList<Double> myLng, int sortby)
     {
         int n = myDescrips.size();
         int i, j;
@@ -289,9 +306,53 @@ public class atten_events extends AppCompatActivity {
                 }
                 if (sortby == 4){
                     //TODO swap if distance less
+                    System.out.println("myLat = " + myLat.get(j)  + " my Lng = " + myLng.get(j));
+                    LatLng curLoc = db.getLocation(db.getUid());
+                    Location cur = new Location("cur");
+                    cur.setLatitude(curLoc.latitude);
+                    cur.setLongitude(curLoc.longitude);
+                    LatLng tempLoc = new LatLng(myLat.get(j), myLng.get(j));
+                    Location temp = new Location("temp");
+                    temp.setLatitude(tempLoc.latitude);
+                    temp.setLongitude(tempLoc.longitude);
+                    LatLng tempLoc2 = new LatLng(myLat.get(j+1), myLng.get(j+1));
+                    Location temp2 = new Location("temp2");
+                    temp2.setLatitude(tempLoc2.latitude);
+                    temp2.setLongitude(tempLoc2.longitude);
+                    System.out.println("distance 1 = " + cur.distanceTo(temp) + " distance 2 = " + cur.distanceTo(temp2));
+                    if(cur.distanceTo(temp) > cur.distanceTo(temp2)){
+                        Collections.swap(myDescrips, j, j+1);
+                        Collections.swap(myLoc, j, j+1);
+                        Collections.swap(myTime, j, j+1);
+                        Collections.swap(myHst, j, j+1);
+                        Collections.swap(myAttended, j, j+1);
+                    }
+
                 }
                 if (sortby == 5){
-                    //TODO swap if distance greater
+                    //TODO swap if distance less
+                    System.out.println("myLat = " + myLat.get(j)  + " my Lng = " + myLng.get(j));
+                    LatLng curLoc = db.getLocation(db.getUid());
+                    Location cur = new Location("cur");
+                    cur.setLatitude(curLoc.latitude);
+                    cur.setLongitude(curLoc.longitude);
+                    LatLng tempLoc = new LatLng(myLat.get(j), myLng.get(j));
+                    Location temp = new Location("temp");
+                    temp.setLatitude(tempLoc.latitude);
+                    temp.setLongitude(tempLoc.longitude);
+                    LatLng tempLoc2 = new LatLng(myLat.get(j+1), myLng.get(j+1));
+                    Location temp2 = new Location("temp2");
+                    temp2.setLatitude(tempLoc2.latitude);
+                    temp2.setLongitude(tempLoc2.longitude);
+                    System.out.println("distance 1 = " + cur.distanceTo(temp) + " distance 2 = " + cur.distanceTo(temp2));
+                    if(cur.distanceTo(temp) <= cur.distanceTo(temp2)){
+                        Collections.swap(myDescrips, j, j+1);
+                        Collections.swap(myLoc, j, j+1);
+                        Collections.swap(myTime, j, j+1);
+                        Collections.swap(myHst, j, j+1);
+                        Collections.swap(myAttended, j, j+1);
+                    }
+
                 }
 
 
@@ -347,8 +408,8 @@ public class atten_events extends AppCompatActivity {
         dtTime.add("dummy3 dtTime");
         hst.add("dummy1 hst");
 
-        eventAdapter eAdapter = new eventAdapter(titles,descrips, loc, dtTime, hst, this);
-        recyclerView.setAdapter(eAdapter);
+      //  eventAdapter eAdapter = new eventAdapter(titles,descrips, loc, dtTime, hst, this);
+       // recyclerView.setAdapter(eAdapter);
     }
 
 }
