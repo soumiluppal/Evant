@@ -46,8 +46,22 @@ public class Profile extends AppCompatActivity {
         String name = db.getName(db.getUid());
         TextView dispname = (TextView) findViewById(R.id.dispname);
         TextView intrst = findViewById(R.id.interestsText);
+        TextView topCats = findViewById(R.id.topCats);
 
-        String interets = "";
+        ArrayList<String> top3 = db.getTopThree(db.getUid());
+        String topCat = "";
+
+        int n = top3.size();
+        if(n==1){
+            topCat = top3.get(0);
+        }else {
+            for (int i = 0; i < n - 1; i++) {
+                topCat += top3.get(i) + ", ";
+            }
+            topCat += top3.get(n - 1);
+        }
+
+        String interets = topCat;
 
         ArrayList<Integer> indxs = new ArrayList<>();
 
@@ -220,6 +234,7 @@ public class Profile extends AppCompatActivity {
                 wholeintrst += ins.get(i) + "  ";
         }
         intin.setText(wholeintrst);
+        topCats.setText("Top Categories: " + topCat);
         /*LinearLayout intLayout = (LinearLayout)findViewById(R.id.linearLayout);
         intLayout.setOrientation(LinearLayout.VERTICAL);
         TextView text = null;
