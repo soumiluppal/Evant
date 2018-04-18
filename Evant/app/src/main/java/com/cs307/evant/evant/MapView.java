@@ -72,6 +72,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -336,9 +338,17 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                         }
                     }
 
+                    Collections.reverse(upcomingTitles);
+                    Collections.reverse(myDescrips);
+                    Collections.reverse(myLoc);
+                    Collections.reverse(myTime);
+                    Collections.reverse(myHst);
+
 
 
                     eventAdapter cadapter = new eventAdapter(upcomingTitles,myDescrips, myLoc, myTime, myHst, lats, lngs, MapView.this);
+
+
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
