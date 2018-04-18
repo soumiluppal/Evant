@@ -38,18 +38,19 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ArrayList<String> myEvents = new ArrayList<>();
-        myEvents = db.getMyEvents(db.getUid());
+
         //ArrayList<String[]> ints = db.getCategories();
         //Toast.makeText(getApplicationContext(), "GETMYEVEENT: " +  myEvents, Toast.LENGTH_LONG).show();
         Bundle b = getIntent().getExtras();
         String uid = b.getString("uid");
         setContentView(R.layout.activity_profile);
-        String name = db.getName(db.getUid());
+        myEvents = db.getMyEvents(uid);
+        String name = db.getName(uid);
         TextView dispname = (TextView) findViewById(R.id.dispname);
         TextView intrst = findViewById(R.id.interestsText);
         TextView topCats = findViewById(R.id.topCats);
 
-        ArrayList<String> top3 = db.getTopThree(db.getUid());
+        ArrayList<String> top3 = db.getTopThree(uid);
         String topCat = "";
 
         int n = top3.size();
