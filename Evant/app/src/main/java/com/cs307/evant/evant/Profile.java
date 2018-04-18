@@ -26,6 +26,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
@@ -199,7 +200,11 @@ public class Profile extends AppCompatActivity {
         ArrayList<String> ctnms = new ArrayList<>();
         ctnms.add("event1");
         ctnms.add("event2");
-
+        Collections.reverse(ntitles);
+        Collections.reverse(ndesc);
+        Collections.reverse(ndttime);
+        Collections.reverse(nloc);
+        Collections.reverse(nhost);
         eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc, nhost, this);
 
 
