@@ -57,6 +57,8 @@ public class eventList extends AppCompatActivity {
         ArrayList<String> nloc = new ArrayList<>();
         ArrayList<String> ndescrip = new ArrayList<>();
         ArrayList<String> nhst = new ArrayList<>();
+        ArrayList<Double> lats = new ArrayList<>();
+        ArrayList<Double> lngs = new ArrayList<>();
 
         ArrayList<String[]> cats = new ArrayList<>();
 
@@ -82,7 +84,7 @@ public class eventList extends AppCompatActivity {
         nhst = stpdfilter(hst);
 
 
-        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc, nhst, this);
+        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc, nhst, lats, lngs, this);
 
 
         recyclerView.setAdapter(cadapter);

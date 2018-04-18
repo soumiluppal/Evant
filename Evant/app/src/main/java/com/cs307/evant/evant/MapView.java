@@ -309,6 +309,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     ArrayList<String> myLoc = new ArrayList<>();
                     ArrayList<String> myTime = new ArrayList<>();
                     ArrayList<String> myHst = new ArrayList<>();
+                    ArrayList<Double> lats = new ArrayList<>();
+                    ArrayList<Double> lngs = new ArrayList<>();
 
                     ArrayList<String> titles = db.getTitles();
                     ArrayList<String> descrips = db.getDescription();
@@ -336,7 +338,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
 
 
-                    eventAdapter cadapter = new eventAdapter(upcomingTitles,myDescrips, myLoc, myTime, myHst, MapView.this);
+                    eventAdapter cadapter = new eventAdapter(upcomingTitles,myDescrips, myLoc, myTime, myHst, lats, lngs, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
@@ -371,6 +373,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     ArrayList<String> myLoc = new ArrayList<>();
                     ArrayList<String> myTime = new ArrayList<>();
                     ArrayList<String> myHst = new ArrayList<>();
+                    ArrayList<Double> lats = new ArrayList<>();
+                    ArrayList<Double> lngs = new ArrayList<>();
 
                     ArrayList<String> titles = db.getTitles();
                     ArrayList<String> descrips = db.getDescription();
@@ -400,7 +404,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
 
 
-                    eventAdapter cadapter = new eventAdapter(upcomingTitles,myDescrips, myLoc, myTime, myHst, MapView.this);
+                    eventAdapter cadapter = new eventAdapter(upcomingTitles,myDescrips, myLoc, myTime, myHst, lats, lngs, MapView.this);
 
                     recyclerView.bringToFront();
                     recyclerView.setAdapter(cadapter);
