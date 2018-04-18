@@ -280,7 +280,7 @@ public class atten_events extends AppCompatActivity {
                 if (sortby == 2){
                     System.out.println(myTime.get(j) + ":" + parsedate(myTime.get(j)));
                     System.out.println(myTime.get(j +1) + ":" + parsedate(myTime.get(j + 1)));
-                    if (parsedate(myTime.get(j)) < parsedate(myTime.get(j + 1)))
+                    if (parsedate(myTime.get(j)) > parsedate(myTime.get(j + 1)))
                     {
                         // swap j and j + 1 for all arrays
                         Collections.swap(myDescrips, j, j+1);
@@ -294,7 +294,7 @@ public class atten_events extends AppCompatActivity {
                     System.out.println(myTime.get(j) + ":" + parsedate(myTime.get(j)));
                     System.out.println(myTime.get(j +1) + ":" + parsedate(myTime.get(j + 1)));
                     // Integer.parseInt(myTime.get(j)) < Integer.parseInt(myTime.get(j + 1))
-                    if (parsedate(myTime.get(j)) > parsedate(myTime.get(j + 1)))
+                    if (parsedate(myTime.get(j)) < parsedate(myTime.get(j + 1)))
                     {
                         // swap j and j + 1 for all arrays
                         Collections.swap(myDescrips, j, j+1);
@@ -359,8 +359,8 @@ public class atten_events extends AppCompatActivity {
             }
             // IF no two elements were
             // swapped by inner loop, then break
-            if (swapped == false)
-                break;
+            /*if (swapped == false)
+                break;*/
         }
     }
 
