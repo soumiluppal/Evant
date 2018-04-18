@@ -517,7 +517,7 @@ public class Database {
         String downstr = user.split("thumbsdown=")[1];
         int thumbsDown;
         try{
-            thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
+            thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
         }
         catch(StringIndexOutOfBoundsException e){
             thumbsDown = 0;
