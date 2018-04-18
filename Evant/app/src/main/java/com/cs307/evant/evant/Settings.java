@@ -246,6 +246,7 @@ public class Settings extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         System.out.println("PROFILE MAN: " + loginResult.getAccessToken().getUserId());
+                        db.updateFB(db.getUid(), loginResult.getAccessToken().getUserId());
                         // App code
                     }
 

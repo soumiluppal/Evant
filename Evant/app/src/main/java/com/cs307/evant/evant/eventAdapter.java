@@ -106,6 +106,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
                 intent.putExtra("Description",descrip.get(position));
                 intent.putExtra("dttime",dttme.get(position));
                 intent.putExtra("location",location.get(position));
+                intent.putExtra("time",dttme.get(position));
                 ct.startActivity(intent);
             }
         });
@@ -142,7 +143,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
                 intent.putExtra("Description",descrip.get(position));
                 intent.putExtra("dttime",dttme.get(position));
                 intent.putExtra("location",location.get(position));
-
+                intent.putExtra("time",dttme.get(position));
                 ct.startActivity(intent);
 
             }

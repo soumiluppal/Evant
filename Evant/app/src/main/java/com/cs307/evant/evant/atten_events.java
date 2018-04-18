@@ -170,7 +170,7 @@ public class atten_events extends AppCompatActivity {
         }
         */
 
-        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, myLat, myLng, this);
+        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myTime, myLoc, myHst, myLat, myLng, this);
         recyclerView.setAdapter(eAdapter);
     }
 
@@ -191,10 +191,10 @@ public class atten_events extends AppCompatActivity {
         ArrayList<String> myLoc = new ArrayList<>();
         ArrayList<String> myTime = new ArrayList<>();
         ArrayList<String> myHst = new ArrayList<>();
-        ArrayList<String> myAttended = new ArrayList<>();
         ArrayList<Double> myLat = new ArrayList<>();
         ArrayList<Double> myLng = new ArrayList<>();
 
+        ArrayList<String> myAttended = new ArrayList<>();
         ArrayList<String> titles = db.getTitles();
         ArrayList<String> descrips = db.getDescription();
         ArrayList<String> loc = db.getLoc();
@@ -222,8 +222,21 @@ public class atten_events extends AppCompatActivity {
                 }
             }
         }
+        /*
+        for(int a=0; a<myEvents.size(); a++){
+            for(int b=0; b<titles.size(); b++){
+                System.out.println(myEvents.indexOf(a) + " ::::::::::::: " + titles.indexOf(b));
+                if(myEvents.get(a) == titles.get(b)){
+                    myDescrips.add(descrips.get(b));
+                    myLoc.add(loc.get(b));
+                    myTime.add(dtTime.get(b));
+                    myHst.add(hst.get(b));
+                }
+            }
+        }
+        */
 
-        bubbleSort(myDescrips, myLoc, myTime, myHst, myAttended, myLat, myLng, sortby);
+        bubbleSort(myDescrips,myLoc,myTime,myHst,myAttended,myLat,myLng, sortby);
 
         eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, myLat, myLng, this);
         recyclerView.setAdapter(eAdapter);
@@ -240,9 +253,10 @@ public class atten_events extends AppCompatActivity {
     // 5 = distance decending
     static void bubbleSort(ArrayList<String> myDescrips, ArrayList<String> myLoc, ArrayList<String> myTime, ArrayList<String> myHst, ArrayList<String> myAttended, ArrayList<Double> myLat, ArrayList<Double> myLng, int sortby)
     {
-        int n = myDescrips.size();
+        int n = myTime.size();
         int i, j;
         boolean swapped;
+        System.out.println("TTTTTTTTTT: + " + n );
         for (i = 0; i < n - 1; i++)
         {
             swapped = false;

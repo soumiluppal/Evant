@@ -323,7 +323,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                     for(int a=0; a<myEvents.size(); a++){
                         for(int b=0; b<titles.size(); b++){
                             if (myEvents.get(a) == titles.get(b)) {
-                                    Date currentTime = Calendar.getInstance().getTime();
+                                    Calendar ca = Calendar.getInstance();
+                                    ca.add(Calendar.DATE,-1);
+                                    Date currentTime = ca.getTime();
+                                    //Date currentTime = Calendar.getInstance().getTime();
                                     SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
                                     String formattedDate = df.format(currentTime);
                                     formattedDate = formattedDate.toUpperCase();
