@@ -126,6 +126,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/events"
             android:layout_width="wrap_content"
@@ -141,6 +143,23 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
+            android:id="@+id/topCats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginEnd="294dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="330dp"
+            android:text="Top Categories:"
+            app:layout_constraintHorizontal_bias="0.0"
+
+            fab:layout_constraintBottom_toBottomOf="parent"
+            fab:layout_constraintEnd_toEndOf="parent"
+            fab:layout_constraintStart_toStartOf="parent"
+            fab:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/interests"/>
+
+        <TextView
             android:id="@+id/interests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -149,11 +168,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="348dp"
             android:text="Interests:"
-            android:textSize="18dp"
             app:layout_constraintBottom_toTopOf="@+id/interestsText"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/interestsText"
@@ -165,11 +185,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="7dp"
             android:text="TextView"
-            android:textSize="18dp"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/interests" />
+
     </android.support.constraint.ConstraintLayout>
 
 
