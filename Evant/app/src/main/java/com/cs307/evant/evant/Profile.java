@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -54,7 +55,7 @@ public class Profile extends AppCompatActivity {
 
         int n = top3.size();
         if(n == 0) {
-            
+
         }
         else if(n==1){
             topCat = top3.get(0);
@@ -153,6 +154,17 @@ public class Profile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Profile.this, Settings.class);
                 intent.putExtra("uid", db.getUid());
+                startActivity(intent);
+            }
+        });
+
+        Button fbButton = (Button) findViewById(R.id.fbButton);
+
+        fbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse("https://facebook.com/" + db.getFB(db.getUid()));
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
         });

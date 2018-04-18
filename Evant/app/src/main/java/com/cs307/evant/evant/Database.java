@@ -604,7 +604,6 @@ public class Database {
             return null;
         }
         String user =  users.get(uid).toString();
-
         String fblink = user.split("fblink=")[1];
         fblink = fblink.substring(0, fblink.indexOf(","));
         //String[] latlong =  fblink.split(",");
