@@ -83,7 +83,7 @@ public class atten_events extends AppCompatActivity {
                     distButton.setChecked(false);
                     compoundButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     // Adam's sorting function call
-                    loadMyEvents();
+                    sortMyEvents(3);
                 }
                 else {
                     compoundButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -277,7 +277,7 @@ public class atten_events extends AppCompatActivity {
                     System.out.println(myTime.get(j) + ":" + parsedate(myTime.get(j)));
                     System.out.println(myTime.get(j +1) + ":" + parsedate(myTime.get(j + 1)));
                     // Integer.parseInt(myTime.get(j)) < Integer.parseInt(myTime.get(j + 1))
-                    if (parsedate(myTime.get(j)) < parsedate(myTime.get(j + 1)))
+                    if (parsedate(myTime.get(j)) > parsedate(myTime.get(j + 1)))
                     {
                         // swap j and j + 1 for all arrays
                         Collections.swap(myDescrips, j, j+1);
@@ -307,18 +307,124 @@ public class atten_events extends AppCompatActivity {
     //04/04/2018   14:40 PM
     //03/25/18   03:09 PM
     // takes in a date as a string and produces a number value of the date
-    static private int parsedate(String date){
-        // parse date
-        if (date.matches("/(0[1-9]|1[012])[- \\/.](0[1-9]|[12][0-9]|3[01])[- \\/.](19|20)\\d\\d/")) {
-            return Character.getNumericValue(date.charAt(0))*10000000 + Character.getNumericValue(date.charAt(1)) + 1000000;
-        }
-        // temp
-        if (Character.isDigit(date.charAt(1))){
-            return Character.getNumericValue(date.charAt(1));
-        }
+    // result is a 12 digit to 14 int in the form of YYYYMMDDHHMMSS
+    static private double parsedate(String date){
+        // storage values
+        int sec = 0, min = 0, hr = 0, day = 0, month = 0, year = 0;
 
-        return 0;
+        // first lets get the date
+        for (int i = 0; i < date.length(); i++){
+            if (charIsSlash(date.charAt(i))){
+                System.out.println("Slash found");
+
+                // for later
+                int numberOfMonthDigits;
+                int numberOfDayDigits = 0;
+                int numberOfYearDigits = 0;
+
+                // we found a slash
+                // check that it is valid
+                if (i - 1 < 0){
+                    // then it is not far enough into the string to have a date yet
+                    System.out.println("not enough chars before");
+                    continue;
+                }
+                // if one digit back is not a number it is bad
+                if (!Character.isDigit(date.charAt(i-1))){
+                    System.out.println("not a int before");
+                    continue;
+                }
+                System.out.println("Flag 1");
+
+                // find number of month digits
+                numberOfMonthDigits = 2;
+                if (i - 2 < 0) {
+                    numberOfMonthDigits = 1;
+                } else {
+                    if (!Character.isDigit(date.charAt(i-2))){
+                        numberOfMonthDigits = 1;
+                    }
+                }
+                System.out.println("Flag 2");
+
+
+                //find number of day digits
+                // check that our next question isn't out of bounds
+                if (i + 3 < date.length()){
+                    // find out if there is a slash one or to away
+                    if (charIsSlash(date.charAt(i+2))){
+                        // there is a second slash we have XX/X/XXXX
+                        numberOfDayDigits = 1;
+
+                    } else if (charIsSlash(date.charAt(i+3))){
+                        // there is a second slash we have XX/XX/XXXX
+                        numberOfDayDigits = 2;
+                    } else {
+                        // ther is too many digits for the day
+                        continue;
+                    }
+                }
+                System.out.println("Flag 3");
+
+                //find number of day digits
+                for (int j = 0; j < 4; j++){
+                    if (i + numberOfDayDigits + 2 + j < date.length()){
+                        if (Character.isDigit(date.charAt(i + numberOfDayDigits + 2 + j))){
+                            numberOfYearDigits++;
+                        }
+                    }
+                }
+                // check we dont have too few
+                if (numberOfYearDigits < 2 || numberOfYearDigits == 3){
+                    continue;
+                }
+                System.out.println("Flag 4");
+
+                // if we get here we have a good date
+                // set month
+                month = Character.getNumericValue(date.charAt(i-1));
+                if (numberOfMonthDigits == 2){
+                    month += Character.getNumericValue(date.charAt(i-2))*10;
+                }
+                //set day
+                day = Character.getNumericValue(date.charAt(i+1));
+                if (numberOfDayDigits == 2){
+                    day = Character.getNumericValue(date.charAt(i+2)) + day*10;
+                }
+                //set day
+                System.out.println("year:" + year);
+                year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 2));
+                System.out.println("year:" + year);
+                year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 3)) + year*10;
+                System.out.println("year:" + year);
+                if (numberOfYearDigits == 4){
+                    year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 4)) + year*10;
+                    System.out.println("year:" + year);
+                    year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 5)) + year*10;
+                    System.out.println("year:" + year);
+                } else {
+                    year += 2000;
+                }
+                System.out.println("Flag 5");
+                break;
+
+            }
+        }
+        System.out.println("min:" + min);
+        System.out.println("hr:"  + hr);
+        System.out.println("day:" + day);
+        System.out.println("month:" + month);
+        System.out.println("year:" + year);
+        return min + hr*100 + day*10000 + month*1000000 + ((double)year)*100000000;
         // TODO (Adam) improve this
+    }
+
+    static private boolean charIsSlash(char c){
+        if (c == '/' ||  c == '\\' || c == '-'){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
