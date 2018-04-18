@@ -15,8 +15,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
@@ -30,6 +33,7 @@ public class eventList extends AppCompatActivity {
     private String wrd = "";
     boolean srching;
     private ArrayList<Integer> needIndexs = new ArrayList<>();
+    private ArrayList<Integer> ndIndexs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +110,16 @@ public class eventList extends AppCompatActivity {
         ndescrip = stpdfilter(descrip);
         nhst = stpdfilter(hst);
 
+        filterold(ndttime);
 
-        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc, nhst, lats, lngs, this);
+        ArrayList<String> ttitles = stpdfilter2(ntitles);
+        ArrayList<String> tdttime = stpdfilter2(ndttime);
+        ArrayList<String> tloc = stpdfilter2(nloc);
+        ArrayList<String> thst = stpdfilter2(nhst);
+        ArrayList<String> tdescrip = stpdfilter2(ndescrip);
+
+
+        eventAdapter cadapter = new eventAdapter(ttitles,tdescrip,tdttime,tloc, thst, lats, lngs, this);
 
 
         recyclerView.setAdapter(cadapter);
@@ -148,14 +160,46 @@ public class eventList extends AppCompatActivity {
     private ArrayList<String> stpdfilter(ArrayList<String> gve)
     {
 
-       ArrayList<String> actualy = new ArrayList<>();
+        ArrayList<String> actualy = new ArrayList<>();
 
         for(int i = 0; i < needIndexs.size(); i++)
         {
             actualy.add(gve.get(needIndexs.get(i)));
         }
         return  actualy;
-       //return gve;
+        //return gve;
+    }
+
+    private ArrayList<String> stpdfilter2(ArrayList<String> gve)
+    {
+
+        ArrayList<String> actualy = new ArrayList<>();
+
+        for(int i = 0; i < ndIndexs.size(); i++)
+        {
+            actualy.add(gve.get(ndIndexs.get(i)));
+        }
+        return  actualy;
+        //return gve;
+    }
+
+    private void filterold(ArrayList<String> cts)
+    {
+        Calendar ca = Calendar.getInstance();
+        ca.add(Calendar.DATE,-1);
+        Date currentTime = ca.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+        String formattedDate = df.format(currentTime);
+        formattedDate = formattedDate.toUpperCase();
+        for(int i = 0; i < cts.size(); i++)
+        {
+            if (formattedDate.compareTo(cts.get(i)) <= 0)
+            {
+                ndIndexs.add(i);
+
+            }
+        }
+
     }
 
 

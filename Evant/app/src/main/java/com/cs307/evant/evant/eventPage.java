@@ -22,11 +22,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
 public class eventPage extends AppCompatActivity {
+    String dttm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,8 @@ public class eventPage extends AppCompatActivity {
         final ArrayList<String> list = db.getAttendees().get(eventIndex);
 
         descrip.setText(getIntent().getStringExtra("Description"));
-        String location = "Location:  " + getIntent().getStringExtra("location") + " " + getIntent().getStringExtra("dttime");
+        dttm = getIntent().getStringExtra("dttime");
+        String location = "Location:  " + getIntent().getStringExtra("location") + " " + dttm;
         Loc.setText(location);
         System.out.println("HOST IN PAGE: " + getIntent().getStringExtra("Host"));
         String ahst = "Host of Event: " + db.getName(getIntent().getStringExtra("Host"));
@@ -103,6 +108,12 @@ public class eventPage extends AppCompatActivity {
 
         final ImageView upButton = (ImageView) findViewById(R.id.upButton);
         final ImageView downButton = (ImageView) findViewById(R.id.downButton);
+        //if(myOldEvent())
+        //{
+        //    upButton.setVisibility(View.GONE);
+        //    downButton.setVisibility(View.GONE);
+        //}
+
         upButton.setRotation(180);
         upButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +173,24 @@ public class eventPage extends AppCompatActivity {
         });
 
 
+    }
+
+    private boolean myOldEvent()
+    {
+        //String dttm = getIntent().getStringExtra("dttime");
+        //String title = getIntent().getStringExtra("Title");
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+        String formattedDate = df.format(currentTime);
+        formattedDate = formattedDate.toUpperCase();
+        System.out.println("Avi date:" + dttm + "   " + formattedDate);
+        if (formattedDate.compareTo(dttm) > 0)
+        {
+            System.out.println("Avi return true");
+            return true;
+        }
+        else
+            return false;
     }
 
 }
