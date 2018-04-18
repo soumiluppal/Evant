@@ -3,6 +3,7 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/tempback"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
@@ -54,6 +55,144 @@
         android:id="@+id/include"
         layout="@layout/content_profile" />
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar2">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dispname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|top"
+                android:ems="10"
+                android:gravity="center"
+                android:selectAllOnFocus="false"
+                android:shadowColor="#000000"
+                android:shadowDx=".8"
+                android:shadowDy=".7"
+                android:shadowRadius="1"
+                android:singleLine="false"
+                android:text="Name: "
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="28sp"
+                 />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:selectAllOnFocus="false"
+                android:shadowColor="#000000"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="9dp"
+                android:shadowDx=".8"
+                android:shadowDy=".7"
+                android:shadowRadius="1"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:text="Hosted Events:" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/events"
+                android:layout_width="match_parent"
+                android:layout_height="170dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/topCats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="10dp"
+                android:selectAllOnFocus="false"
+                android:shadowColor="#000000"
+                android:shadowDx=".8"
+                android:shadowDy=".7"
+                android:shadowRadius="1"
+                android:text="Top 3 Categories: "
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/to2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="12dp"
+                android:selectAllOnFocus="false"
+                android:shadowColor="#000000"
+                android:shadowDx=".8"
+                android:shadowDy=".7"
+                android:shadowRadius="1"
+                android:text="Interests:"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/interestsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:selectAllOnFocus="false"
+                android:shadowColor="#000000"
+                android:shadowDx=".8"
+                android:shadowDy=".7"
+                android:shadowRadius="1"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/hostRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="7dp"
+                android:selectAllOnFocus="false"
+                android:shadowColor="#000000"
+                android:shadowDx=".8"
+                android:shadowDy=".7"
+                android:shadowRadius="1"
+                android:text="Host Rating:"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/fbButton"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/com_facebook_button_background"
+                android:text="My Facebook Profile"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/multiple_actions"
         android:layout_width="match_parent"
@@ -92,117 +231,6 @@
             fab:fab_title="Create Event" />
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar2">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="370dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Events: "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dispname" />
-
-        <TextView
-            android:id="@+id/dispname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="400dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Name: "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <Button
-            android:id="@+id/fbButton"
-            android:layout_width="158dp"
-            android:layout_height="38dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/com_facebook_button_background"
-            android:text="My Facebook Profile"
-            android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/interestsText" />
-
-
-        <TextView
-            android:id="@+id/topCats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
-            android:layout_marginEnd="250dp"
-            android:layout_marginTop="8dp"
-            android:text="Top Categories"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/events" />
-
-        <TextView
-            android:id="@+id/interests"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginBottom="100dp"
-            android:layout_marginEnd="280dp"
-            android:layout_marginTop="8dp"
-            android:text="Interests"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topCats" />
-
-        <TextView
-            android:id="@+id/interestsText"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
-            android:layout_marginEnd="68dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/interests" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/events"
-            android:layout_width="wrap_content"
-            android:layout_height="500px"
-
-            android:layout_marginBottom="200dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:divider="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.689"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:layout_constraintVertical_bias="0.847" />
-
-    </android.support.constraint.ConstraintLayout>
 
 
 </RelativeLayout>
