@@ -186,13 +186,13 @@ public class eventPage extends AppCompatActivity {
         String formattedDate = df.format(currentTime);
         formattedDate = formattedDate.toUpperCase();
         System.out.println("Avi return:" + dttm + "   " + formattedDate);
-        if (dttm.equals("Ggg"))
+        if (formattedDate.compareTo(dttm) <= 0)
         {
             System.out.println("Avi return true");
-            return true;
+            return false;
         }
         System.out.println("Avi return false");
-            return false;
+            return true;
     }
 
 }
