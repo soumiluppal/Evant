@@ -35,6 +35,8 @@ import static com.cs307.evant.evant.MainActivity.db;
 public class signup extends AppCompatActivity {
 
     /*test*/
+    private String usname = "";
+    private String uspass = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +159,8 @@ public class signup extends AppCompatActivity {
                 else
                 {
                     final String nam = nm;
+                    usname = username;
+                    uspass = password;
                     //check for keep logged in
                     if(klog.isChecked())
                     {
@@ -226,6 +230,8 @@ public class signup extends AppCompatActivity {
                             });
                 }
 
+                logmeIn(mAuth);
+
 
 
 
@@ -234,5 +240,35 @@ public class signup extends AppCompatActivity {
         });
 
 
+
+
+
+    }
+
+
+
+    private void logmeIn(final FirebaseAuth mAuth)
+    {
+        mAuth.signInWithEmailAndPassword(usname, uspass)
+                .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Intent intent = new Intent(signup.this, MapView.class);
+                            startActivity(intent);
+                            Toast.makeText(signup.this, "Logged in.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            // If sign in fails, display a message to the user.
+
+                            Toast.makeText(signup.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
     }
 }
