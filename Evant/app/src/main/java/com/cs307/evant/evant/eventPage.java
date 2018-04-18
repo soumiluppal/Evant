@@ -179,7 +179,7 @@ public class eventPage extends AppCompatActivity {
 
     private boolean myOldEvent()
     {
-        String tm = getIntent().getStringExtra("time");
+        String tm = dttm;
         //String title = getIntent().getStringExtra("Title");
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");

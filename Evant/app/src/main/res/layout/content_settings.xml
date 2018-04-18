@@ -23,7 +23,6 @@
             android:text="Edit Profile"
             android:background="#3888"
             android:layout_gravity="center"
-            android:layout_marginTop="70dp"
             tools:layout_editor_absoluteX="273dp"
             tools:layout_editor_absoluteY="69dp" />
 
