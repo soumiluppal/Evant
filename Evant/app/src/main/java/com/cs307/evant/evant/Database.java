@@ -752,9 +752,10 @@ public class Database {
             for(int ind: indexes){
 
                 String currTitle = titles.get(ind).toLowerCase();
+                String currDesc = descriptions.get(ind).toString().toLowerCase();
                 System.out.println(ind);
                 //System.out.println("currtitle: " + currTitle);
-                if (currTitle.contains(criteria.toLowerCase())) {
+                if (currTitle.contains(criteria.toLowerCase()) || currDesc.contains(criteria.toLowerCase())) {
                         //System.out.println("match: " + names.get(j));
                         searchIndexes.add(ind);
 
