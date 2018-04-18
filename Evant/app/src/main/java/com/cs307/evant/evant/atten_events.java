@@ -307,7 +307,7 @@ public class atten_events extends AppCompatActivity {
     //04/04/2018   14:40 PM
     //03/25/18   03:09 PM
     // takes in a date as a string and produces a number value of the date
-    // result is a 12 digit to 14 int in the form of YYYYMMDDHHMMSS
+    // result is a 10 digit to 12 int in the form of YYYYMMDDHHMM
     static private double parsedate(String date){
         // storage values
         int sec = 0, min = 0, hr = 0, day = 0, month = 0, year = 0;
@@ -315,7 +315,6 @@ public class atten_events extends AppCompatActivity {
         // first lets get the date
         for (int i = 0; i < date.length(); i++){
             if (charIsSlash(date.charAt(i))){
-                System.out.println("Slash found");
 
                 // for later
                 int numberOfMonthDigits;
@@ -326,15 +325,12 @@ public class atten_events extends AppCompatActivity {
                 // check that it is valid
                 if (i - 1 < 0){
                     // then it is not far enough into the string to have a date yet
-                    System.out.println("not enough chars before");
                     continue;
                 }
                 // if one digit back is not a number it is bad
                 if (!Character.isDigit(date.charAt(i-1))){
-                    System.out.println("not a int before");
                     continue;
                 }
-                System.out.println("Flag 1");
 
                 // find number of month digits
                 numberOfMonthDigits = 2;
@@ -345,7 +341,6 @@ public class atten_events extends AppCompatActivity {
                         numberOfMonthDigits = 1;
                     }
                 }
-                System.out.println("Flag 2");
 
 
                 //find number of day digits
@@ -364,7 +359,6 @@ public class atten_events extends AppCompatActivity {
                         continue;
                     }
                 }
-                System.out.println("Flag 3");
 
                 //find number of day digits
                 for (int j = 0; j < 4; j++){
@@ -378,7 +372,6 @@ public class atten_events extends AppCompatActivity {
                 if (numberOfYearDigits < 2 || numberOfYearDigits == 3){
                     continue;
                 }
-                System.out.println("Flag 4");
 
                 // if we get here we have a good date
                 // set month
@@ -391,30 +384,44 @@ public class atten_events extends AppCompatActivity {
                 if (numberOfDayDigits == 2){
                     day = Character.getNumericValue(date.charAt(i+2)) + day*10;
                 }
-                //set day
-                System.out.println("year:" + year);
+                //set year
                 year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 2));
-                System.out.println("year:" + year);
                 year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 3)) + year*10;
-                System.out.println("year:" + year);
                 if (numberOfYearDigits == 4){
                     year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 4)) + year*10;
-                    System.out.println("year:" + year);
                     year = Character.getNumericValue(date.charAt(i + numberOfDayDigits + 5)) + year*10;
-                    System.out.println("year:" + year);
                 } else {
                     year += 2000;
                 }
-                System.out.println("Flag 5");
+
                 break;
 
             }
         }
-        System.out.println("min:" + min);
-        System.out.println("hr:"  + hr);
-        System.out.println("day:" + day);
-        System.out.println("month:" + month);
-        System.out.println("year:" + year);
+
+        // find the time
+        for (int i = 0; i < date.length(); i++){
+            if (date.charAt(i) == ':') {
+                // check if enough characters before and behind
+                if (i - 2 > 0 && i + 2 < date.length()){
+                    // check that they are all digits
+                    if (Character.isDigit(date.charAt(i-2)) && Character.isDigit(date.charAt(i-1)) && Character.isDigit(date.charAt(i+1)) && Character.isDigit(date.charAt(i+2))){
+                        // set the min and hr
+                        hr = Character.getNumericValue(date.charAt(i-2))*10 + Character.getNumericValue(date.charAt(i-1));
+                        min = Character.getNumericValue(date.charAt(i+1))*10 + Character.getNumericValue(date.charAt(i+2));
+
+                        if (date.toLowerCase().contains("pm")){
+                            hr += 12;
+                        }
+                    }
+
+                }
+
+
+            }
+
+        }
+
         return min + hr*100 + day*10000 + month*1000000 + ((double)year)*100000000;
         // TODO (Adam) improve this
     }
