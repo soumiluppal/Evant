@@ -10,4 +10,7 @@
     <string name="title_activity_set_radius">setRadiusActivity</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_edit_profile_settings">EditProfileSettings</string>
+    <string name="facebook_app_id">1531841496942820</string>
+    <string name="fb_login_protocol_scheme">fb1531841496942820</string>
+
 </resources>

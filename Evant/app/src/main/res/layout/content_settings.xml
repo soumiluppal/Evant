@@ -84,6 +84,14 @@
             tools:layout_editor_absoluteX="285dp"
             tools:layout_editor_absoluteY="258dp" />
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
+
         <Switch
             android:id="@+id/notifiSwitch"
             android:layout_width="match_parent"
