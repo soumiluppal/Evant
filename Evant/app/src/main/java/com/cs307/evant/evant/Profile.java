@@ -170,6 +170,10 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        TextView rating = (TextView) findViewById(R.id.hostRating);
+
+        rating.append(" " + Integer.toString(db.getRating(uid)));
+
         com.getbase.floatingactionbutton.FloatingActionButton actionC = new com.getbase.floatingactionbutton.FloatingActionButton(getBaseContext());
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         final FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
