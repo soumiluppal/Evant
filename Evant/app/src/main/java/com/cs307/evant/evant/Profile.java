@@ -53,7 +53,10 @@ public class Profile extends AppCompatActivity {
         String topCat = "";
 
         int n = top3.size();
-        if(n==1){
+        if(n == 0) {
+            
+        }
+        else if(n==1){
             topCat = top3.get(0);
         }else {
             for (int i = 0; i < n - 1; i++) {
