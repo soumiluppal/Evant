@@ -170,7 +170,7 @@ public class atten_events extends AppCompatActivity {
         }
         */
 
-        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myLoc, myTime, myHst, myLat, myLng, this);
+        eventAdapter eAdapter = new eventAdapter(myAttended,myDescrips, myTime, myLoc, myHst, myLat, myLng, this);
         recyclerView.setAdapter(eAdapter);
     }
 

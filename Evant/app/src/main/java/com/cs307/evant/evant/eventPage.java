@@ -179,14 +179,14 @@ public class eventPage extends AppCompatActivity {
 
     private boolean myOldEvent()
     {
-        //String dttm = getIntent().getStringExtra("dttime");
+        String tm = getIntent().getStringExtra("time");
         //String title = getIntent().getStringExtra("Title");
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
         String formattedDate = df.format(currentTime);
         formattedDate = formattedDate.toUpperCase();
-        System.out.println("Avi return:" + dttm + "   " + formattedDate);
-        if (formattedDate.compareTo(dttm) <= 0)
+        System.out.println("Avi return:" + tm + "   " + formattedDate);
+        if (formattedDate.compareTo(tm) <= 0)
         {
             System.out.println("Avi return true");
             return false;
