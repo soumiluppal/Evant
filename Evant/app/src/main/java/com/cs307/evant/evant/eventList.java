@@ -13,12 +13,8 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 
 import static com.cs307.evant.evant.MainActivity.db;
 
@@ -32,7 +28,6 @@ public class eventList extends AppCompatActivity {
     private String wrd = "";
     boolean srching;
     private ArrayList<Integer> needIndexs = new ArrayList<>();
-    private ArrayList<Integer> ndIndexs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +66,8 @@ public class eventList extends AppCompatActivity {
         ArrayList<String> nloc = new ArrayList<>();
         ArrayList<String> ndescrip = new ArrayList<>();
         ArrayList<String> nhst = new ArrayList<>();
-
-
-        ArrayList<String> ttitles = new ArrayList<>();
-        ArrayList<String> tdttime = new ArrayList<>();
-        ArrayList<String> tloc = new ArrayList<>();
-        ArrayList<String> tdescrip = new ArrayList<>();
-        ArrayList<String> thst = new ArrayList<>();
+        ArrayList<Double> lats = new ArrayList<>();
+        ArrayList<Double> lngs = new ArrayList<>();
 
         ArrayList<String[]> cats = new ArrayList<>();
 
@@ -113,29 +103,8 @@ public class eventList extends AppCompatActivity {
         ndescrip = stpdfilter(descrip);
         nhst = stpdfilter(hst);
 
-        filterOld(ndttime);
 
-        ttitles = stpdfilter2(titles);
-        tdttime = stpdfilter2(dttime);
-        tloc = stpdfilter2(loc);
-        tdescrip = stpdfilter2(descrip);
-        thst = stpdfilter2(hst);
-
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
-        String formattedDate = df.format(currentTime);
-        formattedDate = formattedDate.toUpperCase();
-        String toCompDate = dttime.get(1).substring(0,8);
-        String reformatdate = formattedDate.substring(0,6) + formattedDate.substring(8);
-        //System.out.println("Avi formattedDate = " + reformatdate + "times.get(index) = "+ toCompDate + "end");
-
-
-        Collections.reverse(ntitles);
-        Collections.reverse(ndttime);
-        Collections.reverse(nloc);
-        Collections.reverse(ndescrip);
-        Collections.reverse(nhst);
-        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc, nhst, this);
+        eventAdapter cadapter = new eventAdapter(ntitles,ndescrip,ndttime,nloc, nhst, lats, lngs, this);
 
 
         recyclerView.setAdapter(cadapter);
@@ -180,40 +149,6 @@ public class eventList extends AppCompatActivity {
         }
         return  actualy;
        //return gve;
-    }
-
-    private ArrayList<String> stpdfilter2(ArrayList<String> gve)
-    {
-
-        ArrayList<String> actualy = new ArrayList<>();
-
-        for(int i = 0; i < ndIndexs.size(); i++)
-        {
-            actualy.add(gve.get(ndIndexs.get(i)));
-        }
-        return  actualy;
-        //return gve;
-    }
-
-    private void filterOld(ArrayList<String> curr)
-    {
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
-        String formattedDate = df.format(currentTime);
-        formattedDate = formattedDate.toUpperCase();
-        String toCompDate = "";
-        String reformatdate = formattedDate.substring(0,6) + formattedDate.substring(8);
-        for(int i = 0; i < curr.size(); i++)
-        {
-            toCompDate = curr.get(i).substring(0,8);
-            int rty = reformatdate.compareTo(toCompDate);
-            System.out.println("Avi formattedDate = " + reformatdate + "times.get(index) = "+ toCompDate + " result" + rty);
-            if(reformatdate.compareTo(toCompDate) < 0)
-            {
-                ndIndexs.add(i);
-            }
-        }
-
     }
 
 

@@ -29,6 +29,8 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
     private ArrayList<String> dttme;
     private ArrayList<String> location;
     private ArrayList<String> hosts;
+    private ArrayList<Double> lats;
+    private ArrayList<Double> lngs;
 
     private Context ct;
     //private ImageView iv;
@@ -63,7 +65,7 @@ public class eventAdapter extends RecyclerView.Adapter<eventAdapter.MyViewHolder
         }
     }
 
-    public eventAdapter( ArrayList <String> title, ArrayList <String> descrp, ArrayList <String> dte, ArrayList <String> loc, ArrayList <String> h, Context c)
+    public eventAdapter( ArrayList <String> title, ArrayList <String> descrp, ArrayList <String> dte, ArrayList <String> loc, ArrayList <String> h, ArrayList<Double> lats, ArrayList<Double> lngs, Context c)
     {
         //catPhotos = a;
         titles = title;

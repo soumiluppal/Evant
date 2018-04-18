@@ -200,6 +200,8 @@ public class Profile extends AppCompatActivity {
         ArrayList<String> nloc = new ArrayList<>();
         ArrayList<String> ndesc = new ArrayList<>();
         ArrayList<String> nhost = new ArrayList<>();
+        ArrayList<Double> lats = new ArrayList<>();
+        ArrayList<Double> lngs = new ArrayList<>();
         System.out.println(titles);
         for(int i = 0; i<host.size(); i++){
             if(host.get(i).equals(uid)){
@@ -214,12 +216,15 @@ public class Profile extends AppCompatActivity {
         ArrayList<String> ctnms = new ArrayList<>();
         ctnms.add("event1");
         ctnms.add("event2");
+
+
         Collections.reverse(ntitles);
         Collections.reverse(ndesc);
         Collections.reverse(ndttime);
         Collections.reverse(nloc);
         Collections.reverse(nhost);
-        eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc, nhost, this);
+        eventAdapter adapter = new eventAdapter(ntitles,ndesc,ndttime,nloc, nhost, lats, lngs, this);
+
 
 
         recyclerView.setAdapter(adapter);
