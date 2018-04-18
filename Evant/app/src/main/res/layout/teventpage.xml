@@ -7,6 +7,47 @@
     android:background="@drawable/tempback"
     tools:context="com.cs307.evant.evant.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" >
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <Button
+                android:id="@+id/profilebutton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/profile" />
+
+
+            <Button
+                android:id="@+id/homebutton"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/logoevant" />
+
+
+            <Button
+                android:id="@+id/settingsbutton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/settings" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
 
 
     <LinearLayout

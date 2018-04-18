@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -79,6 +82,32 @@ public class catList extends AppCompatActivity {
         ctnms.add("Others");
         catAdapter cadapter = new catAdapter(ctnms,this);
         recyclerView.setAdapter(cadapter);
+
+        FloatingActionButton actionC = new FloatingActionButton(getBaseContext());
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        final FloatingActionsMenu fam = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        //fam.addButton(actionC);
+        FloatingActionButton create = (FloatingActionButton) findViewById(R.id.create);
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(catList.this, NewEventActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        FloatingActionButton attend = (FloatingActionButton) findViewById(R.id.attend);
+        attend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(MapView.this, "Clicked pink Floating Action Button", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(catList.this, catList.class);
+                startActivity(intent);
+            }
+        });
+
+        fam.bringToFront();
     }
 
     private int dpToPx(int dp) {
