@@ -8,9 +8,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -44,6 +47,8 @@ public class catList extends AppCompatActivity {
 
         Button profileButton = (Button) findViewById(R.id.profilebutton);
 
+
+
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +67,24 @@ public class catList extends AppCompatActivity {
                 Intent intent = new Intent(catList.this, Settings.class);
                 intent.putExtra("uid", db.getUid());
                 startActivity(intent);
+            }
+        });
+
+        final EditText sbar = findViewById(R.id.searchBar);
+
+        sbar.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                {
+                    //Toast.makeText(catList.this, "Works?", Toast.LENGTH_LONG).show();
+                    Intent intnt = new Intent(catList.this,eventList.class);
+                    intnt.putExtra("Searching","true");
+                    intnt.putExtra("Word",sbar.getText().toString());
+                    startActivity(intnt);
+                }
+                return false;
             }
         });
 

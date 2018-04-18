@@ -25,6 +25,8 @@ import static com.cs307.evant.evant.MainActivity.db;
 public class eventList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private String category;
+    private String wrd = "";
+    boolean srching;
     private ArrayList<Integer> needIndexs = new ArrayList<>();
 
     @Override
@@ -33,8 +35,15 @@ public class eventList extends AppCompatActivity {
         setContentView(R.layout.content_cat_lst);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        category = getIntent().getStringExtra("Category");
+        if(getIntent().getStringExtra("Searching") != null && getIntent().getStringExtra("Searching").equals("true"))
+        {
+            wrd = getIntent().getStringExtra("Word");
+            srching = true;
+        }
+        else {
+            category = getIntent().getStringExtra("Category");
+            srching = false;
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.categories);
         //RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
@@ -65,7 +74,6 @@ public class eventList extends AppCompatActivity {
 
         cats = db.getCategories();
 
-        filterCats(cats);
 
         titles = db.getTitles();
 
@@ -76,6 +84,18 @@ public class eventList extends AppCompatActivity {
         loc = db.getLoc();
 
         descrip = db.getDescription();
+
+        if(!srching)
+        {
+            filterCats(cats);
+
+        }
+        else
+        {
+            filterSearch(descrip);
+            filterSearch(titles);
+            filterSearch(loc);
+        }
 
         ntitles = stpdfilter(titles);
         ndttime = stpdfilter(dttime);
@@ -98,6 +118,20 @@ public class eventList extends AppCompatActivity {
             if(Arrays.asList(cts.get(i)).contains(category))
             {
                 needIndexs.add(i);
+                //System.out.println(i);
+            }
+        }
+
+    }
+
+    private void filterSearch(ArrayList<String> cts)
+    {
+        System.out.println("Avi wrd: " + wrd);
+        for(int i = 0; i < cts.size() ; i++)
+        {
+            if(cts.get(i) != null && cts.get(i).contains(wrd)) {
+                if (!needIndexs.contains(i))
+                    needIndexs.add(i);
                 //System.out.println(i);
             }
         }
