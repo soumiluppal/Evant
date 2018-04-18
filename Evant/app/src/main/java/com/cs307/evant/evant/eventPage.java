@@ -108,11 +108,7 @@ public class eventPage extends AppCompatActivity {
 
         final ImageView upButton = (ImageView) findViewById(R.id.upButton);
         final ImageView downButton = (ImageView) findViewById(R.id.downButton);
-        //if(myOldEvent())
-        //{
-        //    upButton.setVisibility(View.GONE);
-        //    downButton.setVisibility(View.GONE);
-        //}
+
 
         upButton.setRotation(180);
         upButton.setOnClickListener(new View.OnClickListener() {
@@ -172,6 +168,12 @@ public class eventPage extends AppCompatActivity {
             }
         });
 
+        if(!myOldEvent())
+        {
+            upButton.setVisibility(View.GONE);
+            downButton.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -183,13 +185,13 @@ public class eventPage extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
         String formattedDate = df.format(currentTime);
         formattedDate = formattedDate.toUpperCase();
-        System.out.println("Avi date:" + dttm + "   " + formattedDate);
-        if (formattedDate.compareTo(dttm) > 0)
+        System.out.println("Avi return:" + dttm + "   " + formattedDate);
+        if (dttm.equals("Ggg"))
         {
             System.out.println("Avi return true");
             return true;
         }
-        else
+        System.out.println("Avi return false");
             return false;
     }
 
