@@ -568,7 +568,7 @@ public class Database {
         String user =  users.get(uid).toString();
         System.out.println(user);
         String downstr = user.split("thumbsdown=")[1];
-        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf(","))));
+        int thumbsDown = Integer.parseInt((downstr.substring(0, downstr.indexOf("}"))));
         thumbsDown--;
         System.out.println("New thumbs down: " + thumbsDown);
         String str = Integer.toString(thumbsDown);
@@ -596,6 +596,25 @@ public class Database {
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String slocation = r.latitude + "," + r.longitude;
         mDatabase.child("users").child(uid).child("plocation").setValue(slocation);
+    }
+
+    String getFB(String uid){
+        if(users.get(uid) == null){
+            signOut();
+            return null;
+        }
+        String user =  users.get(uid).toString();
+
+        String fblink = user.split("fblink=")[1];
+        fblink = fblink.substring(0, fblink.indexOf(","));
+        //String[] latlong =  fblink.split(",");
+
+        return fblink;
+    }
+
+    void updateFB(String uid, String fblink){
+        final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(uid).child("fblink").setValue(fblink);
     }
 
     void addEvent(String name, String addr, String desc, String dt, String uid, double latitude, double longitude, Bitmap bm, Map checkButtons){

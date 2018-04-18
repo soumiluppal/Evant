@@ -205,6 +205,7 @@ public class signup extends AppCompatActivity {
                                         db.updateRadius(uid, 10);
                                         LatLng location = new LatLng(40.427728,-86.947603);
                                         db.updateLocation(uid, location);
+                                        db.updateFB(uid, "0");
                                         Intent intent = new Intent(signup.this, MapView.class);
                                         startActivity(intent);
                                         Toast.makeText(signup.this, "Signup success.",
