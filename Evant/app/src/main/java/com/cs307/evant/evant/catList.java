@@ -35,6 +35,7 @@ public class catList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_cat_lst);
 
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         Button button = findViewById(R.id.homebutton);

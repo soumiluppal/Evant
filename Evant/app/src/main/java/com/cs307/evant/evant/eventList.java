@@ -10,7 +10,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -33,6 +35,7 @@ public class eventList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_cat_lst);
+
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         if(getIntent().getStringExtra("Searching") != null && getIntent().getStringExtra("Searching").equals("true"))
@@ -108,6 +111,9 @@ public class eventList extends AppCompatActivity {
 
 
         recyclerView.setAdapter(cadapter);
+
+        EditText sbar = findViewById(R.id.searchBar);
+        sbar.setVisibility(View.GONE);
     }
 
 
@@ -127,9 +133,10 @@ public class eventList extends AppCompatActivity {
     private void filterSearch(ArrayList<String> cts)
     {
         System.out.println("Avi wrd: " + wrd);
+        wrd = wrd.toLowerCase();
         for(int i = 0; i < cts.size() ; i++)
         {
-            if(cts.get(i) != null && cts.get(i).contains(wrd)) {
+            if(cts.get(i) != null && cts.get(i).toLowerCase().contains(wrd)) {
                 if (!needIndexs.contains(i))
                     needIndexs.add(i);
                 //System.out.println(i);
