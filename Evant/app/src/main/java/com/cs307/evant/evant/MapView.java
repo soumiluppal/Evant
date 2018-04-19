@@ -750,9 +750,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
             //hardcoded values: (40.427728,-86.947603)
             //Intent tryint = new In
-            double log = -86.947;
+            /*double log = -86.947;
             curLoc.setLatitude(40.4277);
-            curLoc.setAltitude(log);
+            curLoc.setAltitude(log);*/
         }
 
         //SOUN: right now, it always sets the current location to the permanent location. move it to a button or something?

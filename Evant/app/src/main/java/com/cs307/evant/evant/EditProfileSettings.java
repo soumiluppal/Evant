@@ -62,6 +62,8 @@ public class EditProfileSettings extends AppCompatActivity {
         //THIS IS NECESSARY:
         final EditText username = (EditText) findViewById(R.id.Password);
         final EditText password = (EditText) findViewById(R.id.Email);
+        password.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+        
 
         final EditText email = (EditText) findViewById(R.id.Username);
         interests = (EditText) findViewById(R.id.Interests);
@@ -152,6 +154,7 @@ public class EditProfileSettings extends AppCompatActivity {
         alertDialogBuilder.setTitle("Enter old password: ");
         final EditText input = new EditText(EditProfileSettings.this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setTransformationMethod(new AsteriskPasswordTransformationMethod());
         alertDialogBuilder.setView(input);
         alertDialogBuilder.setMessage("Enter old password " )
                 .setCancelable(false)

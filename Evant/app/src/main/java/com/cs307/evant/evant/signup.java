@@ -210,7 +210,7 @@ public class signup extends AppCompatActivity {
                                         LatLng location = new LatLng(40.427728,-86.947603);
                                         db.updateLocation(uid, location);
                                         db.updateFB(uid, "0");
-                                        Intent intent = new Intent(signup.this, MapView.class);
+                                        Intent intent = new Intent(signup.this, MainActivity.class);
                                         startActivity(intent);
                                         Toast.makeText(signup.this, "Signup success.",
                                                 Toast.LENGTH_SHORT).show();
@@ -231,6 +231,9 @@ public class signup extends AppCompatActivity {
                 }
 
                 logmeIn(mAuth);
+                Intent intent = new Intent(signup.this, MainActivity.class);
+                startActivity(intent);
+
 
 
 
