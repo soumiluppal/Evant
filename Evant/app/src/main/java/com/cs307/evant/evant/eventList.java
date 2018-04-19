@@ -143,7 +143,8 @@ public class eventList extends AppCompatActivity {
         }
         else if(category.equals("Suggested"))
         {
-            ArrayList<String> interest = getInterst();
+            //ArrayList<String> interest = getInterst();
+            ArrayList<String> interest = db.getTopThree(db.getUid());
             for(int i = 0; i < interest.size(); i++)
             {
                 filterCats2(cats,interest.get(i));
