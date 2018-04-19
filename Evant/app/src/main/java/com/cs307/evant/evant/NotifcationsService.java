@@ -103,7 +103,7 @@ public class NotifcationsService extends Service {
                 }
                 catch (Exception e) {}
                 System.out.println("Settings: " + note);
-                if (upcomingTitles.size() > 0 && note.equals("ON")) {
+                if (upcomingTitles.size() > 0 && (note.equals("ON") || note.equals(""))) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         System.out.println("Oreo: " + upcomingTitles.get(0));
                         int notifyID = 1;

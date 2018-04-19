@@ -81,7 +81,7 @@ public class eventPage extends AppCompatActivity {
         hostRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "host rating clicked", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "host rating clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(eventPage.this, Profile.class);
                 intent.putExtra("uid", tempHost);
                 startActivity(intent);
@@ -98,6 +98,10 @@ public class eventPage extends AppCompatActivity {
                 if(!myEvents.contains(title.getText())) {
                     //attendeeList.add(uid);
                     myEvents.add((String) title.getText());
+                    ArrayList<String> newOne = new ArrayList<>();
+                    ArrayList<String> dummy = new ArrayList<>();
+                    newOne.add((String) title.getText());
+                    db.updateCatTally(uid, db.searchByName(newOne, dummy));
                     db.updateMyEvents(uid,myEvents);
                     Toast.makeText(getApplicationContext(), "Successfully Joined Event!.", Toast.LENGTH_LONG).show();
                 }else{
