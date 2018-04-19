@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -195,6 +196,12 @@ public class eventList extends AppCompatActivity {
 
         }
 
+
+        Collections.reverse(ttitles);
+        Collections.reverse(tdttime);
+        Collections.reverse(tloc);
+        Collections.reverse(thst);
+        Collections.reverse(tdescrip);
 
         eventAdapter cadapter = new eventAdapter(ttitles,tdescrip,tdttime,tloc, thst, lats, lngs, this);
 
