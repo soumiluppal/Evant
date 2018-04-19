@@ -260,6 +260,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             public void onTimeSet(TimePicker timePicker, int hour, int min) {
                 timeCalendar.set(Calendar.HOUR, hour);
                 timeCalendar.set(Calendar.MINUTE, min);
+                mMap.clear();
+                placeMarkers("");
+
             }
         };
 
@@ -277,6 +280,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         new TimePickerDialog(MapView.this, tpd, timeCalendar.get(Calendar.HOUR), timeCalendar.get(Calendar.MINUTE), false).show();
                                         new DatePickerDialog(MapView.this, dpd, timeCalendar.get(Calendar.YEAR), timeCalendar.get(Calendar.MONTH), timeCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
                                     }
                                 }
                         )
@@ -764,20 +768,28 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         System.out.println("Search result: " + searchResult);
 
         for (int index: searchResult) {
-            System.out.println("Event #" + index + " " + titles.get(index));
+            SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy   HH:mm aa");
+            String formattedDate = df.format(timeCalendar.getTime());
+            formattedDate = formattedDate.toUpperCase();
 
-            final Object latObj = lats.get(index);
-            final Object lngObj = lngs.get(index);
-            final double douLat = ((Number) latObj).doubleValue();
-            final double douLng = ((Number) lngObj).doubleValue();
+            if (formattedDate.compareTo(times.get(index)) < 0) {
+                System.out.println("Event #" + index + " " + titles.get(index));
 
-            LatLng tempLatLng = new LatLng(douLat, douLng);
 
-            markerLatlngs.add(tempLatLng);
-            MarkerOptions tempMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                final Object latObj = lats.get(index);
+                final Object lngObj = lngs.get(index);
+                final double douLat = ((Number) latObj).doubleValue();
+                final double douLng = ((Number) lngObj).doubleValue();
 
-            tempMarkerOptions.position(tempLatLng).title(titles.get(index)).snippet(discrips.get(index));
-            markerOptions.add(tempMarkerOptions);
+                LatLng tempLatLng = new LatLng(douLat, douLng);
+
+                markerLatlngs.add(tempLatLng);
+                MarkerOptions tempMarkerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+                tempMarkerOptions.position(tempLatLng).title(titles.get(index)).snippet(discrips.get(index));
+                markerOptions.add(tempMarkerOptions);
+            }
+
 
 
         }
@@ -793,18 +805,20 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            String formattedDate = df.format(currentTime);
+
+            String formattedDate = df.format(timeCalendar.getTime());
             formattedDate = formattedDate.toUpperCase();
-            System.out.println("formattedDate = " + formattedDate + "times.get(index) = "+ times.get(index));
+
             if (formattedDate.compareTo(times.get(index)) < 0) {
                 tempMarker = mMap.addMarker(markerOptions.get(indexNew));
                 markerLoc.put(tempMarker, locations.get(index));
                 markerTime.put(tempMarker, times.get(index));
                 markerHost.put(tempMarker, host.get(index));
                 markers.add(tempMarker);
+                indexNew++;
 
             }
-            indexNew++;
+
             /*if(calculateDistance(tempMarker.getPosition()) <= db.getRadius(db.getUid())) {
                 tempMarker.setVisible(true);
             }else{
