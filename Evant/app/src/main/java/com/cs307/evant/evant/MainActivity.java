@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     /*test*/
     static Database db = new Database();
+    static boolean flag = false;
 
     @Override
 
@@ -46,11 +47,22 @@ public class MainActivity extends AppCompatActivity {
         cursor.moveToFirst();
         mAuth = FirebaseAuth.getInstance();
 
-        //if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             //load map
-            //Intent intent = new Intent(MainActivity.this, MapView.class);
-            //startActivity(intent);
-        if(cursor.getInt(0) == 1){
+            if(flag == false) {
+                flag = true;
+                System.out.println("ACTIVITY LAUNCH");
+                try {
+                    Thread.sleep(3000);
+                }
+                catch (Exception e) {}
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                return;
+            }
+            Intent intent = new Intent(MainActivity.this, MapView.class);
+            startActivity(intent);
+        }
+        else if(cursor.getInt(0) == 1){
             //prompt login/signup
             //if alreayd logged in should skip
 
@@ -64,6 +76,17 @@ public class MainActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    System.out.println("FLAG: "+ flag);
+                                    if(flag == false) {
+                                        flag = true;
+                                        System.out.println("ACTIVITY LAUNCH");
+                                        try {
+                                            Thread.sleep(3000);
+                                        }
+                                        catch (Exception e) {}
+                                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                                        return;
+                                    }
                                     Intent intent = new Intent(MainActivity.this, MapView.class);
                                     startActivity(intent);
                                     Toast.makeText(MainActivity.this, "Logged in.",
@@ -157,6 +180,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onPause() {
+        flag = false;
+        super.onPause();
+    }
+
+
 
     //TEMPORARY MAIN PAGE
     /*protected void onCreate(Bundle savedInstanceState) {
