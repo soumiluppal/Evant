@@ -81,7 +81,7 @@ public class eventPage extends AppCompatActivity {
         hostRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "host rating clicked", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "host rating clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(eventPage.this, Profile.class);
                 intent.putExtra("uid", tempHost);
                 startActivity(intent);
