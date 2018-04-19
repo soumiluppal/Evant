@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 flag = true;
                 System.out.println("ACTIVITY LAUNCH");
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(1000);
                 }
                 catch (Exception e) {}
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                         flag = true;
                                         System.out.println("ACTIVITY LAUNCH");
                                         try {
-                                            Thread.sleep(3000);
+                                            Thread.sleep(1000);
                                         }
                                         catch (Exception e) {}
                                         startActivity(new Intent(MainActivity.this, MainActivity.class));
