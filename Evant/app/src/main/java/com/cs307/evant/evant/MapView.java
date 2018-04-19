@@ -16,6 +16,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
@@ -23,6 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 //import android.support.design.widget.FloatingActionButton;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -37,6 +41,12 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -688,8 +698,55 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 curLoc.setLongitude(plocation.longitude);
             }catch (NullPointerException e)
             {
-                Intent tryint = new Intent(MapView.this,loginPage.class);
-                startActivity(tryint);
+                //Intent tryint = new Intent(MapView.this,loginPage.class);
+                //startActivity(tryint);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final FirebaseAuth mAuth;
+                SQLiteOpenHelper DatabaseHelper = new DataHelp(MapView.this);
+                SQLiteDatabase db = DatabaseHelper.getReadableDatabase();
+                Cursor cursor = db.query("LOGINDATA", new String[]{"LOGGED", "PASS","USER"}, null, null, null, null, "_id DESC");
+                cursor.moveToFirst();
+                mAuth = FirebaseAuth.getInstance();
+
+                //if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+                //load map
+                //Intent intent = new Intent(MainActivity.this, MapView.class);
+                //startActivity(intent);
+                if(cursor.getInt(0) == 1){
+                    //prompt login/signup
+                    //if alreayd logged in should skip
+
+
+                    String curruser = cursor.getString(2);
+                    String currpass = cursor.getString(1);
+                    mAuth.signInWithEmailAndPassword(curruser, currpass)
+                            .addOnCompleteListener(MapView.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Intent intent = new Intent(MapView.this, MapView.class);
+                                        startActivity(intent);
+                                        Toast.makeText(MapView.this, "Logged in.",
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+
+                                        Toast.makeText(MapView.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    // ...
+                                }
+                            });
+
+                }
+                else
+                {
+                    Intent rintent = new Intent(MapView.this,MainActivity.class);
+                    startActivity(rintent);
+                }
             }
             //hardcoded values: (40.427728,-86.947603)
             //Intent tryint = new In
