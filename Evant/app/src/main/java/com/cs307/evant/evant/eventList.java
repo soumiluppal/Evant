@@ -2,6 +2,9 @@ package com.cs307.evant.evant;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +39,7 @@ public class eventList extends AppCompatActivity {
     boolean srching;
     private ArrayList<Integer> needIndexs = new ArrayList<>();
     private ArrayList<Integer> ndIndexs = new ArrayList<>();
+    private ArrayList<Integer> nIndexs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,16 +132,27 @@ public class eventList extends AppCompatActivity {
 
         descrip = db.getDescription();
 
-        if(!srching)
-        {
-            filterCats(cats);
 
-        }
-        else
+        if(srching)
         {
             filterSearch(descrip);
             filterSearch(titles);
             filterSearch(loc);
+            category = "none";
+
+        }
+        else if(category.equals("Suggested"))
+        {
+            ArrayList<String> interest = getInterst();
+            for(int i = 0; i < interest.size(); i++)
+            {
+                filterCats2(cats,interest.get(i));
+            }
+
+        }
+        else
+        {
+            filterCats(cats);
         }
 
         ntitles = stpdfilter(titles);
@@ -153,6 +168,18 @@ public class eventList extends AppCompatActivity {
         ArrayList<String> tloc = stpdfilter2(nloc);
         ArrayList<String> thst = stpdfilter2(nhst);
         ArrayList<String> tdescrip = stpdfilter2(ndescrip);
+
+        if(!srching && category.equals("Suggested"))
+        {
+            filterPopularity(ttitles);
+            ttitles = stpdfilter3(ttitles);
+            tdttime = stpdfilter3(tdttime);
+            tloc = stpdfilter3(tloc);
+            thst = stpdfilter3(thst);
+            tdescrip= stpdfilter3(tdescrip);
+
+
+        }
 
 
         eventAdapter cadapter = new eventAdapter(ttitles,tdescrip,tdttime,tloc, thst, lats, lngs, this);
@@ -171,12 +198,28 @@ public class eventList extends AppCompatActivity {
         {
             if(Arrays.asList(cts.get(i)).contains(category))
             {
-                needIndexs.add(i);
+                if(!needIndexs.contains(i))
+                    needIndexs.add(i);
                 //System.out.println(i);
             }
         }
 
     }
+    private void filterCats2(ArrayList<String[]> cts,String cats)
+    {
+        for(int i = 0; i < cts.size() ; i++)
+        {
+            if(Arrays.asList(cts.get(i)).contains(cats))
+            {
+                if(!needIndexs.contains(i))
+                    needIndexs.add(i);
+                //System.out.println(i);
+            }
+        }
+
+    }
+
+
 
     private void filterSearch(ArrayList<String> cts)
     {
@@ -219,6 +262,19 @@ public class eventList extends AppCompatActivity {
         //return gve;
     }
 
+    private ArrayList<String> stpdfilter3(ArrayList<String> gve)
+    {
+
+        ArrayList<String> actualy = new ArrayList<>();
+
+        for(int i = 0; i < nIndexs.size(); i++)
+        {
+            actualy.add(gve.get(nIndexs.get(i)));
+        }
+        return  actualy;
+        //return gve;
+    }
+
     private void filterold(ArrayList<String> cts)
     {
         Calendar ca = Calendar.getInstance();
@@ -234,6 +290,38 @@ public class eventList extends AppCompatActivity {
                 ndIndexs.add(i);
 
             }
+        }
+
+    }
+
+    public ArrayList<String> getInterst()
+    {
+        ArrayList<String> ans = new ArrayList<>();
+        SQLiteOpenHelper DatabaseHelper = new DataHelp(eventList.this);
+        SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
+        Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+        {
+            ans.add(cursor.getString(0));
+            System.out.println("tmp cursor: " + cursor.getString(0));
+        }
+
+        cursor.close();
+
+        //dbs.close();
+        return ans;
+    }
+    private void filterPopularity(ArrayList<String> nms)
+    {
+        final ArrayList<ArrayList<String>> attendeeList = db.getAttendees();
+        final ArrayList<String> eventTitles = db.getTitles();
+        for(int i = 0; i < nms.size(); i++)
+        {
+            int eventIndex = eventTitles.indexOf(nms.get(i));
+            //final ArrayList<String> list = db.getAttendees().get(eventIndex);
+            if(attendeeList.get(eventIndex).size() >= 3)
+                nIndexs.add(i);
+
         }
 
     }
