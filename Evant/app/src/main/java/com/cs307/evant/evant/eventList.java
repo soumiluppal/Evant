@@ -319,7 +319,7 @@ public class eventList extends AppCompatActivity {
         {
             int eventIndex = eventTitles.indexOf(nms.get(i));
             //final ArrayList<String> list = db.getAttendees().get(eventIndex);
-            if(attendeeList.get(eventIndex).size() >= 3)
+            if(attendeeList.get(eventIndex).size() > 3)
                 nIndexs.add(i);
 
         }
