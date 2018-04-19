@@ -28,8 +28,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+
 import com.google.gson.*;
 
 
@@ -461,8 +465,13 @@ public class Database {
         ArrayList liste = gson.fromJson(events, ArrayList.class);
         ArrayList<String> stringe = new ArrayList<>();
         ArrayList<Integer> result = searchByName(liste, stringe);
+        System.out.println("after searchbyname: " + stringe);
+        Set<String> al = new LinkedHashSet<>();
+        al.addAll(stringe);
+        stringe.clear();
+        stringe.addAll(al);
 
-        //System.out.println("after searchbyname: " + stringe);
+        System.out.println("after searchbyname2: " + stringe);
 
         return stringe;
     }
