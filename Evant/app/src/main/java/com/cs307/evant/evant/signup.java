@@ -210,10 +210,27 @@ public class signup extends AppCompatActivity {
                                         LatLng location = new LatLng(40.427728,-86.947603);
                                         db.updateLocation(uid, location);
                                         db.updateFB(uid, "0");
-                                        //Intent intent = new Intent(signup.this, MapView.class);
-                                        //startActivity(intent);
-                                        Toast.makeText(signup.this, "Signup success.",
-                                                Toast.LENGTH_SHORT).show();
+                                        mAuth.signInWithEmailAndPassword(usname, uspass)
+                                                .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                                        if (task.isSuccessful()) {
+                                                            // Sign in success, update UI with the signed-in user's information
+                                                            FirebaseUser user = mAuth.getCurrentUser();
+                                                            Intent intent = new Intent(signup.this, MapView.class);
+                                                            startActivity(intent);
+                                                            Toast.makeText(signup.this, "Logged in.",
+                                                                    Toast.LENGTH_SHORT).show();
+                                                        } else {
+                                                            // If sign in fails, display a message to the user.
+
+                                                            Toast.makeText(signup.this, "Authentication failed.",
+                                                                    Toast.LENGTH_SHORT).show();
+                                                        }
+
+                                                        // ...
+                                                    }
+                                                });
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         try{
@@ -230,48 +247,9 @@ public class signup extends AppCompatActivity {
                             });
                 }
 
-                logmeIn(mAuth);
-                Intent intent = new Intent(signup.this, MainActivity.class);
-                startActivity(intent);
-
-
-
-
-
-
             }
         });
 
-
-
-
-
     }
 
-
-
-    private void logmeIn(final FirebaseAuth mAuth)
-    {
-        mAuth.signInWithEmailAndPassword(usname, uspass)
-                .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(signup.this, MapView.class);
-                            startActivity(intent);
-                            Toast.makeText(signup.this, "Logged in.",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-                            Toast.makeText(signup.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
-    }
 }
