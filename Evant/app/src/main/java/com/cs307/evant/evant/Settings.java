@@ -199,8 +199,20 @@ public class Settings extends AppCompatActivity {
             if(state.equals("ON")) {
                 notif.setChecked(true);
             }
-            else {
+            else if(state.equals("OFF")){
                 notif.setChecked(false);
+            }
+            else {
+                try {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+                    bw.write("ON");
+                    bw.flush();
+                    bw.close();
+                }
+                catch (Exception e){
+                    System.out.println("PROBLEM: " + e);
+                }
+                notif.setChecked(true);
             }
         }
         catch (Exception e){
