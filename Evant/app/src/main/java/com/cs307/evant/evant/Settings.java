@@ -21,6 +21,7 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -257,8 +258,8 @@ public class Settings extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        System.out.println("PROFILE MAN: " + loginResult.getAccessToken().getUserId());
-                        db.updateFB(db.getUid(), loginResult.getAccessToken().getUserId());
+                        AccessToken token = loginResult.getAccessToken();
+                        db.updateFB(db.getUid(), token.getUserId());
                         // App code
                     }
 
