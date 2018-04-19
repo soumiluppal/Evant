@@ -145,6 +145,19 @@ public class eventList extends AppCompatActivity {
         {
             //ArrayList<String> interest = getInterst();
             ArrayList<String> interest = db.getTopThree(db.getUid());
+            if(interest.size() == 0){
+                interest.add("Sports");
+
+                interest.add("Social");
+
+                interest.add("Education");
+                interest.add("Gaming");
+                interest.add("Community");
+                interest.add("Music");
+                interest.add("Food");
+                interest.add("Art");
+                interest.add("Other");
+            }
             for(int i = 0; i < interest.size(); i++)
             {
                 filterCats2(cats,interest.get(i));
