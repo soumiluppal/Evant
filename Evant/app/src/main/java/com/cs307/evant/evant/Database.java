@@ -778,10 +778,11 @@ public class Database {
 
         if (curLoc == null || curLoc.getLatitude() == 0.0) {
             System.out.println("uhoh");
-            LatLng plocation = getLocation(getUid());
-            curLoc = new Location("");
-            curLoc.setLatitude(plocation.latitude);
-            curLoc.setLongitude(plocation.longitude);
+            //LatLng plocation = getLocation(getUid());
+            //curLoc = new Location("");
+            //System.out.println("Avi Null check:");
+            //curLoc.setLatitude(plocation.latitude);
+            //curLoc.setLongitude(plocation.longitude);
             //hardcoded values: (40.427728,-86.947603)
         }
 

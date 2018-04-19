@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
         cursor.moveToFirst();
         mAuth = FirebaseAuth.getInstance();
 
-        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+        //if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             //load map
-            Intent intent = new Intent(MainActivity.this, MapView.class);
-            startActivity(intent);
-        }else if(cursor.getInt(0) == 1){
+            //Intent intent = new Intent(MainActivity.this, MapView.class);
+            //startActivity(intent);
+        if(cursor.getInt(0) == 1){
             //prompt login/signup
             //if alreayd logged in should skip
 
