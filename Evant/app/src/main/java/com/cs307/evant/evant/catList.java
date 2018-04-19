@@ -103,8 +103,9 @@ public class catList extends AppCompatActivity {
         ctnms.add("Music");
         ctnms.add("Food");
         ctnms.add("Art");
-        ctnms.add("Others");
         ctnms.add("Suggested");
+        ctnms.add("Others");
+
         catAdapter cadapter = new catAdapter(ctnms,this);
         recyclerView.setAdapter(cadapter);
 

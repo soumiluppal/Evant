@@ -781,6 +781,7 @@ public class Database {
             System.out.println("uhoh");
             LatLng plocation = getLocation(getUid());
             curLoc = new Location("");
+
             curLoc.setLatitude(plocation.latitude);
             curLoc.setLongitude(plocation.longitude);
             //hardcoded values: (40.427728,-86.947603)
