@@ -32,6 +32,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.cs307.evant.evant.MainActivity.db;
@@ -100,51 +101,28 @@ public class EditProfileSettings extends AppCompatActivity {
                 if(!interests.getText().toString().equals("")){
                     String tmp = "";
                     tmp = "";
-                    SQLiteOpenHelper DatabaseHelper = new DataHelp(EditProfileSettings.this);
-                    SQLiteDatabase dbs = DatabaseHelper.getReadableDatabase();
-                    //Cursor cursor = dbs.query("LOGINDATA", new String[]{"INTRST"}, null, null, null, null, "_id DESC");
-                    //cursor.moveToFirst();
-                    ContentValues cv = new ContentValues();
-                    int frst = 0;
-                    boolean first = true;
                     System.out.println("tmp full = " + intrst);
+                    ArrayList<String> myInterests = new ArrayList<>();
                     for(int i = 0; i < intrst.length();i++)
                     {
                         if(intrst.charAt(i) == ' ')
                         {
-
                             System.out.println("tmp = " + tmp);
                             if(interstNContains(tmp))
                             {
                                 System.out.println("tmp added = " + tmp);
                                 if(tmp != "") {
-                                    cv = new ContentValues();
-                                    cv.put("INTRST", tmp);
-                                    dbs.insert("LOGINDATA",null,cv);
+                                    myInterests.add(tmp);
                                 }
-
-
                             }
                             tmp = "";
-
-
-
-
                         }
                         else {
                             tmp = tmp + intrst.charAt(i);
                         }
                     }
-                    //String fint = tmp;
-                    //System.out.println("tmp 5 = " + fint);
-                    //cv.put("INTRST",fint);
-                    //dbs.insert("LOGINDATA",null,cv);
-                    dbs.close();
+                    db.updateInterest(db.getUid(), myInterests);
                 }
-
-
-
-
             }
         });
 
